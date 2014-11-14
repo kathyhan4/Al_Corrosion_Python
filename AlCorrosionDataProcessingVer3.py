@@ -81,15 +81,6 @@ for i in range(0,len(timearray)):
 shapehvlist = hvlist.shape
 shapelvlist = lvlist.shape
   
-#for i in range(shapehvlist[0]):
-#   x = hvlist[i]
-#   for j in range(len(x)):
-#      #print j, i, len(x)
-#      hvlist2[i,j] = float(hvlist[i,j])    
-#print hvlist 
-#print lvlist 
-
-
 # Set constants
 alphaAl = 4.29e-3 #Change of resistance with temperature in degC^-1
 rhoAl = 2.65E-08 #ohm-m at 20 degC
@@ -103,10 +94,10 @@ SecHour = 3600 #seconds per hour
 #Set Inputs Specific to this Run
 VoltageBias = -1000 #V
 OxidationState = 2 #electrons per Al atom in reaction
-L1 = 5 #length of corroded area in cm
-L2 = 6 #length of non-corroded area in cm
-h0 = 0.0037 #thickness of foil initially in cm
-d = 0.5 #width of foil strip in cm
+L1 = 0.05 #length of corroded area in m
+L2 = 0.06 #length of non-corroded area in m
+h0 = 0.000037 #thickness of foil initially in m
+d = 0.005 #width of foil strip in m
 secondsperpoint = 60
 currentcolumn = 1 #second column is current (Amps)
 Temperaturecolumn = 12
@@ -115,30 +106,31 @@ Temperaturecolumn = 12
 
 for i in range(0,1):
    hvlist[i,21] = abs(hvlist[i,1]) # absolute value of current
-   hvlist[i,22] = hvlist[i,1] * secondsperpoint # coulombs that have been transferred over the timepoint
+   hvlist[i,22] = hvlist[i,21] * secondsperpoint # coulombs that have been transferred over the timepoint
    hvlist[i,23] = hvlist[i,22] #this will give an error so make it not do the first row somehow
    hvlist[i,24] = hvlist[i,23] * ElecCoulomb # number of electrons transferred total, cummulative over time
    hvlist[i,25] = hvlist[i,24] / OxidationState # number of aluminum atoms removed from cathode
    hvlist[i,26] = hvlist[i,25] / NA # moles of aluminum atoms removed
    hvlist[i,27] = hvlist[i,26] * MWAl # mass of aluminum removed
    hvlist[i,28] = hvlist[i,27] / densityAl #volume of aluminum removed
-   hvlist[i,29] = hvlist[i,28] / L1/100/d/100 # thickness of aluminum lost
-   hvlist[i,30] = h0 - hvlist[i,29]/100
-   hvlist[i,31] = rhoAl * (L1/hvlist[i,30]/d+L2/h0/d)
+   hvlist[i,29] = hvlist[i,28] / (L1*100)/(d*100)/100 # thickness of aluminum lost in m
+   hvlist[i,30] = h0 - hvlist[i,29] #remaining foil thickness in m
+   hvlist[i,31] = rhoAl * (L1/hvlist[i,30]/d+L2/h0/d) # ohms calculated before temperature considered
    hvlist[i,32] = (hvlist[i,31] *(1+alphaAl*(hvlist[i,Temperaturecolumn]-20)))*1000 #calculated resistance in m-ohms 
    
 for i in range(1,len(hvlist)-1):
    hvlist[i,21] = abs(hvlist[i,1]) # absolute value of current
-   hvlist[i,22] = hvlist[i,1] * secondsperpoint # coulombs that have been transferred over the timepoint
-   hvlist[i,23] = hvlist[i-1,23] + numarray[i,22] #this will give an error so make it not do the first row somehow
+   hvlist[i,22] = hvlist[i,21] * secondsperpoint # coulombs that have been transferred over the timepoint
+   hvlist[i,23] = hvlist[i-1,23] + hvlist[i,22] #this will give an error so make it not do the first row somehow
    hvlist[i,24] = hvlist[i,23] * ElecCoulomb # number of electrons transferred total, cummulative over time
    hvlist[i,25] = hvlist[i,24] / OxidationState # number of aluminum atoms removed from cathode
    hvlist[i,26] = hvlist[i,25] / NA # moles of aluminum atoms removed
    hvlist[i,27] = hvlist[i,26] * MWAl # mass of aluminum removed
    hvlist[i,28] = hvlist[i,27] / densityAl #volume of aluminum removed
-   hvlist[i,29] = hvlist[i,28] / L1/100/d/100 # thickness of aluminum lost
-   hvlist[i,30] = h0 - hvlist[i,29]/100
-   hvlist[i,31] = rhoAl * (L1/hvlist[i,30]/d+L2/h0/d)
+   hvlist[i,29] = hvlist[i,28] / (L1*100)/(d*100)/100 # thickness of aluminum lost in m
+   hvlist[i,30] = h0 - hvlist[i,29] #remaining foil thickness in m
+   hvlist[i,31] = rhoAl * (L1/hvlist[i,30]/d+L2/h0/d) # ohms calculated before temperature considered
    hvlist[i,32] = (hvlist[i,31] *(1+alphaAl*(hvlist[i,Temperaturecolumn]-20)))*1000 #calculated resistance in m-ohms 
+print hvlist[0,:]
 print hvlist[1,:]
 DataFile.close()
