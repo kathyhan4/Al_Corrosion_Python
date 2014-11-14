@@ -19,8 +19,8 @@ from pylab import *
 
 
 rootdir= 'C:\\Users\\khan\\Documents\\Al Corrosion\\Al Corrosion Data DH\\'
-
-DataFile = open(rootdir+'Data_1A_1000V_with_temp1_10_28_14_120hr.csv')
+filenamelocation = rootdir+'Data_1A_1000V_with_temp1_10_28_14_120hr.csv'
+DataFile = open(filenamelocation)
 data = numpy.recfromcsv(DataFile, delimiter='\t', filling_values=numpy.nan, case_sensitive=True, deletechars='', replace_space=' ')
 
 
@@ -70,17 +70,17 @@ lvlist = numpy.zeros((len(lvlist_length),numbercolumns))
 
 k=0
 l=0
-m=0
+
 
 for i in range(0,len(timearray)):
    if numarray[i,0] < -50.0:
        for j in range(0,numbercolumns):
           hvlist[k,j] =numarray[i,j]
        k=k+1
-   elif numarray[i,0] > 0:
+   elif numarray[i,0] > 0 and numarray[i,1] > 0.001:
        for m in range(0,numbercolumns):
-          lvlist[l][m] = numarray[i][m]
-       l+l+1
+          lvlist[l,m] = numarray[i,m]
+       l=l+1
           
 shapehvlist = hvlist.shape
 shapelvlist = lvlist.shape
@@ -138,12 +138,32 @@ for i in range(1,len(hvlist)-1):
 #print hvlist[0,:]
 #print hvlist[1,:]
 
-plt.plot(hvlist[:,33],hvlist[:,32])
-plt.plot(lvlist[:,33],lvlist[:,2]*1000)
-ylabel('Resistance (m-ohms)')
-xlabel('Time (hrs)')
-title(r'Calculated Resistance')
+hvlistcropped_length = []
+for i in range(0,len(hvlist_length)):
+    x = hvlist[i,32]
+    if hvlist[i,32] < 250.0:
+        hvlistcropped_length.append(hvlist[i,32])
+            
+hvlistcropped = numpy.zeros((len(hvlistcropped_length),numbercolumns)) 
+for i in range(0,len(hvlistcropped_length)):
+    for j in range(0,numbercolumns):
+        if hvlist[i,32] < 300.0:
+            hvlistcropped [i,j] = hvlist[i,j]
+
+font = {'family' : 'normal',
+        'weight' : 'bold',
+        'size'   : 22}
+
+matplotlib.rc('font', **font)
+
+figure(num=None, figsize=(12, 8), dpi=480, facecolor='w', edgecolor='k')
+plt.plot(hvlistcropped[:,33],hvlistcropped[:,32])
+plt.plot(lvlist[:,33],lvlist[:,2]*1000,'ro')
+ylabel('Resistance (m-ohms)',**font)
+xlabel('Time (hrs)',**font)
+title(r'Calculated Resistance',**font)
 plt.legend(['Calculated', 'Measured'], loc='upper left')
+savefig(filenamelocation.split('.')[0]+'.png')
 plt.show()
 
 DataFile.close()
