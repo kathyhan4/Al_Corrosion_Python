@@ -13,7 +13,9 @@ import numpy
 import datetime
 from datetime import datetime
 import time
-
+import matplotlib.pyplot as plt
+import dateutil
+from pylab import *
 
 
 rootdir= 'C:\\Users\\khan\\Documents\\Al Corrosion\\Al Corrosion Data DH\\'
@@ -49,6 +51,7 @@ print numarray.shape
 
 for i in range(len(timearray)):
    numarray[i,20] = timearray[i]
+   numarray[i,33] = (numarray[i,20]-numarray[0,20])/3600
 
 shapenumarray = numarray.shape
 
@@ -133,4 +136,11 @@ for i in range(1,len(hvlist)-1):
    hvlist[i,32] = (hvlist[i,31] *(1+alphaAl*(hvlist[i,Temperaturecolumn]-20)))*1000 #calculated resistance in m-ohms 
 print hvlist[0,:]
 print hvlist[1,:]
+
+plt.plot(hvlist[:,33],hvlist[:,32])
+ylabel('Resistance (m-ohms)')
+xlabel('Time (hrs)')
+title(r'Calculated Resistance')
+show()
+
 DataFile.close()
