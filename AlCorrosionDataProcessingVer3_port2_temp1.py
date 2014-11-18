@@ -19,7 +19,7 @@ from pylab import *
 
 
 rootdir= 'C:\\Users\\khan\\Documents\\GitHub\\AlCorrosionDataCSVFiles\\'
-filenamelocation = rootdir+'Data_100mA_100V_with_temp1_10_20_14_48hr.csv'
+filenamelocation = rootdir+'Data_1A_1000V_with_temp2_11_7_14_480hr_DH_coupon_aqueous_in_port_2_100_and_1000V_for_imaging_11_10_14.csv'
 DataFile = open(filenamelocation)
 data = numpy.recfromcsv(DataFile, delimiter='\t', filling_values=numpy.nan, case_sensitive=True, deletechars='', replace_space=' ')
 
@@ -60,10 +60,10 @@ lvlist_length = []
 
 for i in range(0,len(timearray)):
     x = numarray[i]
-    if numarray[i,0] < -50.0:
+    if numarray[i,3] < -50.0:
         hvlist_length.append(x)
 
-    elif numarray[i,0]>0:
+    elif numarray[i,3] > 0 and numarray[i,4] > 0.001:
         lvlist_length.append(x)
 
 hvlist = numpy.zeros((len(hvlist_length),numbercolumns))
@@ -74,11 +74,11 @@ l=0
 
 
 for i in range(0,len(timearray)):
-   if numarray[i,0] < -50.0:
+   if numarray[i,3] < -50.0:
        for j in range(0,numbercolumns):
           hvlist[k,j] =numarray[i,j]
        k=k+1
-   elif numarray[i,0] > 0 and numarray[i,1] > 0.001:
+   elif numarray[i,3] > 0 and numarray[i,4] > 0.001:
        for m in range(0,numbercolumns):
           lvlist[l,m] = numarray[i,m]
        l=l+1
@@ -110,7 +110,7 @@ Temperaturecolumn = 12
 #print numpy.shape(numarray)
 
 for i in range(0,1):
-   hvlist[i,21] = abs(hvlist[i,1]) # absolute value of current
+   hvlist[i,21] = abs(hvlist[i,4]) # absolute value of current
    hvlist[i,22] = hvlist[i,21] * secondsperpoint # coulombs that have been transferred over the timepoint
    hvlist[i,23] = hvlist[i,22] #this will give an error so make it not do the first row somehow
    hvlist[i,24] = hvlist[i,23] * ElecCoulomb # number of electrons transferred total, cummulative over time
@@ -124,7 +124,7 @@ for i in range(0,1):
    hvlist[i,32] = (hvlist[i,31] *(1+alphaAl*(hvlist[i,Temperaturecolumn]-20)))*1000 #calculated resistance in m-ohms 
    
 for i in range(1,len(hvlist)-1):
-   hvlist[i,21] = abs(hvlist[i,1]) # absolute value of current
+   hvlist[i,21] = abs(hvlist[i,4]) # absolute value of current
    hvlist[i,22] = hvlist[i,21] * secondsperpoint # coulombs that have been transferred over the timepoint
    hvlist[i,23] = hvlist[i-1,23] + hvlist[i,22] #this will give an error so make it not do the first row somehow
    hvlist[i,24] = hvlist[i,23] * ElecCoulomb # number of electrons transferred total, cummulative over time
@@ -159,7 +159,7 @@ matplotlib.rc('font', **font)
 
 figure(num=None, figsize=(12, 8), dpi=480, facecolor='w', edgecolor='k')
 plt.plot(hvlistcropped[:,33],hvlistcropped[:,32])
-plt.plot(lvlist[:,33],lvlist[:,2]*1000,'ro')
+plt.plot(lvlist[:,33],lvlist[:,5]*1000,'ro')
 ylabel('Resistance (m-ohms)',**font)
 plt.ylim([0,100])
 #plt.xlim([0,10])
