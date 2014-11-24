@@ -158,7 +158,7 @@ font = {'family' : 'normal',
 matplotlib.rc('font', **font)
 
 figure(num=None, figsize=(12, 8), dpi=480, facecolor='w', edgecolor='k')
-plt.plot(hvlistcropped[:,33],hvlistcropped[:,32])
+plt.plot(hvlistcropped[0:-2,33],hvlistcropped[0:-2,32])
 plt.plot(lvlist[:,33],lvlist[:,5]*1000,'ro')
 ylabel('Resistance (m-ohms)',**font)
 plt.ylim([0,100])
