@@ -171,6 +171,15 @@ for i in range(1,len(hvlist)-1):
  
 #print hvlist[0,:]
 #print hvlist[1,:]
+ 
+
+def runningMean(x, N):
+    y = numpy.zeros((len(x),))
+    for ctr in range(len(x)):
+         y[ctr] = numpy.sum(x[ctr:(ctr+N)])
+    return y/N 
+    
+lvlist[:,34] = runningMean(lvlist[:,MeasResColumn],30)
 
 hvlistcropped_length = []
 for i in range(0,len(hvlist_length)):
@@ -193,6 +202,7 @@ matplotlib.rc('font', **font)
 figure(num=None, figsize=(12, 8), dpi=480, facecolor='w', edgecolor='k')
 plt.plot(hvlistcropped[0:-2,33],hvlistcropped[0:-2,32])
 plt.plot(lvlist[:,33],lvlist[:,MeasResColumn]*1000,'ro')
+plt.plot(lvlist[:,33],lvlist[:,34]*1000,'g')
 ylabel('Resistance (m-ohms)',**font)
 plt.ylim([0,100])
 #plt.xlim([0,10])
