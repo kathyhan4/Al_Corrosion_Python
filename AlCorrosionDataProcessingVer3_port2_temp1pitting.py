@@ -19,15 +19,30 @@ from pylab import *
 
 
 rootdir= 'C:\\Users\\khan\\Documents\\GitHub\\AlCorrosionDataCSVFiles\\'
-filenamelocation = rootdir+'Data_1A_1000V_with_temp2_11_7_14_480hr_DH_coupon_aqueous_in_port_2_100_and_1000V_for_imaging_11_10_14.csv'
+#filenamelocation = rootdir+'Data_1A_1000V_with_temp2_11_7_14_480hr_DH_coupon_aqueous_in_port_2_100_and_1000V_for_imaging_11_10_14.csv'
+#filenamelocation = rootdir+'Data_1A_500V_with_temp1_10_29_14_120hr.csv'
+#filenamelocation = rootdir+'Data_1A_0V_with_temp1_10_27_14_120hr_control.csv'
+#filenamelocation = rootdir+'Data_1A_100V_with_temp1_10_24_14_120hr.csv'
+#filenamelocation = rootdir+'Data_1A_100V_with_temp1_10_31_14_120hr.csv'
+#filenamelocation = rootdir+'Data_1A_1000V_with_temp1_10_15_14_24hr_new_Al.csv'
+#filenamelocation = rootdir+'Data_1A_1000V_with_temp1_10_22_14_48hr.csv'
+#filenamelocation = rootdir+'Data_1A_1000V_with_temp1_10_28_14_120hr.csv'
+#filenamelocation = rootdir+'Data_1A_1000V_with_temp2_11_3_14_480hr_DH.csv'
+#filenamelocation = rootdir+'Data_1A_1000V_with_temp2_11_7_14_480hr_DH_coupon.csv'
+#filenamelocation = rootdir+'Data_100mA_100V_with_temp1_10_20_14_48hr.csv'
+filenamelocation = rootdir+'Data_Port1Temp2_DHAl_1000V_Port2Temp1_Cu_Aq_1000V_Port3Temp3Al_100Vimage.csv'
+
+
+
+
 DataFile = open(filenamelocation)
 data = numpy.recfromcsv(DataFile, delimiter='\t', filling_values=numpy.nan, case_sensitive=True, deletechars='', replace_space=' ')
 
 
 size2=len(data[0])
-numbercolumns = size2 + 13
-Port = 2
-Thermocouple = 1
+numbercolumns = size2 + 15
+Port = 3
+Thermocouple = 3
 currentcolumn = Port * 3 - 2 #second column for that port's data is current (Amps)
 Temperaturecolumn = Thermocouple + 11
 MeasResColumn = Port * 3 - 1
@@ -160,13 +175,13 @@ for i in range(1,len(hvlist)-1):
 hvlistcropped_length = []
 for i in range(0,len(hvlist_length)):
     x = hvlist[i,32]
-    if hvlist[i,32] < 250.0:
+    if hvlist[i,32] < 75.0:
         hvlistcropped_length.append(hvlist[i,32])
             
 hvlistcropped = numpy.zeros((len(hvlistcropped_length),numbercolumns)) 
 for i in range(0,len(hvlistcropped_length)):
     for j in range(0,numbercolumns):
-        if hvlist[i,32] < 300.0:
+        if hvlist[i,32] < 75.0:
             hvlistcropped [i,j] = hvlist[i,j]
 
 font = {'family' : 'normal',
