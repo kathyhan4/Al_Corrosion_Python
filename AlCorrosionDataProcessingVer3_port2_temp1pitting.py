@@ -124,7 +124,32 @@ for i in range(0,len(timearray)):
        for m in range(0,numbercolumns):
           lvlist[l,m] = numarray[i,m]
        l=l+1
-          
+
+for i in range(1,len(lvlist)-1):
+   lvlist[i,21] = lvlist[i,20] - lvlist[i-1,20] # difference in time points
+   
+lvlist[0,21] = 1
+   
+Rsum = 0
+Rsumlength = 0
+timethreshold = 360
+Restime = 0
+AverageRes = numpy.zeros((len(lvlist_length),numbercolumns))
+counter1 = 0
+
+for i in range(0,len(lvlist)-1):
+    Rsum = Rsum + lvlist[i,MeasResColumn]
+    Rsumlength = Rsumlength + 1
+    Restime = Restime + lvlist[i,20]
+    if lvlist[i,21] > timethreshold:
+        AverageRes[counter1,1] = Rsum / Rsumlength
+        AverageRes[counter1,0] = Restime / Rsumlength
+        Rsum = 0
+        Rsumlength = 0
+        Restime = 0
+        counter1 = counter1 + 1
+
+         
 shapehvlist = hvlist.shape
 shapelvlist = lvlist.shape
   
