@@ -19,7 +19,7 @@ from pylab import *
 import bisect
 #import pandas as pd
 
-for n in range(1,2):
+for n in range(1,3):
     rootdir= 'C:\\Users\\khan\\Documents\\GitHub\\AlCorrosionDataCSVFiles\\ACLData\\'
     # parameters = [port, thermocouple, length corrosion(L1), length not corrosion (L2), 
     #width corrosion (d2), width foil (d), portion pitted, pitting aspect ratio, voltage,
@@ -29,11 +29,11 @@ for n in range(1,2):
     if n == 1:
         # 1 Submerged expt from 10-15-14 port 1 temperature 1 1000V
         filenamelocation = rootdir+'Data_1_15_15_ACL_coupon_Al_1000V_port1.csv'
-        parameters = [1, 1, 0.05, 0.06, 0.005, 0.005, 0.5, 1, -1000, 'Submerged', 0, 1, 'Data_1A_1000V_with_temp1_10_15_14_24hr_new_Al', 121]
-#    elif n==2:    
-#        # 2 Submerged expt from 10-20-14 port 1 temperature 1  100V
-#        filenamelocation = rootdir+'Data_100mA_100V_with_temp1_10_20_14_48hr.csv'
-#        parameters = [1, 1, 0.05, 0.06, 0.005, 0.005, 0.5, 1, -100, 'Submerged', 19, 44, 'Data_100mA_100V_with_temp1_10_20_14_48hr']
+        parameters = [1, 1, 0.05, 0.06, 0.005, 0.005, 0.5, 1, -1000, 'ACL', 0, 1, 'Data_1_15_15_ACL_coupon_Al_1000V_port1', 121]
+    elif n==2:    
+        # 2 Submerged expt from 10-20-14 port 1 temperature 1  100V
+        filenamelocation = rootdir+'Data_ACL_1_20_15_1000V_12hrs_110C_85percenthumidity.csv'
+        parameters = [1, 1, 0.05, 0.06, 0.005, 0.005, 0.5, 1, -1000, 'ACL', 1, 2, 'Data_ACL_1_20_15_1000V_12hrs_110C_85percenthumidity', 110]
     else:
         print 'out of bounds'
     

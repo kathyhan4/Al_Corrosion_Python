@@ -19,7 +19,7 @@ from pylab import *
 import bisect
 #import pandas as pd
 
-for n in range(13,14):
+for n in range(18,21):
     rootdir= 'C:\\Users\\khan\\Documents\\GitHub\\AlCorrosionDataCSVFiles\\'
     # parameters = [port, thermocouple, length corrosion(L1), length not corrosion (L2), 
     #width corrosion (d2), width foil (d), portion pitted, pitting aspect ratio, voltage,
@@ -97,6 +97,22 @@ for n in range(13,14):
         # 17 DH expt from 11-26-14 port 1 temperature 2 1000V
         filenamelocation = rootdir+'Data_DH_from 12-12-14_Port1_1000V_Temp2.csv'
         parameters = [1, 2, 0.004, 0.066, 0.005, 0.005, 0.1, 1, -1000, 'DampHeat', 5, 45, 'Data_DH_from 12-12-14_Port1_1000V_Temp2']
+    elif n==18:    
+        # 18 DH expt from 12-18-14 port 1 temperature 2 1000V Al no bubble
+        filenamelocation = rootdir+'DH_12_18_14_to_1_23_15_1AlNoBubble_2AlPrimered_3tinnedCu.csv'
+        parameters = [1, 2, 0.004, 0.066, 0.005, 0.005, 0.1, 1, -1000, 'DampHeat', 2, 5, 'DH_12_18_14_to_1_23_15_1AlNoBubble_2AlPrimered_3tinnedCu']
+    elif n==19:    
+        # 19 DH expt from 12-18-14 port 2 temperature 2 1000V Al primeered with grey VHT primer
+        filenamelocation = rootdir+'DH_PrimerAlCoupon_12_18_14_to_1_9_15port2.csv'
+        parameters = [2, 2, 0.004, 0.066, 0.005, 0.005, 0.1, 1, -1000, 'DampHeat', 2, 5, 'DH_PrimerAlCoupon_12_18_14_to_1_9_15port2']
+    elif n==20:    
+        # 20 DH expt from 12-18-14 port 3 temperature 2 1000V Tinned Copper coupon
+        filenamelocation = rootdir+'DH_12_18_14_to_1_23_15_1AlNoBubble_2AlPrimered_3tinnedCu.csv'
+        parameters = [3, 2, 0.004, 0.066, 0.005, 0.005, 0.1, 1, -1000, 'DampHeat', 2, 5, 'DH_12_18_14_to_1_23_15_1AlNoBubble_2AlPrimered_3tinnedCu']
+    elif n==21:    
+        # 21 Submerged expt from 1-14-15 port 2 temperature 1 1000V Al-Cu strip I SUSPECT THIS EXXPERIMENT RAN OUT OF WATER AND DID NOT CORRODE PROPERLY
+        filenamelocation = rootdir+'Data_DH_from 12-18-14_Port1_NoBubbleCoupon_Port3_tinnedCu_allDHCoupons1000V_restarted_1_14_15b.csv'
+        parameters = [2, 1, 0.004, 0.066, 0.005, 0.005, 0.1, 1, -1000, 'Submerged', 9, 20, 'Data_DH_from 12-18-14_Port1_NoBubbleCoupon_Port3_tinnedCu_allDHCoupons1000V_restarted_1_14_15b']
 
 
     else:
@@ -283,7 +299,7 @@ for n in range(13,14):
     #         y[ctr] = numpy.sum(x[ctr-N/2:(ctr+N/2)])
     #    return y/N 
         
-    lvlist[:,34] = runningMean(lvlist[:,MeasResColumn],N)
+#    lvlist[:,34] = runningMean(lvlist[:,MeasResColumn],N)
     
     for index in range(len(lvlist[1:,34])):
         lvlist[index,35] = ((lvlist[index,MeasResColumn]-lvlist[index-1,MeasResColumn])/(lvlist[index,20]-lvlist[index-1,20]))*1000
@@ -336,9 +352,9 @@ for n in range(13,14):
     plt.ylim([0,150])
     #plt.xlim([0,10])
     xlabel('Time (hrs)',**font)
-    title(parameters[12]+parameters[9]+'Resistance', **title_font)
+    title(parameters[12]+parameters[9]+'Port_'+str(parameters[0])+'Resistance', **title_font)
     plt.legend(['Measured', 'Linear '+'y='+'%.5f' % regression[0]+'x+'+'%.5f' % regression[1]], loc='upper left')
-    savefig(filenamelocation.split('_resistance_')[0]+parameters[9]+'.png')
+    savefig(filenamelocation.split('_resistance_')[0]+parameters[9]+'Port_'+str(parameters[0])+'.png')
     plt.show()
     
     figure(num=None, figsize=(12, 8), dpi=480, facecolor='w', edgecolor='k')
@@ -348,9 +364,9 @@ for n in range(13,14):
     #plt.ylim([0,5])
     #plt.xlim([0,10])
     xlabel('Time (hrs)',**font)
-    title(parameters[12]+parameters[9]+'Change in Resistance', **title_font)
+    title(parameters[12]+parameters[9]+'Port_'+str(parameters[0])+'Change in Resistance', **title_font)
     #plt.legend(['Calculated', 'Measured'], loc='upper left')
-    savefig(filenamelocation.split('_delRes.')[0]+parameters[9]+'ResistanceChange.png')
+    savefig(filenamelocation.split('_delRes.')[0]+parameters[9]+'Port_'+str(parameters[0])+'ResistanceChange.png')
     plt.show()
     
     figure(num=None, figsize=(12, 8), dpi=480, facecolor='w', edgecolor='k')   
@@ -360,10 +376,10 @@ for n in range(13,14):
     #plt.xlim([0,10])
     xlabel('Time (hrs)',**font)
 #    title(r'Change in Calculated Resistance',**font)
-    title(parameters[12]+parameters[9]+'Current', **title_font)
+    title(parameters[12]+parameters[9]+'Port_'+str(parameters[0])+'Current', **title_font)
     #plt.legend(['Calculated', 'Measured'], loc='upper left')
     titlecurrent = filenamelocation.split
-    savefig(filenamelocation.split('_delRes.')[0]+parameters[9]+'Current.png')
+    savefig(filenamelocation.split('_delRes.')[0]+parameters[9]+'Port_'+str(parameters[0])+'Current.png')
     plt.show()
     
     DataFile.close()
