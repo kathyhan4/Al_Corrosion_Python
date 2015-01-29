@@ -19,7 +19,7 @@ from pylab import *
 import bisect
 #import pandas as pd
 
-for n in range(1,3):
+for n in range(1,5):
     rootdir= 'C:\\Users\\khan\\Documents\\GitHub\\AlCorrosionDataCSVFiles\\ACLData\\'
     # parameters = [port, thermocouple, length corrosion(L1), length not corrosion (L2), 
     #width corrosion (d2), width foil (d), portion pitted, pitting aspect ratio, voltage,
@@ -33,7 +33,15 @@ for n in range(1,3):
     elif n==2:    
         # 2 Submerged expt from 10-20-14 port 1 temperature 1  100V
         filenamelocation = rootdir+'Data_ACL_1_20_15_1000V_12hrs_110C_85percenthumidity.csv'
-        parameters = [1, 1, 0.05, 0.06, 0.005, 0.005, 0.5, 1, -1000, 'ACL', 1, 2, 'Data_ACL_1_20_15_1000V_12hrs_110C_85percenthumidity', 110]
+        parameters = [1, 1, 0.05, 0.06, 0.005, 0.005, 0.5, 1, -1000, 'ACL', 1, 6, 'Data_ACL_1_20_15_1000V_12hrs_110C_85percenthumidity', 110]
+    elif n==3:    
+        # 2 Submerged expt from 10-20-14 port 1 temperature 1  100V
+        filenamelocation = rootdir+'Data_ACL_1_22_15_1000V_8and4hrs_110C_85percenthumidity.csv'
+        parameters = [1, 1, 0.05, 0.06, 0.005, 0.005, 0.5, 1, -1000, 'ACL', 0, 1, 'Data_ACL_1_22_15_1000V_8and4hrs_110C_85percenthumidity', 110]
+    elif n==4:    
+        # 2 Submerged expt from 10-20-14 port 1 temperature 1  100V
+        filenamelocation = rootdir+'Data_ACL_1_20_15_1000V_12hrs_110C_85percenthumidity.csv'
+        parameters = [1, 1, 0.05, 0.06, 0.005, 0.005, 0.5, 1, -1000, 'ACL', 0, 1, 'Data_ACL_1_22_15_1000V_8and4hrs_110C_85percenthumidity', 110]
     else:
         print 'out of bounds'
     
@@ -272,9 +280,9 @@ for n in range(1,3):
     plt.ylim([0,150])
     #plt.xlim([0,10])
     xlabel('Time (hrs)',**font)
-    title(parameters[12]+parameters[9]+'Resistance', **title_font)
+    title(str(n)+'_'+parameters[12]+parameters[9]+'Port_'+str(parameters[0])+'Resistance', **title_font)
     plt.legend(['Measured', 'Linear '+'y='+'%.5f' % regression[0]+'x+'+'%.5f' % regression[1]], loc='upper left')
-    savefig(filenamelocation.split('_resistance_')[0]+parameters[9]+'.png')
+    savefig(filenamelocation.split('.csv')[0]+'_#'+str(n)+'_'+parameters[9]+'Port_'+str(parameters[0])+'.png')
     plt.show()
     
     figure(num=None, figsize=(12, 8), dpi=480, facecolor='w', edgecolor='k')
@@ -284,9 +292,9 @@ for n in range(1,3):
     #plt.ylim([0,5])
     #plt.xlim([0,10])
     xlabel('Time (hrs)',**font)
-    title(parameters[12]+parameters[9]+'Change in Resistance', **title_font)
+    title(str(n)+'_'+parameters[12]+parameters[9]+'Port_'+str(parameters[0])+'Change in Resistance', **title_font)
     #plt.legend(['Calculated', 'Measured'], loc='upper left')
-    savefig(filenamelocation.split('_delRes.')[0]+parameters[9]+'ResistanceChange.png')
+    savefig(filenamelocation.split('.csv')[0]+'_#'+str(n)+'_'+parameters[9]+'Port_'+str(parameters[0])+'ResistanceChange.png')
     plt.show()
     
     figure(num=None, figsize=(12, 8), dpi=480, facecolor='w', edgecolor='k')   
@@ -296,10 +304,10 @@ for n in range(1,3):
     #plt.xlim([0,10])
     xlabel('Time (hrs)',**font)
 #    title(r'Change in Calculated Resistance',**font)
-    title(parameters[12]+parameters[9]+'Current', **title_font)
+    title(str(n)+'_'+parameters[12]+parameters[9]+'Port_'+str(parameters[0])+'Current', **title_font)
     #plt.legend(['Calculated', 'Measured'], loc='upper left')
     titlecurrent = filenamelocation.split
-    savefig(filenamelocation.split('_delRes.')[0]+parameters[9]+'Current.png')
+    savefig(filenamelocation.split('.csv')[0]+'_#'+str(n)+'_'+parameters[9]+'Port_'+str(parameters[0])+'Current.png')
     plt.show()
     
     DataFile.close()

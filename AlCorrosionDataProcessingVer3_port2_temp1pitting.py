@@ -4,7 +4,7 @@ Created on Tue Nov 04 13:05:30 2014
 
 @author: khan
 """
-
+# This program is intended for use with 37 um thick aluminum foil
 
 import csv
 import os
@@ -19,7 +19,7 @@ from pylab import *
 import bisect
 #import pandas as pd
 
-for n in range(18,21):
+for n in range(18,19):
     rootdir= 'C:\\Users\\khan\\Documents\\GitHub\\AlCorrosionDataCSVFiles\\'
     # parameters = [port, thermocouple, length corrosion(L1), length not corrosion (L2), 
     #width corrosion (d2), width foil (d), portion pitted, pitting aspect ratio, voltage,
@@ -64,11 +64,11 @@ for n in range(18,21):
     elif n==9:   
         # 9 DH expt from 11-3-14 port 1 temperature 2 1000V
         filenamelocation = rootdir+'Data_1A_1000V_with_temp2_11_3_14_480hr_DH.csv'
-        parameters = [1, 2, 0.004, 0.066, 0.005, 0.005, 0.1, 1, -1000, 'DampHeat', 30, 46, 'Data_1A_1000V_with_temp2_11_3_14_480hr_DH']
+        parameters = [1, 2, 0.005, 0.066, 0.004, 0.005, 0.1, 1, -1000, 'DampHeat', 30, 46, 'Data_1A_1000V_with_temp2_11_3_14_480hr_DH']
     elif n==10:    
         # 10 DH expt from 11-7-14 port 1 temperature 2 1000V
         filenamelocation = rootdir+'Data_1A_1000V_with_temp2_11_7_14_480hr_DH_coupon.csv'
-        parameters = [1, 2, 0.004, 0.066, 0.005, 0.005, 0.1, 1, -1000, 'DampHeat', 20, 60, 'Data_1A_1000V_with_temp2_11_7_14_480hr_DH_coupon']
+        parameters = [1, 2, 0.004, 0.066, 0.003, 0.005, 0.1, 1, -1000, 'DampHeat', 20, 60, 'Data_1A_1000V_with_temp2_11_7_14_480hr_DH_coupon']
     elif n==11:    
         # 11 Submerged expt from 11-10-14 port 2 temperature 1 100V and 1000V
         filenamelocation = rootdir+'Data_1A_1000V_with_temp2_11_7_14_480hr_DH_coupon_aqueous_in_port_2_100_and_1000V_for_imaging_11_10_14.csv'
@@ -84,35 +84,35 @@ for n in range(18,21):
     elif n==14:    
         # 14 DH expt from 11-20-14 port 1 temperature 2 1000V
         filenamelocation = rootdir+'Data_Port1Temp2_DHAl_1000V_Port2Temp1_Cu_Aq_1000V_Port3Temp3Al_100Vimage_from_11_20_14.csv'
-        parameters = [1, 2, 0.004, 0.066, 0.005, 0.005, 0.1, 1, -1000, 'DampHeat', 5, 130, 'Data_Port1Temp2_DHAl_1000V_Port2Temp1_Cu_Aq_1000V_Port3Temp3Al_100Vimage_from_11_20_14']
+        parameters = [1, 2, 0.004, 0.066, 0.003, 0.005, 0.1, 1, -1000, 'DampHeat', 5, 130, 'Data_Port1Temp2_DHAl_1000V_Port2Temp1_Cu_Aq_1000V_Port3Temp3Al_100Vimage_from_11_20_14']
     elif n==15:    
         # 15 DH expt from 11-26-14 port 1 temperature 2 1000V
         filenamelocation = rootdir+'Data_DH_Port1_1000V_Temp2_maybe_more_P2_P3_11-26-14.csv'
-        parameters = [1, 2, 0.004, 0.066, 0.005, 0.005, 0.1, 1, -1000, 'DampHeat', 5, 130, 'Data_DH_Port1_1000V_Temp2_maybe_more_P2_P3_11-26-14']
+        parameters = [1, 2, 0.004, 0.066, 0.003, 0.005, 0.1, 1, -1000, 'DampHeat', 5, 130, 'Data_DH_Port1_1000V_Temp2_maybe_more_P2_P3_11-26-14']
     elif n==16:    
         # 16 Submerged gray painted Al 12-10-14 port 2 temperature 1 1000V
         filenamelocation = rootdir+'Data_graypainted_port2_temp1_1000V_submerged_12_10_through_12_15b.csv'
         parameters = [2, 1, 0.05, 0.06, 0.005, 0.005, 0.5, 1, -1000, 'SubmergedGrayPaintedAl', 20, 70, 'Data_graypainted_port2_temp1_1000V_submerged_12_10_through_12_15b']
     elif n==17:    
-        # 17 DH expt from 11-26-14 port 1 temperature 2 1000V
+        # 17 DH expt from 12-12-14 port 1 temperature 2 1000V
         filenamelocation = rootdir+'Data_DH_from 12-12-14_Port1_1000V_Temp2.csv'
         parameters = [1, 2, 0.004, 0.066, 0.005, 0.005, 0.1, 1, -1000, 'DampHeat', 5, 45, 'Data_DH_from 12-12-14_Port1_1000V_Temp2']
     elif n==18:    
         # 18 DH expt from 12-18-14 port 1 temperature 2 1000V Al no bubble
         filenamelocation = rootdir+'DH_12_18_14_to_1_23_15_1AlNoBubble_2AlPrimered_3tinnedCu.csv'
-        parameters = [1, 2, 0.004, 0.066, 0.005, 0.005, 0.1, 1, -1000, 'DampHeat', 2, 5, 'DH_12_18_14_to_1_23_15_1AlNoBubble_2AlPrimered_3tinnedCu']
+        parameters = [1, 2, .05, 0.066, .005, 0.005, 0.1, 1, -1000, 'DampHeatNoBubble', 200, 300, 'DH_12_18_14_to_1_23_15_1AlNoBubble_2AlPrimered_3tinnedCu']
     elif n==19:    
         # 19 DH expt from 12-18-14 port 2 temperature 2 1000V Al primeered with grey VHT primer
         filenamelocation = rootdir+'DH_PrimerAlCoupon_12_18_14_to_1_9_15port2.csv'
-        parameters = [2, 2, 0.004, 0.066, 0.005, 0.005, 0.1, 1, -1000, 'DampHeat', 2, 5, 'DH_PrimerAlCoupon_12_18_14_to_1_9_15port2']
+        parameters = [2, 2, 0.003, 0.066, 0.003, 0.005, 0.1, 1, -1000, 'DampHeatVHTPrimerAl', 100, 490, 'DH_PrimerAlCoupon_12_18_14_to_1_9_15port2']
     elif n==20:    
         # 20 DH expt from 12-18-14 port 3 temperature 2 1000V Tinned Copper coupon
         filenamelocation = rootdir+'DH_12_18_14_to_1_23_15_1AlNoBubble_2AlPrimered_3tinnedCu.csv'
-        parameters = [3, 2, 0.004, 0.066, 0.005, 0.005, 0.1, 1, -1000, 'DampHeat', 2, 5, 'DH_12_18_14_to_1_23_15_1AlNoBubble_2AlPrimered_3tinnedCu']
+        parameters = [3, 2, 0.001, 0.066, 0.001, 0.005, 0.1, 1, -1000, 'DampHeatTinnedCu', 100, 800, 'DH_12_18_14_to_1_23_15_1AlNoBubble_2AlPrimered_3tinnedCu']
     elif n==21:    
         # 21 Submerged expt from 1-14-15 port 2 temperature 1 1000V Al-Cu strip I SUSPECT THIS EXXPERIMENT RAN OUT OF WATER AND DID NOT CORRODE PROPERLY
         filenamelocation = rootdir+'Data_DH_from 12-18-14_Port1_NoBubbleCoupon_Port3_tinnedCu_allDHCoupons1000V_restarted_1_14_15b.csv'
-        parameters = [2, 1, 0.004, 0.066, 0.005, 0.005, 0.1, 1, -1000, 'Submerged', 9, 20, 'Data_DH_from 12-18-14_Port1_NoBubbleCoupon_Port3_tinnedCu_allDHCoupons1000V_restarted_1_14_15b']
+        parameters = [2, 1, 0.05, 0.066, 0.001, 0.005, 0.1, 1, -1000, 'SubmergedCuAlBad', 9, 20, 'Data_DH_from 12-18-14_Port1_NoBubbleCoupon_Port3_tinnedCu_allDHCoupons1000V_restarted_1_14_15b']
 
 
     else:
@@ -331,6 +331,11 @@ for n in range(18,21):
     #a2 = bisect.bisect(x, parameters[11])       
     
     regression = numpy.polyfit(x[parameters[10]:parameters[11]], y[parameters[10]:parameters[11]]*1000, 1)
+
+    output = regression[0]/parameters[2]/parameters[4]
+    print n
+    print output     
+    output = 0 
     
     for i in range(AverageResLen):
         AverageRes[i,4] = AverageRes[i,2]*regression[0]+regression[1]
@@ -352,9 +357,9 @@ for n in range(18,21):
     plt.ylim([0,150])
     #plt.xlim([0,10])
     xlabel('Time (hrs)',**font)
-    title(parameters[12]+parameters[9]+'Port_'+str(parameters[0])+'Resistance', **title_font)
+    title(str(n)+'_'+parameters[12]+parameters[9]+'Port_'+str(parameters[0])+'Resistance', **title_font)
     plt.legend(['Measured', 'Linear '+'y='+'%.5f' % regression[0]+'x+'+'%.5f' % regression[1]], loc='upper left')
-    savefig(filenamelocation.split('_resistance_')[0]+parameters[9]+'Port_'+str(parameters[0])+'.png')
+    savefig(filenamelocation.split('.csv')[0]+'_#'+str(n)+'_'+parameters[9]+'Port_'+str(parameters[0])+'.png')
     plt.show()
     
     figure(num=None, figsize=(12, 8), dpi=480, facecolor='w', edgecolor='k')
@@ -364,9 +369,9 @@ for n in range(18,21):
     #plt.ylim([0,5])
     #plt.xlim([0,10])
     xlabel('Time (hrs)',**font)
-    title(parameters[12]+parameters[9]+'Port_'+str(parameters[0])+'Change in Resistance', **title_font)
+    title(str(n)+'_'+parameters[12]+parameters[9]+'Port_'+str(parameters[0])+'Change in Resistance', **title_font)
     #plt.legend(['Calculated', 'Measured'], loc='upper left')
-    savefig(filenamelocation.split('_delRes.')[0]+parameters[9]+'Port_'+str(parameters[0])+'ResistanceChange.png')
+    savefig(filenamelocation.split('.csv')[0]+'_#'+str(n)+'_'+parameters[9]+'Port_'+str(parameters[0])+'ResistanceChange.png')
     plt.show()
     
     figure(num=None, figsize=(12, 8), dpi=480, facecolor='w', edgecolor='k')   
@@ -376,10 +381,10 @@ for n in range(18,21):
     #plt.xlim([0,10])
     xlabel('Time (hrs)',**font)
 #    title(r'Change in Calculated Resistance',**font)
-    title(parameters[12]+parameters[9]+'Port_'+str(parameters[0])+'Current', **title_font)
+    title(str(n)+'_'+parameters[12]+parameters[9]+'Port_'+str(parameters[0])+'Current', **title_font)
     #plt.legend(['Calculated', 'Measured'], loc='upper left')
     titlecurrent = filenamelocation.split
-    savefig(filenamelocation.split('_delRes.')[0]+parameters[9]+'Port_'+str(parameters[0])+'Current.png')
+    savefig(filenamelocation.split('.csv')[0]+'_#'+str(n)+'_'+parameters[9]+'Port_'+str(parameters[0])+'Current.png')
     plt.show()
     
     DataFile.close()
