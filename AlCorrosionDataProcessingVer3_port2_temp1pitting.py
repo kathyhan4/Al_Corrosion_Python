@@ -19,7 +19,10 @@ from pylab import *
 import bisect
 #import pandas as pd
 
-for n in range(18,19):
+#initiate list for storing total joules in each linear portion for each experiment
+totaljoulesall = numpy.zeros((100,3))
+
+for n in range(1,24):
     rootdir= 'C:\\Users\\khan\\Documents\\GitHub\\AlCorrosionDataCSVFiles\\'
     # parameters = [port, thermocouple, length corrosion(L1), length not corrosion (L2), 
     #width corrosion (d2), width foil (d), portion pitted, pitting aspect ratio, voltage,
@@ -113,6 +116,14 @@ for n in range(18,19):
         # 21 Submerged expt from 1-14-15 port 2 temperature 1 1000V Al-Cu strip I SUSPECT THIS EXXPERIMENT RAN OUT OF WATER AND DID NOT CORRODE PROPERLY
         filenamelocation = rootdir+'Data_DH_from 12-18-14_Port1_NoBubbleCoupon_Port3_tinnedCu_allDHCoupons1000V_restarted_1_14_15b.csv'
         parameters = [2, 1, 0.05, 0.066, 0.001, 0.005, 0.1, 1, -1000, 'SubmergedCuAlBad', 9, 20, 'Data_DH_from 12-18-14_Port1_NoBubbleCoupon_Port3_tinnedCu_allDHCoupons1000V_restarted_1_14_15b']
+    elif n==22:    
+        # 22 Submerged expt from 2-2-15 port 1 temperature 1 1000V Al with Mitsui encap
+        filenamelocation = rootdir+'Data_port1temp2_DH_60C_85%_Al_w_defect_port2temp1_submerged_Al_mitsui_2_2_15_combined.csv'
+        parameters = [1, 1, 0.05, 0.066, 0.001, 0.005, 0.1, 1, -1000, 'SubmergedMitsui', 38, 120, 'Data_port1temp2_DH_60C_85%_Al_w_defect_port2temp1_submerged_Al_mitsui_2_2_15_combined']
+    elif n==23:    
+        # 23 Damp Heat Al coupon 60/85 from 2/2/15
+        filenamelocation = rootdir+'Data_port1temp2_DH_60C_85%_Al_w_defect_port2temp1_submerged_Al_mitsui_2_2_15_combined.csv'
+        parameters = [2, 2, 0.005, 0.066, 0.001, 0.005, 0.1, 1, -1000, 'DH_60_85', 5, 250, 'Data_port1temp2_DH_60C_85%_Al_w_defect_port2temp1_submerged_Al_mitsui_2_2_15_combined']
 
 
     else:
@@ -340,6 +351,22 @@ for n in range(18,19):
     for i in range(AverageResLen):
         AverageRes[i,4] = AverageRes[i,2]*regression[0]+regression[1]
     
+    #    Add up current over time to get total joules per time point
+#        Then sum up the column (34) to get cummulative joules and divide by hoursover which the current was summed
+    hvlinestart = 0
+    hvlinestop = 0
+    hvlinestart = [s for s, i in enumerate(hvlistcropped[:,33]) if i>AverageRes[parameters[10],2]][0]
+    hvlinestop  = [s for s, i in enumerate(hvlistcropped[:,33]) if i>AverageRes[parameters[11]-1,2]][0]
+
+    for i in range(hvlinestart,hvlinestop):
+       hvlist[i,34] = (hvlist[i,33]-hvlist[i-1,33])*3600*hvlist[i,currentcolumn]
+#       column 34 represents the number of seconds in the past time point times the current, which is equal to joules
+    totaljoules = []
+    totaljoules = numpy.sum(hvlist[:,34])
+    totaljoulesall[n,0] = parameters[10]
+    totaljoulesall[n,1] = parameters[11]
+    totaljoulesall[n,2] = totaljoules/(parameters[11]-parameters[10])
+    totaljoules = 0
     
     font = {'family' : 'normal',
             'weight' : 'bold',
@@ -352,6 +379,7 @@ for n in range(18,19):
     #plt.plot(hvlistcropped[0:-2,33],hvlistcropped[0:-2,32])
     plt.plot(lvlist[:,33],lvlist[:,MeasResColumn]*1000,'ro')
     plt.plot(AverageRes[parameters[10]:parameters[11],2],AverageRes[parameters[10]:parameters[11],4], 'b', linewidth=3.0)
+    plt.plot(hvlist[0:-1,33],hvlist[0:-1,34]*(-100), 'g', linewidth=3.0)
     #plt.plot(lvlist[:,33],lvlist[:,34]*1000,'g')
     ylabel('Resistance (m-ohms)',**font)
     plt.ylim([0,150])
@@ -360,7 +388,22 @@ for n in range(18,19):
     title(str(n)+'_'+parameters[12]+parameters[9]+'Port_'+str(parameters[0])+'Resistance', **title_font)
     plt.legend(['Measured', 'Linear '+'y='+'%.5f' % regression[0]+'x+'+'%.5f' % regression[1]], loc='upper left')
     savefig(filenamelocation.split('.csv')[0]+'_#'+str(n)+'_'+parameters[9]+'Port_'+str(parameters[0])+'.png')
-    plt.show()
+#    plt.show()
+    
+    figure(num=None, figsize=(12, 8), dpi=480, facecolor='w', edgecolor='k')   
+    plt.plot(hvlist[0:-1,33],hvlist[0:-1,Temperaturecolumn],'b')
+#    plt.plot(hvlist[0:-1,33],abs(hvlist[0:-1,MeasCurColumn]),'k')
+    ylabel('Temperature (C))',**font)
+#    plt.yscale('log')
+    #plt.ylim([0,5])
+#    plt.xlim([0,5])
+    xlabel('Time (hrs)',**font)
+#    title(r'Change in Calculated Resistance',**font)
+    title(str(n)+'_'+parameters[12]+parameters[9]+'Port_'+str(parameters[0])+'Temperature', **title_font)
+    #plt.legend(['Calculated', 'Measured'], loc='upper left')
+    titlecurrent = filenamelocation.split
+    savefig(filenamelocation.split('.csv')[0]+'_#'+str(n)+'_'+parameters[9]+'Port_'+str(parameters[0])+'Temperature.png')
+#    plt.show()
     
     figure(num=None, figsize=(12, 8), dpi=480, facecolor='w', edgecolor='k')
     
@@ -372,7 +415,7 @@ for n in range(18,19):
     title(str(n)+'_'+parameters[12]+parameters[9]+'Port_'+str(parameters[0])+'Change in Resistance', **title_font)
     #plt.legend(['Calculated', 'Measured'], loc='upper left')
     savefig(filenamelocation.split('.csv')[0]+'_#'+str(n)+'_'+parameters[9]+'Port_'+str(parameters[0])+'ResistanceChange.png')
-    plt.show()
+#    plt.show()
     
     figure(num=None, figsize=(12, 8), dpi=480, facecolor='w', edgecolor='k')   
     plt.plot(hvlist[0:-1,33],hvlist[0:-1,MeasCurColumn],'k')
@@ -385,6 +428,6 @@ for n in range(18,19):
     #plt.legend(['Calculated', 'Measured'], loc='upper left')
     titlecurrent = filenamelocation.split
     savefig(filenamelocation.split('.csv')[0]+'_#'+str(n)+'_'+parameters[9]+'Port_'+str(parameters[0])+'Current.png')
-    plt.show()
+#    plt.show()
     
     DataFile.close()

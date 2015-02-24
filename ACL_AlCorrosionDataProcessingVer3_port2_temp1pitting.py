@@ -19,7 +19,10 @@ from pylab import *
 import bisect
 #import pandas as pd
 
-for n in range(1,5):
+#initiate list for storing total joules in each linear portion for each experiment
+totaljoulesall = numpy.zeros((100,3))
+
+for n in range(1,12):
     rootdir= 'C:\\Users\\khan\\Documents\\GitHub\\AlCorrosionDataCSVFiles\\ACLData\\'
     # parameters = [port, thermocouple, length corrosion(L1), length not corrosion (L2), 
     #width corrosion (d2), width foil (d), portion pitted, pitting aspect ratio, voltage,
@@ -27,21 +30,51 @@ for n in range(1,5):
     # Pitting factor: ratio of the depth of the deepest pit resulting from corrosion divided by the average 
     # penetration as calculated from weight loss. - See more at: http://www.nace.org/Pitting-Corrosion/#sthash.ATospuhX.dpuf
     if n == 1:
-        # 1 Submerged expt from 10-15-14 port 1 temperature 1 1000V
+        # 1 ACL port 1 1000V Al coupon from 1-15-15
         filenamelocation = rootdir+'Data_1_15_15_ACL_coupon_Al_1000V_port1.csv'
         parameters = [1, 1, 0.05, 0.06, 0.005, 0.005, 0.5, 1, -1000, 'ACL', 0, 1, 'Data_1_15_15_ACL_coupon_Al_1000V_port1', 121]
     elif n==2:    
-        # 2 Submerged expt from 10-20-14 port 1 temperature 1  100V
+        # 2 ACL port 1 1000V Al coupon from 1-20-15
         filenamelocation = rootdir+'Data_ACL_1_20_15_1000V_12hrs_110C_85percenthumidity.csv'
-        parameters = [1, 1, 0.05, 0.06, 0.005, 0.005, 0.5, 1, -1000, 'ACL', 1, 6, 'Data_ACL_1_20_15_1000V_12hrs_110C_85percenthumidity', 110]
+        parameters = [1, 1, 0.05, 0.06, 0.005, 0.005, 0.5, 1, -1000, 'ACL', 3, 6, 'Data_ACL_1_20_15_1000V_12hrs_110C_85percenthumidity', 110]
     elif n==3:    
-        # 2 Submerged expt from 10-20-14 port 1 temperature 1  100V
+        # 3 ACL port 1 1000V Al coupon from 1-22-15
         filenamelocation = rootdir+'Data_ACL_1_22_15_1000V_8and4hrs_110C_85percenthumidity.csv'
         parameters = [1, 1, 0.05, 0.06, 0.005, 0.005, 0.5, 1, -1000, 'ACL', 0, 1, 'Data_ACL_1_22_15_1000V_8and4hrs_110C_85percenthumidity', 110]
     elif n==4:    
-        # 2 Submerged expt from 10-20-14 port 1 temperature 1  100V
-        filenamelocation = rootdir+'Data_ACL_1_20_15_1000V_12hrs_110C_85percenthumidity.csv'
-        parameters = [1, 1, 0.05, 0.06, 0.005, 0.005, 0.5, 1, -1000, 'ACL', 0, 1, 'Data_ACL_1_22_15_1000V_8and4hrs_110C_85percenthumidity', 110]
+        # 4 ACL port 1 1000V Al coupon from 1-23-15
+        filenamelocation = rootdir+'Data_ACL_1_23_15_1000V_60hrs_110C_85percenthumidity.csv'
+        parameters = [1, 1, 0.05, 0.06, 0.005, 0.005, 0.5, 1, -1000, 'ACL', 0, 1, 'Data_ACL_1_23_15_1000V_60hrs_110C_85percenthumidity', 110]
+    elif n==5:    
+        # 5 ACL port 1 100V Al coupon from 1-27-15
+        filenamelocation = rootdir+'Data_ACL_1_27_15_100V_60hrs_110C_85percenthumidity.csv'
+        parameters = [1, 1, 0.05, 0.06, 0.005, 0.005, 0.5, 1, -100, 'ACL', 32, 37, 'Data_ACL_1_27_15_100V_60hrs_110C_85percenthumidity', 110]
+    elif n==6:    
+        # 6 ACL port 1 100V Al coupon from 1-27-15
+        filenamelocation = rootdir+'Data_ACL_1_27_15_100V_60hrs_110C_85percenthumidity_cropped.csv'
+        parameters = [1, 1, 0.05, 0.06, 0.005, 0.005, 0.5, 1, -100, 'ACL', 2, 21, 'Data_ACL_1_27_15_100V_60hrs_110C_85percenthumidity_cropped', 110]
+    elif n==7:    
+        # 7 ACL port 1 100V Al coupon from 2-2-15
+        filenamelocation = rootdir+'Data_ACL_2_2_15_100V_96hrs_121C_100percenthumidity.csv'
+        parameters = [1, 1, 0.05, 0.06, 0.005, 0.005, 0.5, 1, -100, 'ACL', 20, 40, 'Data_ACL_2_2_15_100V_96hrs_121C_100percenthumidity', 121]
+    elif n==8:    
+        # 8 ACL port 1 1000V Al coupon from 2-11-15
+        filenamelocation = rootdir+'Data_ACL_2_11_15_1000V_96hrs_121C_100percenthumidityport1.csv'
+        parameters = [1, 1, 0.05, 0.06, 0.005, 0.005, 0.5, 1, -1000, 'ACL', 29, 75, 'Data_ACL_2_11_15_1000V_96hrs_121C_100percenthumidityport1', 121]
+    elif n==9:    
+        # 9 ACL port 1 200V Al coupon from 2-9-15
+        filenamelocation = rootdir+'Data_ACL_2_9_15_200V_44hrs_121C_100percenthumidityport1.csv'
+        parameters = [1, 1, 0.05, 0.06, 0.005, 0.005, 0.5, 1, -200, 'ACL', 33, 44, 'Data_ACL_2_9_15_200V_44hrs_121C_100percenthumidityport1', 121]
+    elif n==10:    
+        # 10 ACL port 1 100V Al coupon from 2-6-15
+        filenamelocation = rootdir+'Data_ACL_2_6_15_100V_60hrs_121C_100percenthumidityport1_port2BareAl_0V.csv'
+        parameters = [1, 1, 0.05, 0.06, 0.005, 0.005, 0.5, 1, -100, 'ACL', 4, 58, 'Data_ACL_2_6_15_100V_60hrs_121C_100percenthumidityport1_port2BareAl_0V', 121]
+    elif n==11:    
+        # 11 ACL port 1 100V Al coupon from 2-17-15
+        filenamelocation = rootdir+'Data_ACL_2_17_15_1000V_121C_100percenthumidityport1_same_sample_12_hr_121_85.csv'
+        parameters = [1, 1, 0.05, 0.06, 0.005, 0.005, 0.5, 1, -100, 'ACL', 8, 23, 'Data_ACL_2_17_15_1000V_121C_100percenthumidityport1_same_sample_12_hr_121_85', 121]
+
+
     else:
         print 'out of bounds'
     
@@ -262,6 +295,23 @@ for n in range(1,5):
     
     for i in range(AverageResLen):
         AverageRes[i,4] = AverageRes[i,2]*regression[0]+regression[1]
+        
+#    Add up current over time to get total joules per time point
+#        Then sum up the column (34) to get cummulative joules
+    hvlinestart = 0
+    hvlinestop = 0
+    hvlinestart = [s for s, i in enumerate(hvlistcropped[:,33]) if i>AverageRes[parameters[10],2]][0]
+    hvlinestop  = [s for s, i in enumerate(hvlistcropped[:,33]) if i>AverageRes[parameters[11]-1,2]][0]
+
+    for i in range(hvlinestart,hvlinestop):
+       hvlist[i,34] = (hvlist[i,33]-hvlist[i-1,33])*3600*hvlist[i,currentcolumn]
+#       column 34 represents the number of seconds in the past time point times the current, which is equal to joules
+    totaljoules = []
+    totaljoules = numpy.sum(hvlist[:,34])
+    totaljoulesall[n,0] = parameters[10]
+    totaljoulesall[n,1] = parameters[11]
+    totaljoulesall[n,2] = totaljoules/(parameters[11]-parameters[10])
+    totaljoules = 0
     
     
     font = {'family' : 'normal',
@@ -275,6 +325,7 @@ for n in range(1,5):
     #plt.plot(hvlistcropped[0:-2,33],hvlistcropped[0:-2,32])
     plt.plot(lvlist[:,33],lvlist[:,MeasResColumn]*1000,'ro')
     plt.plot(AverageRes[parameters[10]:parameters[11],2],AverageRes[parameters[10]:parameters[11],4], 'b', linewidth=3.0)
+    plt.plot(hvlist[0:-1,33],hvlist[0:-1,34]*(-100), 'g', linewidth=3.0)
     #plt.plot(lvlist[:,33],lvlist[:,34]*1000,'g')
     ylabel('Resistance (m-ohms)',**font)
     plt.ylim([0,150])
@@ -283,10 +334,26 @@ for n in range(1,5):
     title(str(n)+'_'+parameters[12]+parameters[9]+'Port_'+str(parameters[0])+'Resistance', **title_font)
     plt.legend(['Measured', 'Linear '+'y='+'%.5f' % regression[0]+'x+'+'%.5f' % regression[1]], loc='upper left')
     savefig(filenamelocation.split('.csv')[0]+'_#'+str(n)+'_'+parameters[9]+'Port_'+str(parameters[0])+'.png')
-    plt.show()
+#    plt.show()
+    
+    
+#    figure(num=None, figsize=(12, 8), dpi=480, facecolor='w', edgecolor='k')   
+#    plt.plot(hvlist[0:-1,33],hvlist[0:-1,Temperaturecolumn],'b')
+##    plt.plot(hvlist[0:-1,33],abs(hvlist[0:-1,MeasCurColumn]),'k')
+#    ylabel('Temperature (C))',**font)
+##    plt.yscale('log')
+#    #plt.ylim([0,5])
+##    plt.xlim([0,5])
+#    xlabel('Time (hrs)',**font)
+##    title(r'Change in Calculated Resistance',**font)
+#    title(str(n)+'_'+parameters[12]+parameters[9]+'Port_'+str(parameters[0])+'Temperature', **title_font)
+#    #plt.legend(['Calculated', 'Measured'], loc='upper left')
+#    titlecurrent = filenamelocation.split
+#    savefig(filenamelocation.split('.csv')[0]+'_#'+str(n)+'_'+parameters[9]+'Port_'+str(parameters[0])+'Temperature.png')
+#    plt.show()
+    
     
     figure(num=None, figsize=(12, 8), dpi=480, facecolor='w', edgecolor='k')
-    
     plt.plot(AverageRes[0:AverageResLen,2],AverageRes[0:AverageResLen,3],'g')
     ylabel('Resistance Change (m-ohms/hr)',**font)
     #plt.ylim([0,5])
@@ -295,19 +362,21 @@ for n in range(1,5):
     title(str(n)+'_'+parameters[12]+parameters[9]+'Port_'+str(parameters[0])+'Change in Resistance', **title_font)
     #plt.legend(['Calculated', 'Measured'], loc='upper left')
     savefig(filenamelocation.split('.csv')[0]+'_#'+str(n)+'_'+parameters[9]+'Port_'+str(parameters[0])+'ResistanceChange.png')
-    plt.show()
+#    plt.show()
     
     figure(num=None, figsize=(12, 8), dpi=480, facecolor='w', edgecolor='k')   
     plt.plot(hvlist[0:-1,33],hvlist[0:-1,MeasCurColumn],'k')
+#    plt.plot(hvlist[0:-1,33],abs(hvlist[0:-1,MeasCurColumn]),'k')
     ylabel('Current (A))',**font)
+#    plt.yscale('log')
     #plt.ylim([0,5])
-    #plt.xlim([0,10])
+#    plt.xlim([0,5])
     xlabel('Time (hrs)',**font)
 #    title(r'Change in Calculated Resistance',**font)
     title(str(n)+'_'+parameters[12]+parameters[9]+'Port_'+str(parameters[0])+'Current', **title_font)
     #plt.legend(['Calculated', 'Measured'], loc='upper left')
     titlecurrent = filenamelocation.split
     savefig(filenamelocation.split('.csv')[0]+'_#'+str(n)+'_'+parameters[9]+'Port_'+str(parameters[0])+'Current.png')
-    plt.show()
+#    plt.show()
     
     DataFile.close()
