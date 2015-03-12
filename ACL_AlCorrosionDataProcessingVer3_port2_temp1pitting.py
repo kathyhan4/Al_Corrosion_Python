@@ -20,9 +20,9 @@ import bisect
 #import pandas as pd
 
 #initiate list for storing total joules in each linear portion for each experiment
-totaljoulesall = numpy.zeros((100,3))
+totaljoulesall = numpy.zeros((100,5))
 
-for n in range(1,12):
+for n in range(15,16):
     rootdir= 'C:\\Users\\khan\\Documents\\GitHub\\AlCorrosionDataCSVFiles\\ACLData\\'
     # parameters = [port, thermocouple, length corrosion(L1), length not corrosion (L2), 
     #width corrosion (d2), width foil (d), portion pitted, pitting aspect ratio, voltage,
@@ -73,6 +73,22 @@ for n in range(1,12):
         # 11 ACL port 1 100V Al coupon from 2-17-15
         filenamelocation = rootdir+'Data_ACL_2_17_15_1000V_121C_100percenthumidityport1_same_sample_12_hr_121_85.csv'
         parameters = [1, 1, 0.05, 0.06, 0.005, 0.005, 0.5, 1, -100, 'ACL', 8, 23, 'Data_ACL_2_17_15_1000V_121C_100percenthumidityport1_same_sample_12_hr_121_85', 121]
+    elif n==12:    
+        # 12 ACL port 1 300V Al coupon from 2-23-15
+        filenamelocation = rootdir+'Data_ACL_2_23_15_300V_110C_92percenthumidityport1_combined.csv'
+        parameters = [1, 1, 0.05, 0.06, 0.005, 0.005, 0.5, 1, -300, 'ACL', 0, 1, 'Data_ACL_2_23_15_300V_110C_92percenthumidityport1_combined', 110]
+    elif n==13:    
+        # 13 ACL port 1 1000V Al coupon from 2-27-15 121 C 60% humidity
+        filenamelocation = rootdir+'Data_ACL_2_27_15_1000V_121C_60percenthumidityport1.csv'
+        parameters = [1, 1, 0.05, 0.06, 0.005, 0.005, 0.5, 1, -1000, 'ACL', 50, 68, 'Data_ACL_2_27_15_1000V_121C_60percenthumidityport1', 121]
+    elif n==14:    
+        # 14 ACL port 1 100V Al coupon from 3-3-15 121 C 85% humidity
+        filenamelocation = rootdir+'Data_ACL_3_3_15_Port1_100V_Port2_1000V_121C_85percenthumidity.csv'
+        parameters = [1, 1, 0.05, 0.06, 0.005, 0.005, 0.5, 1, -100, 'ACL', 90, 108, 'Data_ACL_3_3_15_Port1_100V_Port2_1000V_121C_85percenthumidity', 121]
+    elif n==15:    
+        # 15 ACL port 1 1000V Al coupon from 3-3-15 121 C 85% humidity
+        filenamelocation = rootdir+'Data_ACL_3_3_15_Port1_100V_Port2_1000V_121C_85percenthumidity.csv'
+        parameters = [2, 1, 0.05, 0.06, 0.005, 0.005, 0.5, 1, -1000, 'ACL', 50, 78, 'Data_ACL_3_3_15_Port1_100V_Port2_1000V_121C_85percenthumidity', 121]
 
 
     else:
@@ -305,12 +321,15 @@ for n in range(1,12):
 
     for i in range(hvlinestart,hvlinestop):
        hvlist[i,34] = (hvlist[i,33]-hvlist[i-1,33])*3600*hvlist[i,currentcolumn]
+       hvlist[i,35] = hvlist[i,currentcolumn]
 #       column 34 represents the number of seconds in the past time point times the current, which is equal to joules
     totaljoules = []
     totaljoules = numpy.sum(hvlist[:,34])
     totaljoulesall[n,0] = parameters[10]
     totaljoulesall[n,1] = parameters[11]
-    totaljoulesall[n,2] = totaljoules/(parameters[11]-parameters[10])
+#    totaljoulesall[n,2] = totaljoules/(parameters[11]-parameters[10])
+#    totaljoulesall[n,3] = sum(hvlist[:,34])/(hvlinestop-hvlinestart)
+    totaljoulesall[n,4] = (sum(hvlist[hvlinestart:hvlinestop,currentcolumn]))/(hvlinestop-hvlinestart)
     totaljoules = 0
     
     
@@ -328,12 +347,14 @@ for n in range(1,12):
     plt.plot(hvlist[0:-1,33],hvlist[0:-1,34]*(-100), 'g', linewidth=3.0)
     #plt.plot(lvlist[:,33],lvlist[:,34]*1000,'g')
     ylabel('Resistance (m-ohms)',**font)
-    plt.ylim([0,150])
+    plt.ylim([10,25])
     #plt.xlim([0,10])
     xlabel('Time (hrs)',**font)
     title(str(n)+'_'+parameters[12]+parameters[9]+'Port_'+str(parameters[0])+'Resistance', **title_font)
     plt.legend(['Measured', 'Linear '+'y='+'%.5f' % regression[0]+'x+'+'%.5f' % regression[1]], loc='upper left')
-    savefig(filenamelocation.split('.csv')[0]+'_#'+str(n)+'_'+parameters[9]+'Port_'+str(parameters[0])+'.png')
+#    savefig(filenamelocation.split('.csv')[0]+'_#'+str(n)+'_'+parameters[9]+'Port_'+str(parameters[0])+'.png')
+    savefig(rootdir+'Resistance\\'+'#'+str(n)+'_'+str(parameters[8])+'V_'+parameters[9]+'Port_'+str(parameters[0])+str(parameters[12])+'Resistance.png')
+
 #    plt.show()
     
     
@@ -361,7 +382,9 @@ for n in range(1,12):
     xlabel('Time (hrs)',**font)
     title(str(n)+'_'+parameters[12]+parameters[9]+'Port_'+str(parameters[0])+'Change in Resistance', **title_font)
     #plt.legend(['Calculated', 'Measured'], loc='upper left')
-    savefig(filenamelocation.split('.csv')[0]+'_#'+str(n)+'_'+parameters[9]+'Port_'+str(parameters[0])+'ResistanceChange.png')
+#    savefig(filenamelocation.split('.csv')[0]+'_#'+str(n)+'_'+parameters[9]+'Port_'+str(parameters[0])+'ResistanceChange.png')
+    savefig(rootdir+'Resistance Change\\'+'#'+str(n)+'_'+str(parameters[8])+'V_'+parameters[9]+'Port_'+str(parameters[0])+str(parameters[12])+'Resistance_Change.png')
+
 #    plt.show()
     
     figure(num=None, figsize=(12, 8), dpi=480, facecolor='w', edgecolor='k')   
@@ -376,7 +399,9 @@ for n in range(1,12):
     title(str(n)+'_'+parameters[12]+parameters[9]+'Port_'+str(parameters[0])+'Current', **title_font)
     #plt.legend(['Calculated', 'Measured'], loc='upper left')
     titlecurrent = filenamelocation.split
-    savefig(filenamelocation.split('.csv')[0]+'_#'+str(n)+'_'+parameters[9]+'Port_'+str(parameters[0])+'Current.png')
+#    savefig(filenamelocation.split('.csv')[0]+'_#'+str(n)+'_'+parameters[9]+'Port_'+str(parameters[0])+'Current.png')
+    savefig(rootdir+'Current\\'+'#'+str(n)+'_'+str(parameters[8])+'V_'+parameters[9]+'Port_'+str(parameters[0])+str(parameters[12])+'Current.png')
+
 #    plt.show()
     
     DataFile.close()
