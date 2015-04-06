@@ -22,7 +22,7 @@ import bisect
 #initiate list for storing total joules in each linear portion for each experiment
 Current_slope_output = numpy.zeros((100,10))
 
-for n in range(14,25):
+for n in range(24,25):
 #    for the range the first number should be the first experiment you want to analyze, the second is one number higher than the last.
 #   Example: if you want to analyze experiments # 16 through 20, type range(16,21)
     rootdir= 'C:\\Users\\khan\\Documents\\GitHub\\AlCorrosionDataCSVFiles\\Submerged and DH\\'
@@ -105,7 +105,7 @@ for n in range(14,25):
         parameters = [1, 2, 0.004, 0.066, 0.005, 0.005, 0.1, 1, -1000, 'DampHeat', 30, 45, 'Data_DH_from 12-12-14_Port1_1000V_Temp2', 'placeholder', 1]
     elif n==18:    
         # 18 DH expt from 12-18-14 port 1 temperature 2 1000V Al no bubble
-        filenamelocation = rootdir+'DH_12_18_14_to_1_23_15_1AlNoBubble_2AlPrimered_3tinnedCu.csv'
+        filenamelocation = rootdir+'DH_12_18_14_to_1_23_15_1AlNoBubble_2AlPrimered_3tinnedCu_nobubble.csv'
         parameters = [1, 2, .05, 0.066, .005, 0.005, 0.1, 1, -1000, 'DampHeatNoBubble', 700, 800, 'DH_12_18_14_to_1_23_15_1AlNoBubble_2AlPrimered_3tinnedCu', 'placeholder', 1]
     elif n==19:    
         # 19 DH expt from 12-18-14 port 2 temperature 2 1000V Al primeered with grey VHT primer
@@ -419,7 +419,7 @@ for n in range(14,25):
     plt.plot(hvlist[0:-1,33],hvlist[0:-1,34]*(-100), 'g', linewidth=3.0)
     #plt.plot(lvlist[:,33],lvlist[:,34]*1000,'g')
     ylabel('Resistance (m-ohms)',**font)
-    plt.ylim([14,18])
+    plt.ylim([10,25])
     #plt.xlim([0,10])
     xlabel('Time (hrs)',**font)
     title(str(n)+'_'+parameters[12]+parameters[9]+'Port_'+str(parameters[0])+'Resistance', **title_font)
