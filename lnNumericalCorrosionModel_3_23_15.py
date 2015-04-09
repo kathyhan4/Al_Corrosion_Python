@@ -28,15 +28,16 @@ TimePoints = SimulationLength * 365 * 24 * 60 / TimeStep
 TimeNow = str(math.floor(time.time()))
 
 # Model Information from JMP
-InterceptParam = 6.401
+InterceptParam = 20.07
 VoltageParam = 0
 TemperatureParam = 0#0.0515
-HumidityParam = 0.06975
+HumidityParam = 0.0794
 AverageCurrentParam = 0
 VoltageTemperratureParam = 0
-TemperatureHumidityParam = -6844.9
-InverseTempParam = 0#-6943
-lnAbsAParam = -2.44
+TemperatureHumidityParam = 0
+InverseTempParam = -10907#-6943
+lnAbsAParam = 0
+lnpH2OParam = 0
 
 ModelArray=numpy.zeros((TimePoints,20))
 
@@ -96,8 +97,8 @@ savefig('C:\\Users\\khan\\Documents\\Al Corrosion\\Python Model Output\\'+'model
 
 figure(num=None, figsize=(12, 8), dpi=480, facecolor='w', edgecolor='k')
 #plt.plot(hvlistcropped[0:-2,33],hvlistcropped[0:-2,32])
-plt.plot(ModelArray[1:24,0],ModelArray[1:24,3],'ro')
-plt.plot(ModelArray[1:24,0],ModelArray[1:24,4],'bo')
+plt.plot(ModelArray[1:24,0],ModelArray[1:24,3],'r')
+plt.plot(ModelArray[1:24,0],ModelArray[1:24,4],'b')
 plt.legend(['Humidity (%)','Temperature (C)'], loc='upper left')
 #plt.plot(lvlist[:,33],lvlist[:,34]*1000,'g')
 ylabel('Temperature and Humidity',**font)
@@ -112,7 +113,7 @@ savefig('C:\\Users\\khan\\Documents\\Al Corrosion\\Python Model Output\\'+'one_d
 #    plt.show()
 figure(num=None, figsize=(12, 8), dpi=480, facecolor='w', edgecolor='k')
 #plt.plot(hvlistcropped[0:-2,33],hvlistcropped[0:-2,32])
-plt.plot(ModelArray[1:24,0],ModelArray[1:24,2],'ko')
+plt.plot(ModelArray[1:24,0],ModelArray[1:24,2],'k')
 
 #plt.plot(lvlist[:,33],lvlist[:,34]*1000,'g')
 ylabel('Current',**font)

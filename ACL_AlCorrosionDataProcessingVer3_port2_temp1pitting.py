@@ -20,9 +20,9 @@ import bisect
 #import pandas as pd
 
 #initiate list for storing total joules in each linear portion for each experiment
-Current_slope_output = numpy.zeros((100,10))
+Current_slope_output = numpy.zeros((100,15))
 
-for n in range(26,28):
+for n in range(28,29):
     rootdir= 'C:\\Users\\khan\\Documents\\GitHub\\AlCorrosionDataCSVFiles\\ACLData\\'
     # parameters = [0 port, 1 thermocouple, 2 length corrosion(L1), 3 length not corrosion (L2), 
     #4 width corrosion (d2), 5 width foil (d), 6 portion pitted, 7 pitting aspect ratio, 8 voltage,
@@ -74,7 +74,7 @@ for n in range(26,28):
     elif n==11:    
         # 11 ACL port 1 100V Al coupon from 2-17-15
         filenamelocation = rootdir+'Data_ACL_2_17_15_1000V_121C_100percenthumidityport1_same_sample_12_hr_121_85.csv'
-        parameters = [1, 1, 0.0033, 0.03, 0.0049, 0.005, 0.5, 1, -100, 'ACL', 8, 23, 'Data_ACL_2_17_15_1000V_121C_100percenthumidityport1_same_sample_12_hr_121_85', 121, 2]
+        parameters = [1, 1, 0.0033, 0.03, 0.0049, 0.005, 0.5, 1, -100, 'ACL', 8, 16, 'Data_ACL_2_17_15_1000V_121C_100percenthumidityport1_same_sample_12_hr_121_85', 121, 2]
     elif n==12:    
         # 12 ACL port 1 300V Al coupon from 2-23-15
         filenamelocation = rootdir+'Data_ACL_2_23_15_300V_110C_92percenthumidityport1_combined.csv'
@@ -106,7 +106,7 @@ for n in range(26,28):
     elif n==19:    
         # 19 DH port 2 1000V Al coupon from 3-27-15 85 C 50% humidity
         filenamelocation = rootdir+'Data_DH_1000V_port2_85_50_1000V_3-27-15.csv'
-        parameters = [2, 1, 0.00266, 0.00437, 0.00437, 0.005, 0.5, 1, -1000, 'DH 85_50_-1000V', 18, 50, 'Data_DH_1000V_port2_85_50_1000V_3-27-15', 85, 2]
+        parameters = [2, 1, 0.00266, 0.00437, 0.00437, 0.005, 0.5, 1, -1000, 'DH 85_50_-1000V', 18, 31, 'Data_DH_1000V_port2_85_50_1000V_3-27-15', 85, 2]
     elif n==20:    
         # 20 DH port 3 100V Al coupon from 3-27-15 85 C 50% humidity
         filenamelocation = rootdir+'Data_DH_100V_port3_85_50_100V_3-27-15.csv'
@@ -130,19 +130,19 @@ for n in range(26,28):
     elif n==25:    
         # 25 Damp Heat Al low resistance coupon 65/50 from 3/16/15  port 1
         filenamelocation = rootdir+'Data_DH_port1_#25_65_50_1000V_3_16_15_combined.csv'
-        parameters = [1, 2, 0.0043, 0.08, 0.00323, 0.00474, 0.1, 1, -1000, 'DH_65_50', 10, 200, 'Data_DH_port1_#25_65_50_1000V_3_16_15_combined', 65, 10]
+        parameters = [1, 2, 0.0043, 0.08, 0.00323, 0.00474, 0.1, 1, -1000, 'DH_65_50', 50, 175, 'Data_DH_port1_#25_65_50_1000V_3_16_15_combined', 65, 10]
     elif n==26:    
         # 26 Damp Heat Al coupon 85/50 from 3/27/15 -1000V port 2
         filenamelocation = rootdir+'Data_DH_port2_#26_85_50_1000V_port3_#27_85_50_1000V_3_27_15_combined.csv'
-        parameters = [2, 2, 0.00205, 0.08, 0.0045, 0.0045, 0.1, 1, -1000, 'DH_85_50', 45, 90, 'Data_DH_port2_#26_85_50_1000V_port3_#26_85_50_1000V_3_27_15_combined', 85, 3]
+        parameters = [2, 2, 0.00205, 0.08, 0.0045, 0.0045, 0.1, 1, -1000, 'DH_85_50', 2, 43, 'Data_DH_port2_#26_85_50_1000V_port3_#27_85_50_1000V_3_27_15_combined', 85, 3]
     elif n==27:    
         # 27 Damp Heat Al coupon 85/50 from 3/27/15 -1000V port 3
         filenamelocation = rootdir+'Data_DH_port2_#26_85_50_1000V_port3_#27_85_50_1000V_3_27_15_combined.csv'
-        parameters = [3, 2, 0.0025, 0.08, 0.00475, 0.00475, 0.1, 1, -1000, 'DH_85_50', 50, 70, 'Data_DH_port2_#26_85_50_1000V_port3_#26_85_50_1000V_3_27_15_combined', 85, 3]
+        parameters = [3, 2, 0.0025, 0.08, 0.00475, 0.00475, 0.1, 1, -1000, 'DH_85_50', 50, 75, 'Data_DH_port2_#26_85_50_1000V_port3_#27_85_50_1000V_3_27_15_combined', 85, 3]
     elif n==28:    
         # 28 Damp Heat Al bubble on back coupon 85/85 from 4/1/15 port 1
         filenamelocation = rootdir+'Data_85_85_port1_backsidebubble_port2_normalfrontside_4_1_15.csv'
-        parameters = [1, 2, 0.0154, 0.08, 0.00465, 0.00465, 0.1, 1, -1000, 'DH_85_85_backsidebubble', 25, 45, 'Data_85_85_port1_backsidebubble_port2_normalfrontside_4_1_15', 85, 25]
+        parameters = [1, 2, 0.0154, 0.08, 0.00465, 0.00465, 0.1, 1, -1000, 'DH_85_85_backsidebubble', 30, 45, 'Data_85_85_port1_backsidebubble_port2_normalfrontside_4_1_15', 85, 25]
     elif n==29:    
         # 29 Damp Heat Al coupon 85/85 from 4/1/15 port 2
         filenamelocation = rootdir+'Data_85_85_port1_backsidebubble_port2_normalfrontside_4_1_15.csv'
@@ -306,7 +306,7 @@ for n in range(26,28):
         
     for i in range(1,len(AverageRes[:,0])-1):
         AverageResSeed[i,2] = (AverageResSeed[i,0] - AverageResSeed[0,0])/3600 #time in hours since start
-        AverageResSeed[i,3] = ((AverageResSeed[i,1] - AverageResSeed[i-1,1])/(AverageResSeed[i,2] - AverageResSeed[i-1,2]))*1000 #change in resistance per hour
+        AverageResSeed[i,3] = ((AverageResSeed[i,1] - AverageResSeed[i-1,1])/(AverageResSeed[i,2] - AverageResSeed[i-1,2]))*1000 #change in m-ohm per hour
         AverageResSeed[i,6] = ((AverageResSeed[i,5] - AverageResSeed[i-1,5])/(AverageResSeed[i,2] - AverageResSeed[i-1,2]))*1000 #change adjusted for temp and corrosion area
 
     vectorx = numpy.zeros(12)  
@@ -397,13 +397,14 @@ for n in range(26,28):
     x=numpy.zeros(AverageResLen) #initiate vector to store times for regression
     y=numpy.zeros(AverageResLen) # initiate vector to store average resistances for regression
     y2 = numpy.zeros(AverageResLen)# for regression of R*w/L/temp adjust
-    
+    y3 = numpy.zeros(AverageResLen)# for regression of R*w/L/temp adjust    
     
     for i in range(AverageResLen):
     #    if AverageRes[i,2] >= parameters[10] and AverageRes[i,2] <= parameters[11]:
             x[i] = AverageRes[i,2]
             y[i] = AverageRes[i,1]
             y2[i] = AverageRes[i,5]
+            y3[i] = AverageRes[i,10]
     
     #inds1 = indices(x, lambda x: x > parameters[10])
     #inds2 = indices(x, lambda x: x > parameters[11])
@@ -412,10 +413,13 @@ for n in range(26,28):
     
     regression = numpy.polyfit(x[parameters[10]:parameters[11]], y[parameters[10]:parameters[11]]*1000, 1)
     regression2 = numpy.polyfit(x[parameters[10]:parameters[11]], y2[parameters[10]:parameters[11]]*1000, 1)
+    regression3 = numpy.polyfit(x[parameters[10]:parameters[11]], y3[parameters[10]:parameters[11]], 1)
     
     for i in range(AverageResLen):
         AverageRes[i,4] = AverageRes[i,2]*regression[0]+regression[1]
         AverageRes[i,7] = AverageRes[i,2]*regression2[0]+regression2[1]
+        AverageRes[i,12] = AverageRes[i,2]*regression3[0]+regression3[1]
+
 
         
 #    Add up current over time to get total joules per time point
@@ -440,6 +444,9 @@ for n in range(26,28):
     Current_slope_output[n,6] = regression2[0]    
     Current_slope_output[n,7] = sum(AverageRes[parameters[10]:parameters[11],11])/(parameters[11]-parameters[10])
     Current_slope_output[n,8] = AverageResLen
+    Current_slope_output[n,9] = regression3[0]*1000000
+    Current_slope_output[n,10] = regression3[1]*1000000
+    
     totaljoules = 0
     
     
@@ -470,14 +477,15 @@ for n in range(26,28):
     plt.plot(lvlist[:,33],lvlist[:,MeasResColumn]*1000,'ro')
     plt.plot(AverageRes[parameters[14]:AverageResLen-1,2],AverageRes[parameters[14]:AverageResLen-1,9]*1000, 'g', linewidth=3.0)
     plt.plot(AverageRes[parameters[14]:AverageResLen-1,2],AverageRes[parameters[14]:AverageResLen-1,10]*1000000, 'ko', linewidth=3.0)
+    plt.plot(AverageRes[parameters[10]:parameters[11],2],AverageRes[parameters[10]:parameters[11],12]*1000000, 'k', linewidth=3.0)
 #    plt.plot(hvlist[0:-1,33],hvlist[0:-1,34]*(-20), 'g', linewidth=3.0)
     #plt.plot(lvlist[:,33],lvlist[:,34]*1000,'g')
     ylabel('Adjusted (temp) Resistance (m-ohms) and Remaining Al Thickness (um)',**font)
-    plt.ylim([0,60])
+    plt.ylim([0,80])
     #plt.xlim([0,10])
     xlabel('Time (hrs)',**font)
     title(str(n)+'_'+parameters[12]+parameters[9]+'Port_'+str(parameters[0])+'Resistance_Adjusted_temperature', **title_font)
-    plt.legend(['Measured Res','Temp Adjusted Res', 'Remaining Thickness (um)'], loc='upper left')
+    plt.legend(['Measured Res','Temp Adjusted Res', 'Remaining Thickness (um)', 'Thickness Regression'], loc='upper left')
 #    savefig(filenamelocation.split('.csv')[0]+'_#'+str(n)+'_'+parameters[9]+'Port_'+str(parameters[0])+'.png')
     savefig(rootdir+'Adjusted Resistance\\'+'#'+str(n)+'_'+str(parameters[8])+'V_'+parameters[9]+'Port_'+str(parameters[0])+str(parameters[12])+'Resistance_adjusted_temp_area.png')
 
