@@ -22,7 +22,7 @@ import bisect
 #initiate list for storing total joules in each linear portion for each experiment
 Current_slope_output = numpy.zeros((100,10))
 
-for n in range(24,25):
+for n in range(18,19):
 #    for the range the first number should be the first experiment you want to analyze, the second is one number higher than the last.
 #   Example: if you want to analyze experiments # 16 through 20, type range(16,21)
     rootdir= 'C:\\Users\\khan\\Documents\\GitHub\\AlCorrosionDataCSVFiles\\Submerged and DH\\'
@@ -476,9 +476,9 @@ for n in range(24,25):
 #    plt.show()
     
     figure(num=None, figsize=(12, 8), dpi=480, facecolor='w', edgecolor='k')   
-    plt.plot(hvlist[0:-1,33],hvlist[0:-1,MeasCurColumn],'k')
-    ylabel('Current (A))',**font)
-    #plt.ylim([0,5])
+    plt.plot(hvlist[0:-1,33],hvlist[0:-1,MeasCurColumn]*1e9,'k')
+    ylabel('Current (nA))',**font)
+    plt.ylim([-500,0])
     #plt.xlim([0,10])
     xlabel('Time (hrs)',**font)
 #    title(r'Change in Calculated Resistance',**font)

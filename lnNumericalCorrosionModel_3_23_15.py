@@ -46,7 +46,7 @@ ModelArray[0,0] = 0 # timepoint
 ModelArray[0,1] = -1000 # Voltage
 ModelArray[0,2] = -.0000000002 # Current
 ModelArray[0,3] = 50 # % relative humidity
-ModelArray[0,4] = 30 # Temperature, deg C
+ModelArray[0,4] = 20 # Temperature, deg C
 
 day = 0
 
@@ -63,7 +63,7 @@ for n in range(1,len(ModelArray)):
 #    if ModelArray[n,2] < -1e-15:
 #        ModelArray[n,2] = -1e-15
     ModelArray[n,3] = 50 # % relative humidity
-    ModelArray[n,4] = 40 + 20 * math.sin(ModelArray[n,0]*math.pi/12) # Temperature, deg C
+    ModelArray[n,4] = 20 + 20 * math.sin(ModelArray[n,0]*math.pi/12) # Temperature, deg C
     ModelArray[n,5] = -exp((InterceptParam + ModelArray[n,1] * VoltageParam + ModelArray[n,2] * AverageCurrentParam + \
     ModelArray[n,3] * HumidityParam + ModelArray[n,4] * TemperatureParam +\
     InverseTempParam / (ModelArray[n,4]+273.15) + \
