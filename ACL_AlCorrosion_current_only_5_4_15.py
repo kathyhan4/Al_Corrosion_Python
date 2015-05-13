@@ -22,7 +22,7 @@ import bisect
 #initiate list for storing total joules in each linear portion for each experiment
 Current_slope_output = numpy.zeros((100,15))
 
-for n in range(32,36):
+for n in range(32,39):
     rootdir= 'C:\\Users\\khan\\Documents\\GitHub\\AlCorrosionDataCSVFiles\\ACLData\\'
     # parameters = [0 port, 1 thermocouple, 2 length corrosion(L1), 3 length not corrosion (L2), 
     #4 width corrosion (d2), 5 width foil (d), 6 portion pitted, 7 pitting aspect ratio, 8 voltage,
@@ -35,126 +35,6 @@ for n in range(32,36):
         # 1 ACL port 1 1000V Al coupon from 1-15-15
         filenamelocation = rootdir+'Data_1_15_15_ACL_coupon_Al_1000V_port1.csv'
         parameters = [1, 1, 0.05, 0.06, 0.005, 0.005, 0.5, 1, -1000, 'ACL', 0, 1, 'Data_1_15_15_ACL_coupon_Al_1000V_port1', 121, 0]
-    elif n==2:    
-        # 2 ACL port 1 1000V Al coupon from 1-20-15
-        filenamelocation = rootdir+'Data_ACL_1_20_15_1000V_12hrs_110C_85percenthumidity.csv'
-        parameters = [1, 1, 0.05, 0.06, 0.005, 0.005, 0.5, 1, -1000, 'ACL', 3, 6, 'Data_ACL_1_20_15_1000V_12hrs_110C_85percenthumidity', 110, 2]
-    elif n==3:    
-        # 3 ACL port 1 1000V Al coupon from 1-22-15
-        filenamelocation = rootdir+'Data_ACL_1_22_15_1000V_8and4hrs_110C_85percenthumidity.csv'
-        parameters = [1, 1, 0.05, 0.06, 0.005, 0.005, 0.5, 1, -1000, 'ACL', 0, 1, 'Data_ACL_1_22_15_1000V_8and4hrs_110C_85percenthumidity', 110, 0]
-    elif n==4:    
-        # 4 ACL port 1 1000V Al coupon from 1-23-15
-        filenamelocation = rootdir+'Data_ACL_1_23_15_1000V_60hrs_110C_85percenthumidity.csv'
-        parameters = [1, 1, 0.05, 0.06, 0.005, 0.005, 0.5, 1, -1000, 'ACL', 0, 1, 'Data_ACL_1_23_15_1000V_60hrs_110C_85percenthumidity', 110, 0]
-    elif n==5:    
-        # 5 ACL port 1 100V Al coupon from 1-27-15
-        filenamelocation = rootdir+'Data_ACL_1_27_15_100V_60hrs_110C_85percenthumidity.csv'
-        parameters = [1, 1, 0.0033, 0.03, 0.005, 0.005, 0.5, 1, -100, 'ACL', 32, 37, 'Data_ACL_1_27_15_100V_60hrs_110C_85percenthumidity', 110, 0]
-    elif n==6:    
-        # 6 ACL port 1 100V Al coupon from 1-27-15
-        filenamelocation = rootdir+'Data_ACL_1_27_15_100V_60hrs_110C_85percenthumidity_cropped.csv'
-        parameters = [1, 1, 0.0033, 0.03, 0.005, 0.005, 0.5, 1, -100, 'ACL', 2, 21, 'Data_ACL_1_27_15_100V_60hrs_110C_85percenthumidity_cropped', 110, 2]
-    elif n==7:    
-        # 7 ACL port 1 100V Al coupon from 2-2-15
-        filenamelocation = rootdir+'Data_ACL_2_2_15_100V_96hrs_121C_100percenthumidity.csv'
-        parameters = [1, 1, 0.0027, 0.03, 0.0051, 0.005, 0.5, 1, -100, 'ACL', 20, 40, 'Data_ACL_2_2_15_100V_96hrs_121C_100percenthumidity', 121, 2]
-    elif n==8:    
-        # 8 ACL port 1 1000V Al coupon from 2-11-15
-        filenamelocation = rootdir+'Data_ACL_2_11_15_1000V_96hrs_121C_100percenthumidityport1.csv'
-        parameters = [1, 1, 0.0034, 0.03, 0.0049, 0.005, 0.5, 1, -1000, 'ACL', 29, 75, 'Data_ACL_2_11_15_1000V_96hrs_121C_100percenthumidityport1', 121, 2]
-    elif n==9:    
-        # 9 ACL port 1 200V Al coupon from 2-9-15
-        filenamelocation = rootdir+'Data_ACL_2_9_15_200V_44hrs_121C_100percenthumidityport1.csv'
-        parameters = [1, 1, 0.0037, 0.03, 0.0044, 0.005, 0.5, 1, -200, 'ACL', 33, 44, 'Data_ACL_2_9_15_200V_44hrs_121C_100percenthumidityport1', 121, 2]
-    elif n==10:    
-        # 10 ACL port 1 100V Al coupon from 2-6-15
-        filenamelocation = rootdir+'Data_ACL_2_6_15_100V_60hrs_121C_100percenthumidityport1_port2BareAl_0V.csv'
-        parameters = [1, 1, 0.0024, 0.03, 0.0049, 0.005, 0.5, 1, -100, 'ACL', 4, 58, 'Data_ACL_2_6_15_100V_60hrs_121C_100percenthumidityport1_port2BareAl_0V', 121, 2]
-    elif n==11:    
-        # 11 ACL port 1 100V Al coupon from 2-17-15
-        filenamelocation = rootdir+'Data_ACL_2_17_15_1000V_121C_100percenthumidityport1_same_sample_12_hr_121_85.csv'
-        parameters = [1, 1, 0.0033, 0.03, 0.0049, 0.005, 0.5, 1, -100, 'ACL', 8, 16, 'Data_ACL_2_17_15_1000V_121C_100percenthumidityport1_same_sample_12_hr_121_85', 121, 2]
-    elif n==12:    
-        # 12 ACL port 1 300V Al coupon from 2-23-15
-        filenamelocation = rootdir+'Data_ACL_2_23_15_300V_110C_92percenthumidityport1_combined.csv'
-        parameters = [1, 1, 0.004, 0.03, 0.005, 0.005, 0.5, 1, -300, 'ACL', 0, 1, 'Data_ACL_2_23_15_300V_110C_92percenthumidityport1_combined', 110, 0]
-    elif n==13:    
-        # 13 ACL port 1 1000V Al coupon from 2-27-15 121 C 60% humidity
-        filenamelocation = rootdir+'Data_ACL_2_27_15_1000V_121C_60percenthumidityport1.csv'
-        parameters = [1, 1, 0.0033, 0.03, 0.0049, 0.005, 0.5, 1, -1000, 'ACL', 50, 68, 'Data_ACL_2_27_15_1000V_121C_60percenthumidityport1', 121, 2]
-    elif n==14:    
-        # 14 ACL port 1 100V Al coupon from 3-3-15 121 C 85% humidity
-        filenamelocation = rootdir+'Data_ACL_3_3_15_Port1_100V_Port2_1000V_121C_85percenthumidity.csv'
-        parameters = [1, 1, 0.0033, 0.03, 0.0049, 0.005, 0.5, 1, -100, 'ACL', 90, 108, 'Data_ACL_3_3_15_Port1_100V_Port2_1000V_121C_85percenthumidity', 121, 2]
-    elif n==15:    
-        # 15 ACL port 2 1000V Al coupon from 3-3-15 121 C 85% humidity
-        filenamelocation = rootdir+'Data_ACL_3_3_15_Port1_100V_Port2_1000V_121C_85percenthumidity.csv'
-        parameters = [2, 1, 0.0033, 0.03, 0.0049, 0.005, 0.5, 1, -1000, 'ACL', 50, 78, 'Data_ACL_3_3_15_Port1_100V_Port2_1000V_121C_85percenthumidity', 121, 1]
-    elif n==16:    
-        # 16 ACL port 2 1000V Al coupon from 3-10-15 121 C 85% humidity
-        filenamelocation = rootdir+'Data_ACL_3_10_15b_Port1_1000V_Port2_100V_121C_85percenthumidity.csv'
-        parameters = [2, 1, 0.0033, 0.003, 0.0049, 0.005, 0.5, 1, -1000, 'ACL -1000V', 3, 65, 'Data_ACL_3_10_15b_Port1_1000V_Port2_100V_121C_85percenthumidity', 121, 2]
-    elif n==17:    
-        # 17 DH port 1 1000V Al low resistance coupon from 3-16-15 65 C 50% humidity
-        filenamelocation = rootdir+'Data_DH_port1_65_65_1000V_port2_85_85_1000V_3_16_15_combined.csv'
-        parameters = [1, 1, 0.0043, 0.0032, 0.0047, 0.005, 0.5, 1, -1000, 'DH 65_50_-1000V', 3, 290, 'Data_DH_port1_65_65_1000V_port2_85_85_1000V_3_16_15_combined', 65, 2]
-    elif n==18:    
-        # 18 DH port 2 1000V Al coupon from 3-16-15 85 C 50% humidity
-        filenamelocation = rootdir+'Data_DH_port1_65_65_1000V_port2_85_85_1000V_3_16_15-85_combined.csv'
-        parameters = [2, 1, 0.00266, 0.00437, 0.00437, 0.005, 0.5, 1, -1000, 'DH 85_50_-1000V', 47, 92, 'Data_DH_port1_65_65_1000V_port2_85_85_1000V_3_16_15-85_combined', 85, 2]
-    elif n==19:    
-        # 19 DH port 2 1000V Al coupon from 3-27-15 85 C 50% humidity
-        filenamelocation = rootdir+'Data_DH_1000V_port2_85_50_1000V_3-27-15.csv'
-        parameters = [2, 1, 0.00266, 0.00437, 0.00437, 0.005, 0.5, 1, -1000, 'DH 85_50_-1000V', 18, 31, 'Data_DH_1000V_port2_85_50_1000V_3-27-15', 85, 2]
-    elif n==20:    
-        # 20 DH port 3 100V Al coupon from 3-27-15 85 C 50% humidity
-        filenamelocation = rootdir+'Data_DH_100V_port3_85_50_100V_3-27-15.csv'
-        parameters = [3, 1, 0.00266, 0.00437, 0.00437, 0.005, 0.5, 1, -100, 'DH 85_50_-1000V', 2, 10, 'Data_DH_1000V_port2_85_85_1000V_3-25-15', 85, 2]
-    elif n==21:    
-        # DH port 1 65/50 -1000V
-        filenamelocation = rootdir+'March31Testing3.csv'
-        parameters = [1, 1, 0.00266, 0.00437, 0.00437, 0.005, 0.5, 1, -1000, 'March31Testing3Port1', 1, 2, 'March31Testing', 65, 1]
-    elif n==22:    
-        # DH port 2 85/50 -1000V
-        filenamelocation = rootdir+'March31Testing3.csv'
-        parameters = [2, 1, 0.00266, 0.00437, 0.00437, 0.005, 0.5, 1, -1000, 'March31Testing3Port2', 1, 2, 'March31Testing', 85, 1]
-    elif n==23:    
-        # DH port 2 85/50 -100V
-        filenamelocation = rootdir+'March31Testing3.csv'
-        parameters = [3, 1, 0.00266, 0.00437, 0.00437, 0.005, 0.5, 1, -100, 'March31Testing3Port3', 1, 2, 'March31Testing', 85, 1]
-    elif n==24:    
-        # 24 Damp Heat Al coupon 60/85 from 2/2/15 edited to exclude bad readings
-        filenamelocation = rootdir+'Data_port1temp2_DH_60C_85%_Al_w_defect_port2temp1_submerged_Al_mitsui_2_2_15_combined_edited.csv'
-        parameters = [2, 2, 0.0033, 0.003, 0.0049, 0.005, 0.1, 1, -1000, 'DH_60_85', 10, 520, 'Data_port1temp2_DH_60C_85%_Al_w_defect_port2temp1_submerged_Al_mitsui_2_2_15_combined_edited', 60, 5]
-    elif n==25:    
-        # 25 Damp Heat Al low resistance coupon 65/50 from 3/16/15  port 1
-        filenamelocation = rootdir+'Data_DH_port1_#25_65_50_1000V_3_16_15_combined.csv'
-        parameters = [1, 2, 0.0043, 0.08, 0.00323, 0.00474, 0.1, 1, -1000, 'DH_65_50', 50, 75, 'Data_DH_port1_#25_65_50_1000V_3_16_15_combined', 65, 10]
-    elif n==26:    
-        # 26 Damp Heat Al coupon 85/50 from 3/27/15 -1000V port 2
-        filenamelocation = rootdir+'Data_DH_port2_#26_85_50_1000V_port3_#27_85_50_1000V_3_27_15_combined.csv'
-        parameters = [2, 2, 0.00205, 0.08, 0.0045, 0.0045, 0.1, 1, -1000, 'DH_85_50', 4, 50, 'Data_DH_port2_#26_85_50_1000V_port3_#27_85_50_1000V_3_27_15_combined', 85, 3]
-    elif n==27:    
-        # 27 Damp Heat Al coupon 85/50 from 3/27/15 -1000V port 3
-        filenamelocation = rootdir+'Data_DH_port2_#26_85_50_1000V_port3_#27_85_50_1000V_3_27_15_combined.csv'
-        parameters = [3, 2, 0.0025, 0.08, 0.00475, 0.00475, 0.1, 1, -1000, 'DH_85_50', 25, 50, 'Data_DH_port2_#26_85_50_1000V_port3_#27_85_50_1000V_3_27_15_combined', 85, 3]
-    elif n==28:    
-        # 28 Damp Heat Al bubble on back coupon 85/85 from 4/1/15 port 1
-        filenamelocation = rootdir+'Data_85_85_port1_backsidebubble_port2_normalfrontside_4_1_15.csv'
-        parameters = [1, 2, 0.0154, 0.08, 0.00465, 0.00465, 0.1, 1, -1000, 'DH_85_85_backsidebubble', 11, 44, 'Data_85_85_port1_backsidebubble_port2_normalfrontside_4_1_15', 85, 11]
-    elif n==29:    
-        # 29 Damp Heat Al coupon 85/85 from 4/1/15 port 2
-        filenamelocation = rootdir+'Data_85_85_port1_backsidebubble_port2_normalfrontside_4_1_15.csv'
-        parameters = [2, 2, 0.003, 0.08, 0.0048, 0.0048, 0.1, 1, -1000, 'DH_85_85', 11, 70, 'Data_85_85_port1_backsidebubble_port2_normalfrontside_4_1_15', 85, 11]
-    elif n==30:    
-        # 18 DH expt from 12-18-14 port 1 temperature 2 1000V Al no bubble
-        filenamelocation = rootdir+'DH_12_18_14_to_1_23_15_1AlNoBubble_2AlPrimered_3tinnedCu_nobubble.csv'
-        parameters = [1, 2, .05, 0.066, .005, 0.005, 0.1, 1, -1000, 'DampHeatNoBubble', 4, 38, 'DH_12_18_14_to_1_23_15_1AlNoBubble_2AlPrimered_3tinnedCu', 85, 3]
-    elif n==31:    
-        # 31 Submerged switching polarities
-        filenamelocation = rootdir+'#31_Data_Sub_Port3_SwitchingPolarities_4-7-15.csv'
-        parameters = [3, 2, .05, 0.066, .005, 0.005, 0.1, 1, -1000, 'Submerged_Switching_Polarities', 0, 2, '#31_Data_Sub_Port3_SwitchingPolarities_4-7-15', 25, 1]
     elif n==32:    
         # 32 111 Coupons for testing leakage current 5mm cathode 3/4 inch anode no bubble 85/85 5/1/15
         filenamelocation = rootdir+'Data_85_85_port2addr25bottom_currentmeasurement_smallcat_smallan_without_defect.csv'
@@ -164,13 +44,69 @@ for n in range(32,36):
         filenamelocation = rootdir+'Data_85_85_port2addr25bottom_currentmeasurement_smallcat_smallan_with_defect.csv'
         parameters = [2, 2, .05, 0.066, .005, 0.005, 0.1, 1, 1000, '5 mm cathode 0.75 inch anode with bubble', 1000, 2800, 'Data_85_85_port2addr25bottom_currentmeasurement_smallcat_smallan_with_defect', 85, 1]
     elif n==34:    
-        # 33 231 Coupons for testing leakage current 19 mm cathode 151 mm anode with no bubble 85/85 5/5/15
+        # 33 231 Coupons for testing leakage current 19 mm cathode 151 mm anode  no bubble 85/85 5/5/15
         filenamelocation = rootdir+'Data_85_85_port2addr25bottom_currentmeasurement_medcat_largean_without_defect.csv'
         parameters = [2, 2, .05, 0.066, .005, 0.005, 0.1, 1, 1000, '19 mm cathode 150 mm anode no bubble', 100, 1050, 'Data_85_85_port2addr25bottom_currentmeasurement_medcat_largean_without_defect', 85, 1]
     elif n==35:    
         # 35 222 Coupons for testing leakage current 19 mm cathode 51 mm anode with bubble 85/85 5/6/15
         filenamelocation = rootdir+'Data_85_85_port2addr25bottom_currentmeasurement_medcat_medan_with_defect.csv'
-        parameters = [2, 2, .05, 0.066, .005, 0.005, 0.1, 1, 1000, '19 mm cathode 51 mm anode with bubble', 10, 45, 'Data_85_85_port2addr25bottom_currentmeasurement_medcat_medan_with_defect', 85, 1]
+        parameters = [2, 2, .05, 0.066, .005, 0.005, 0.1, 1, 1000, '19 mm cathode 51 mm anode with bubble', 300, 2700, 'Data_85_85_port2addr25bottom_currentmeasurement_medcat_medan_with_defect', 85, 1]
+    elif n==36:    
+        # 36 322 Coupons for testing leakage current 51 mm cathode 51 mm anode with bubble 85/85 5/7/15
+        filenamelocation = rootdir+'Data_85_85_port2addr25bottom_currentmeasurement_largecat_medan_with_defect.csv'
+        parameters = [2, 2, .05, 0.066, .005, 0.005, 0.1, 1, 1000, '51 mm cathode 51 mm anode with bubble', 400, 3300, 'Data_85_85_port2addr25bottom_currentmeasurement_largecat_medan_with_defect', 85, 1]
+    elif n==37:    
+        # 37 212 Coupons for testing leakage current 19 mm cathode 19 mm anode with bubble 85/85 5/8/15
+        filenamelocation = rootdir+'Data_85_85_port2addr25bottom_currentmeasurement_medcat_smallan_with_defect.csv'
+        parameters = [2, 2, .05, 0.066, .005, 0.005, 0.1, 1, 1000, '19 mm cathode 19 mm anode with bubble', 300, 2700, 'Data_85_85_port2addr25bottom_currentmeasurement_medcat_smallan_with_defect', 85, 1]
+    elif n==38:    
+        # 38 331 Coupons for testing leakage current 51 mm cathode 151 mm anode with bubble 85/85 5/9/15
+        filenamelocation = rootdir+'Data_85_85_port2addr25bottom_currentmeasurement_largecat_largean_no_defect.csv'
+        parameters = [2, 2, .05, 0.066, .005, 0.005, 0.1, 1, 1000, '19 mm cathode 151 mm anode no bubble', 50, 150, 'Data_85_85_port2addr25bottom_currentmeasurement_largecat_largean_no_defect', 85, 1]
+    elif n==39:    
+        # 39 122 Coupons for testing leakage current 5 mm cathode 51 mm anode with bubble 85/85 
+        filenamelocation = rootdir+'Data_85_85_port2addr25bottom_currentmeasurement_smallcat_medan_with_defect.csv'
+        parameters = [2, 2, .05, 0.066, .005, 0.005, 0.1, 1, 1000, '5 mm cathode 51 mm anode with bubble', 10, 15, 'Data_85_85_port2addr25bottom_currentmeasurement_smallcat_medan_with_defect', 85, 1]
+    elif n==40:    
+        # 40 311 Coupons for testing leakage current 51 mm cathode 19 mm anode with bubble 85/85 
+        filenamelocation = rootdir+'Data_85_85_port2addr25bottom_currentmeasurement_largecat_smallan_no_defect.csv'
+        parameters = [2, 2, .05, 0.066, .005, 0.005, 0.1, 1, 1000, '51 mm cathode 19 mm anode no bubble', 10, 15, 'Data_85_85_port2addr25bottom_currentmeasurement_largecat_smallan_no_defect', 85, 1]
+    elif n==41:    
+        # 41 312 Coupons for testing leakage current 19 mm cathode 51 mm anode with bubble 85/85 
+        filenamelocation = rootdir+'Data_85_85_port2addr25bottom_currentmeasurement_largecat_smallan_with_defect.csv'
+        parameters = [2, 2, .05, 0.066, .005, 0.005, 0.1, 1, 1000, '51 mm cathode 19 mm anode with bubble', 10, 15, 'Data_85_85_port2addr25bottom_currentmeasurement_largecat_smallan_with_defect', 85, 1]
+    elif n==42:    
+        # 42 121 Coupons for testing leakage current 5 mm cathode 51 mm anode no bubble 85/85 
+        filenamelocation = rootdir+'Data_85_85_port2addr25bottom_currentmeasurement_smallcat_medan_no_defect.csv'
+        parameters = [2, 2, .05, 0.066, .005, 0.005, 0.1, 1, 1000, '5 mm cathode 51 mm anode no bubble', 10, 15, 'Data_85_85_port2addr25bottom_currentmeasurement_smallcat_medan_no_defect', 85, 1]
+    elif n==43:    
+        # 43 321 Coupons for testing leakage current 51 mm cathode 51 mm anode no bubble 85/85 
+        filenamelocation = rootdir+'Data_85_85_port2addr25bottom_currentmeasurement_largecat_medan_no_defect.csv'
+        parameters = [2, 2, .05, 0.066, .005, 0.005, 0.1, 1, 1000, '51 mm cathode 51 mm anode no bubble', 10, 15, 'Data_85_85_port2addr25bottom_currentmeasurement_largecat_medan_no_defect', 85, 1]
+    elif n==44:    
+        # 44 232 Coupons for testing leakage current 19 mm cathode 151 mm anode with bubble 85/85 
+        filenamelocation = rootdir+'Data_85_85_port2addr25bottom_currentmeasurement_medcat_largean_with_defect.csv'
+        parameters = [2, 2, .05, 0.066, .005, 0.005, 0.1, 1, 1000, '19 mm cathode 151 mm anode with bubble', 10, 15, 'Data_85_85_port2addr25bottom_currentmeasurement_medcat_largean_with_defect', 85, 1]
+    elif n==45:    
+        # 45 132 Coupons for testing leakage current 5 mm cathode 151 mm anode with bubble 85/85 
+        filenamelocation = rootdir+'Data_85_85_port2addr25bottom_currentmeasurement_smallcat_largean_with_defect.csv'
+        parameters = [2, 2, .05, 0.066, .005, 0.005, 0.1, 1, 1000, '5 mm cathode 151 mm anode with bubble', 10, 15, 'Data_85_85_port2addr25bottom_currentmeasurement_smallcat_largean_with_defect', 85, 1]
+    elif n==46:    
+        # 46 211 Coupons for testing leakage current 19 mm cathode 19 mm anode no bubble 85/85 
+        filenamelocation = rootdir+'Data_85_85_port2addr25bottom_currentmeasurement_medcat_smallan_no_defect.csv'
+        parameters = [2, 2, .05, 0.066, .005, 0.005, 0.1, 1, 1000, '19 mm cathode 19 mm anode no bubble', 10, 15, 'Data_85_85_port2addr25bottom_currentmeasurement_medcat_smallan_no_defect', 85, 1]
+    elif n==47:    
+        # 47 221 Coupons for testing leakage current 19 mm cathode 51 mm anode no bubble 85/85 
+        filenamelocation = rootdir+'Data_85_85_port2addr25bottom_currentmeasurement_medcat_medan_no_defect.csv'
+        parameters = [2, 2, .05, 0.066, .005, 0.005, 0.1, 1, 1000, '19 mm cathode 51 mm anode no bubble', 10, 15, 'Data_85_85_port2addr25bottom_currentmeasurement_medcat_medan_no_defect', 85, 1]
+    elif n==48:    
+        # 48 332 Coupons for testing leakage current 51 mm cathode 151 mm anode with bubble 85/85 
+        filenamelocation = rootdir+'Data_85_85_port2addr25bottom_currentmeasurement_largecat_largean_with_defect.csv'
+        parameters = [2, 2, .05, 0.066, .005, 0.005, 0.1, 1, 1000, '51 mm cathode 151 mm anode with bubble', 10, 15, 'Data_85_85_port2addr25bottom_currentmeasurement_largecat_largean_with_defect', 85, 1]
+    elif n==49:    
+        # 49 131 Coupons for testing leakage current 5 mm cathode 151 mm anode no bubble 85/85 
+        filenamelocation = rootdir+'Data_85_85_port2addr25bottom_currentmeasurement_smallcat_largean_no_defect.csv'
+        parameters = [2, 2, .05, 0.066, .005, 0.005, 0.1, 1, 1000, '5 mm cathode 151 mm anode no bubble', 10, 15, 'Data_85_85_port2addr25bottom_currentmeasurement_smallcat_largean_no_defect', 85, 1]
 
 #notice that in this file parameters[10] and parameters[11] are the start and stop line numbers for the current average
 
@@ -571,3 +507,125 @@ DataFile.close()
 timestamp = time.time()
 first_time_seconds = str(math.floor(timestamp))    
 numpy.savetxt('C:\\Users\\khan\\Documents\\GitHub\\AlCorrosionDataCSVFiles\\ACLData\\OutputDataFiles\\'+first_time_seconds+'_'+str(i)+'.txt',Current_slope_output)
+
+
+#    elif n==2:    
+#        # 2 ACL port 1 1000V Al coupon from 1-20-15
+#        filenamelocation = rootdir+'Data_ACL_1_20_15_1000V_12hrs_110C_85percenthumidity.csv'
+#        parameters = [1, 1, 0.05, 0.06, 0.005, 0.005, 0.5, 1, -1000, 'ACL', 3, 6, 'Data_ACL_1_20_15_1000V_12hrs_110C_85percenthumidity', 110, 2]
+#    elif n==3:    
+#        # 3 ACL port 1 1000V Al coupon from 1-22-15
+#        filenamelocation = rootdir+'Data_ACL_1_22_15_1000V_8and4hrs_110C_85percenthumidity.csv'
+#        parameters = [1, 1, 0.05, 0.06, 0.005, 0.005, 0.5, 1, -1000, 'ACL', 0, 1, 'Data_ACL_1_22_15_1000V_8and4hrs_110C_85percenthumidity', 110, 0]
+#    elif n==4:    
+#        # 4 ACL port 1 1000V Al coupon from 1-23-15
+#        filenamelocation = rootdir+'Data_ACL_1_23_15_1000V_60hrs_110C_85percenthumidity.csv'
+#        parameters = [1, 1, 0.05, 0.06, 0.005, 0.005, 0.5, 1, -1000, 'ACL', 0, 1, 'Data_ACL_1_23_15_1000V_60hrs_110C_85percenthumidity', 110, 0]
+#    elif n==5:    
+#        # 5 ACL port 1 100V Al coupon from 1-27-15
+#        filenamelocation = rootdir+'Data_ACL_1_27_15_100V_60hrs_110C_85percenthumidity.csv'
+#        parameters = [1, 1, 0.0033, 0.03, 0.005, 0.005, 0.5, 1, -100, 'ACL', 32, 37, 'Data_ACL_1_27_15_100V_60hrs_110C_85percenthumidity', 110, 0]
+#    elif n==6:    
+#        # 6 ACL port 1 100V Al coupon from 1-27-15
+#        filenamelocation = rootdir+'Data_ACL_1_27_15_100V_60hrs_110C_85percenthumidity_cropped.csv'
+#        parameters = [1, 1, 0.0033, 0.03, 0.005, 0.005, 0.5, 1, -100, 'ACL', 2, 21, 'Data_ACL_1_27_15_100V_60hrs_110C_85percenthumidity_cropped', 110, 2]
+#    elif n==7:    
+#        # 7 ACL port 1 100V Al coupon from 2-2-15
+#        filenamelocation = rootdir+'Data_ACL_2_2_15_100V_96hrs_121C_100percenthumidity.csv'
+#        parameters = [1, 1, 0.0027, 0.03, 0.0051, 0.005, 0.5, 1, -100, 'ACL', 20, 40, 'Data_ACL_2_2_15_100V_96hrs_121C_100percenthumidity', 121, 2]
+#    elif n==8:    
+#        # 8 ACL port 1 1000V Al coupon from 2-11-15
+#        filenamelocation = rootdir+'Data_ACL_2_11_15_1000V_96hrs_121C_100percenthumidityport1.csv'
+#        parameters = [1, 1, 0.0034, 0.03, 0.0049, 0.005, 0.5, 1, -1000, 'ACL', 29, 75, 'Data_ACL_2_11_15_1000V_96hrs_121C_100percenthumidityport1', 121, 2]
+#    elif n==9:    
+#        # 9 ACL port 1 200V Al coupon from 2-9-15
+#        filenamelocation = rootdir+'Data_ACL_2_9_15_200V_44hrs_121C_100percenthumidityport1.csv'
+#        parameters = [1, 1, 0.0037, 0.03, 0.0044, 0.005, 0.5, 1, -200, 'ACL', 33, 44, 'Data_ACL_2_9_15_200V_44hrs_121C_100percenthumidityport1', 121, 2]
+#    elif n==10:    
+#        # 10 ACL port 1 100V Al coupon from 2-6-15
+#        filenamelocation = rootdir+'Data_ACL_2_6_15_100V_60hrs_121C_100percenthumidityport1_port2BareAl_0V.csv'
+#        parameters = [1, 1, 0.0024, 0.03, 0.0049, 0.005, 0.5, 1, -100, 'ACL', 4, 58, 'Data_ACL_2_6_15_100V_60hrs_121C_100percenthumidityport1_port2BareAl_0V', 121, 2]
+#    elif n==11:    
+#        # 11 ACL port 1 100V Al coupon from 2-17-15
+#        filenamelocation = rootdir+'Data_ACL_2_17_15_1000V_121C_100percenthumidityport1_same_sample_12_hr_121_85.csv'
+#        parameters = [1, 1, 0.0033, 0.03, 0.0049, 0.005, 0.5, 1, -100, 'ACL', 8, 16, 'Data_ACL_2_17_15_1000V_121C_100percenthumidityport1_same_sample_12_hr_121_85', 121, 2]
+#    elif n==12:    
+#        # 12 ACL port 1 300V Al coupon from 2-23-15
+#        filenamelocation = rootdir+'Data_ACL_2_23_15_300V_110C_92percenthumidityport1_combined.csv'
+#        parameters = [1, 1, 0.004, 0.03, 0.005, 0.005, 0.5, 1, -300, 'ACL', 0, 1, 'Data_ACL_2_23_15_300V_110C_92percenthumidityport1_combined', 110, 0]
+#    elif n==13:    
+#        # 13 ACL port 1 1000V Al coupon from 2-27-15 121 C 60% humidity
+#        filenamelocation = rootdir+'Data_ACL_2_27_15_1000V_121C_60percenthumidityport1.csv'
+#        parameters = [1, 1, 0.0033, 0.03, 0.0049, 0.005, 0.5, 1, -1000, 'ACL', 50, 68, 'Data_ACL_2_27_15_1000V_121C_60percenthumidityport1', 121, 2]
+#    elif n==14:    
+#        # 14 ACL port 1 100V Al coupon from 3-3-15 121 C 85% humidity
+#        filenamelocation = rootdir+'Data_ACL_3_3_15_Port1_100V_Port2_1000V_121C_85percenthumidity.csv'
+#        parameters = [1, 1, 0.0033, 0.03, 0.0049, 0.005, 0.5, 1, -100, 'ACL', 90, 108, 'Data_ACL_3_3_15_Port1_100V_Port2_1000V_121C_85percenthumidity', 121, 2]
+#    elif n==15:    
+#        # 15 ACL port 2 1000V Al coupon from 3-3-15 121 C 85% humidity
+#        filenamelocation = rootdir+'Data_ACL_3_3_15_Port1_100V_Port2_1000V_121C_85percenthumidity.csv'
+#        parameters = [2, 1, 0.0033, 0.03, 0.0049, 0.005, 0.5, 1, -1000, 'ACL', 50, 78, 'Data_ACL_3_3_15_Port1_100V_Port2_1000V_121C_85percenthumidity', 121, 1]
+#    elif n==16:    
+#        # 16 ACL port 2 1000V Al coupon from 3-10-15 121 C 85% humidity
+#        filenamelocation = rootdir+'Data_ACL_3_10_15b_Port1_1000V_Port2_100V_121C_85percenthumidity.csv'
+#        parameters = [2, 1, 0.0033, 0.003, 0.0049, 0.005, 0.5, 1, -1000, 'ACL -1000V', 3, 65, 'Data_ACL_3_10_15b_Port1_1000V_Port2_100V_121C_85percenthumidity', 121, 2]
+#    elif n==17:    
+#        # 17 DH port 1 1000V Al low resistance coupon from 3-16-15 65 C 50% humidity
+#        filenamelocation = rootdir+'Data_DH_port1_65_65_1000V_port2_85_85_1000V_3_16_15_combined.csv'
+#        parameters = [1, 1, 0.0043, 0.0032, 0.0047, 0.005, 0.5, 1, -1000, 'DH 65_50_-1000V', 3, 290, 'Data_DH_port1_65_65_1000V_port2_85_85_1000V_3_16_15_combined', 65, 2]
+#    elif n==18:    
+#        # 18 DH port 2 1000V Al coupon from 3-16-15 85 C 50% humidity
+#        filenamelocation = rootdir+'Data_DH_port1_65_65_1000V_port2_85_85_1000V_3_16_15-85_combined.csv'
+#        parameters = [2, 1, 0.00266, 0.00437, 0.00437, 0.005, 0.5, 1, -1000, 'DH 85_50_-1000V', 47, 92, 'Data_DH_port1_65_65_1000V_port2_85_85_1000V_3_16_15-85_combined', 85, 2]
+#    elif n==19:    
+#        # 19 DH port 2 1000V Al coupon from 3-27-15 85 C 50% humidity
+#        filenamelocation = rootdir+'Data_DH_1000V_port2_85_50_1000V_3-27-15.csv'
+#        parameters = [2, 1, 0.00266, 0.00437, 0.00437, 0.005, 0.5, 1, -1000, 'DH 85_50_-1000V', 18, 31, 'Data_DH_1000V_port2_85_50_1000V_3-27-15', 85, 2]
+#    elif n==20:    
+#        # 20 DH port 3 100V Al coupon from 3-27-15 85 C 50% humidity
+#        filenamelocation = rootdir+'Data_DH_100V_port3_85_50_100V_3-27-15.csv'
+#        parameters = [3, 1, 0.00266, 0.00437, 0.00437, 0.005, 0.5, 1, -100, 'DH 85_50_-1000V', 2, 10, 'Data_DH_1000V_port2_85_85_1000V_3-25-15', 85, 2]
+#    elif n==21:    
+#        # DH port 1 65/50 -1000V
+#        filenamelocation = rootdir+'March31Testing3.csv'
+#        parameters = [1, 1, 0.00266, 0.00437, 0.00437, 0.005, 0.5, 1, -1000, 'March31Testing3Port1', 1, 2, 'March31Testing', 65, 1]
+#    elif n==22:    
+#        # DH port 2 85/50 -1000V
+#        filenamelocation = rootdir+'March31Testing3.csv'
+#        parameters = [2, 1, 0.00266, 0.00437, 0.00437, 0.005, 0.5, 1, -1000, 'March31Testing3Port2', 1, 2, 'March31Testing', 85, 1]
+#    elif n==23:    
+#        # DH port 2 85/50 -100V
+#        filenamelocation = rootdir+'March31Testing3.csv'
+#        parameters = [3, 1, 0.00266, 0.00437, 0.00437, 0.005, 0.5, 1, -100, 'March31Testing3Port3', 1, 2, 'March31Testing', 85, 1]
+#    elif n==24:    
+#        # 24 Damp Heat Al coupon 60/85 from 2/2/15 edited to exclude bad readings
+#        filenamelocation = rootdir+'Data_port1temp2_DH_60C_85%_Al_w_defect_port2temp1_submerged_Al_mitsui_2_2_15_combined_edited.csv'
+#        parameters = [2, 2, 0.0033, 0.003, 0.0049, 0.005, 0.1, 1, -1000, 'DH_60_85', 10, 520, 'Data_port1temp2_DH_60C_85%_Al_w_defect_port2temp1_submerged_Al_mitsui_2_2_15_combined_edited', 60, 5]
+#    elif n==25:    
+#        # 25 Damp Heat Al low resistance coupon 65/50 from 3/16/15  port 1
+#        filenamelocation = rootdir+'Data_DH_port1_#25_65_50_1000V_3_16_15_combined.csv'
+#        parameters = [1, 2, 0.0043, 0.08, 0.00323, 0.00474, 0.1, 1, -1000, 'DH_65_50', 50, 75, 'Data_DH_port1_#25_65_50_1000V_3_16_15_combined', 65, 10]
+#    elif n==26:    
+#        # 26 Damp Heat Al coupon 85/50 from 3/27/15 -1000V port 2
+#        filenamelocation = rootdir+'Data_DH_port2_#26_85_50_1000V_port3_#27_85_50_1000V_3_27_15_combined.csv'
+#        parameters = [2, 2, 0.00205, 0.08, 0.0045, 0.0045, 0.1, 1, -1000, 'DH_85_50', 4, 50, 'Data_DH_port2_#26_85_50_1000V_port3_#27_85_50_1000V_3_27_15_combined', 85, 3]
+#    elif n==27:    
+#        # 27 Damp Heat Al coupon 85/50 from 3/27/15 -1000V port 3
+#        filenamelocation = rootdir+'Data_DH_port2_#26_85_50_1000V_port3_#27_85_50_1000V_3_27_15_combined.csv'
+#        parameters = [3, 2, 0.0025, 0.08, 0.00475, 0.00475, 0.1, 1, -1000, 'DH_85_50', 25, 50, 'Data_DH_port2_#26_85_50_1000V_port3_#27_85_50_1000V_3_27_15_combined', 85, 3]
+#    elif n==28:    
+#        # 28 Damp Heat Al bubble on back coupon 85/85 from 4/1/15 port 1
+#        filenamelocation = rootdir+'Data_85_85_port1_backsidebubble_port2_normalfrontside_4_1_15.csv'
+#        parameters = [1, 2, 0.0154, 0.08, 0.00465, 0.00465, 0.1, 1, -1000, 'DH_85_85_backsidebubble', 11, 44, 'Data_85_85_port1_backsidebubble_port2_normalfrontside_4_1_15', 85, 11]
+#    elif n==29:    
+#        # 29 Damp Heat Al coupon 85/85 from 4/1/15 port 2
+#        filenamelocation = rootdir+'Data_85_85_port1_backsidebubble_port2_normalfrontside_4_1_15.csv'
+#        parameters = [2, 2, 0.003, 0.08, 0.0048, 0.0048, 0.1, 1, -1000, 'DH_85_85', 11, 70, 'Data_85_85_port1_backsidebubble_port2_normalfrontside_4_1_15', 85, 11]
+#    elif n==30:    
+#        # 18 DH expt from 12-18-14 port 1 temperature 2 1000V Al no bubble
+#        filenamelocation = rootdir+'DH_12_18_14_to_1_23_15_1AlNoBubble_2AlPrimered_3tinnedCu_nobubble.csv'
+#        parameters = [1, 2, .05, 0.066, .005, 0.005, 0.1, 1, -1000, 'DampHeatNoBubble', 4, 38, 'DH_12_18_14_to_1_23_15_1AlNoBubble_2AlPrimered_3tinnedCu', 85, 3]
+#    elif n==31:    
+#        # 31 Submerged switching polarities
+#        filenamelocation = rootdir+'#31_Data_Sub_Port3_SwitchingPolarities_4-7-15.csv'
+#        parameters = [3, 2, .05, 0.066, .005, 0.005, 0.1, 1, -1000, 'Submerged_Switching_Polarities', 0, 2, '#31_Data_Sub_Port3_SwitchingPolarities_4-7-15', 25, 1]
