@@ -22,7 +22,7 @@ import bisect
 #initiate list for storing total joules in each linear portion for each experiment
 Current_slope_output = numpy.zeros((100,15))
 
-for n in range(32,39):
+for n in range(32,41):
     rootdir= 'C:\\Users\\khan\\Documents\\GitHub\\AlCorrosionDataCSVFiles\\ACLData\\'
     # parameters = [0 port, 1 thermocouple, 2 length corrosion(L1), 3 length not corrosion (L2), 
     #4 width corrosion (d2), 5 width foil (d), 6 portion pitted, 7 pitting aspect ratio, 8 voltage,
@@ -60,15 +60,15 @@ for n in range(32,39):
         filenamelocation = rootdir+'Data_85_85_port2addr25bottom_currentmeasurement_medcat_smallan_with_defect.csv'
         parameters = [2, 2, .05, 0.066, .005, 0.005, 0.1, 1, 1000, '19 mm cathode 19 mm anode with bubble', 300, 2700, 'Data_85_85_port2addr25bottom_currentmeasurement_medcat_smallan_with_defect', 85, 1]
     elif n==38:    
-        # 38 331 Coupons for testing leakage current 51 mm cathode 151 mm anode with bubble 85/85 5/9/15
+        # 38 331 Coupons for testing leakage current 51 mm cathode 151 mm anode no bubble 85/85 5/9/15 *must re-do, had a short!*
         filenamelocation = rootdir+'Data_85_85_port2addr25bottom_currentmeasurement_largecat_largean_no_defect.csv'
         parameters = [2, 2, .05, 0.066, .005, 0.005, 0.1, 1, 1000, '19 mm cathode 151 mm anode no bubble', 50, 150, 'Data_85_85_port2addr25bottom_currentmeasurement_largecat_largean_no_defect', 85, 1]
     elif n==39:    
-        # 39 122 Coupons for testing leakage current 5 mm cathode 51 mm anode with bubble 85/85 
+        # 39 122 Coupons for testing leakage current 5 mm cathode 51 mm anode with bubble 85/85 5/11/15
         filenamelocation = rootdir+'Data_85_85_port2addr25bottom_currentmeasurement_smallcat_medan_with_defect.csv'
         parameters = [2, 2, .05, 0.066, .005, 0.005, 0.1, 1, 1000, '5 mm cathode 51 mm anode with bubble', 10, 15, 'Data_85_85_port2addr25bottom_currentmeasurement_smallcat_medan_with_defect', 85, 1]
     elif n==40:    
-        # 40 311 Coupons for testing leakage current 51 mm cathode 19 mm anode with bubble 85/85 
+        # 40 311 Coupons for testing leakage current 51 mm cathode 19 mm anode with bubble 85/85 5/12/15
         filenamelocation = rootdir+'Data_85_85_port2addr25bottom_currentmeasurement_largecat_smallan_no_defect.csv'
         parameters = [2, 2, .05, 0.066, .005, 0.005, 0.1, 1, 1000, '51 mm cathode 19 mm anode no bubble', 10, 15, 'Data_85_85_port2addr25bottom_currentmeasurement_largecat_smallan_no_defect', 85, 1]
     elif n==41:    

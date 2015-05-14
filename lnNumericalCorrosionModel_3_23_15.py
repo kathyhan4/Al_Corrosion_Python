@@ -18,6 +18,8 @@ import matplotlib.pyplot as plt
 import dateutil
 from pylab import *
 import bisect
+import random
+
 
 InitialThickness = 0.000037 # foil thickness in m
 
@@ -27,26 +29,50 @@ TimePoints = SimulationLength * 365 * 24 * 60 / TimeStep
 
 TimeNow = str(math.floor(time.time()))
 
+AverageTemperature = 30 #deg C
+
 # Model Information from JMP
-InterceptParam = 20.07
+InterceptParam = 10.942797106
+InterceptParamLower95 = -9.884327143
+InterceptParamUpper95 = 31.769921355
 VoltageParam = 0
 TemperatureParam = 0#0.0515
-HumidityParam = 0.0794
+HumidityParam = 0.0185805437
+HumidityParamLower95 = -0.017184639
+HumidityParamUpper95 = 0.0543457264
 AverageCurrentParam = 0
 VoltageTemperratureParam = 0
 TemperatureHumidityParam = 0
-InverseTempParam = -10907#-6943
+InverseTempParam = -5388.111245
+InverseTempParamLower95 = -12637.1441
+InverseTempParamUpper95 = 1860.9216147
 lnAbsAParam = 0
 lnpH2OParam = 0
 
 ModelArray=numpy.zeros((TimePoints,20))
+ModelArrayLower95=numpy.zeros((TimePoints,20))
+ModelArrayUpper95=numpy.zeros((TimePoints,20))
 
 ModelArray[0,7] = InitialThickness * 1000000 # in um
 ModelArray[0,0] = 0 # timepoint
 ModelArray[0,1] = -1000 # Voltage
-ModelArray[0,2] = -.0000000002 # Current
+ModelArray[0,2] = 20 # Current
 ModelArray[0,3] = 50 # % relative humidity
 ModelArray[0,4] = 20 # Temperature, deg C
+
+ModelArrayLower95[0,7] = InitialThickness * 1000000 # in um
+ModelArrayLower95[0,0] = 0 # timepoint
+ModelArrayLower95[0,1] = -1000 # Voltage
+ModelArrayLower95[0,2] = 20 # Current
+ModelArrayLower95[0,3] = 50 # % relative humidity
+ModelArrayLower95[0,4] = 20 # Temperature, deg C
+
+ModelArrayUpper95[0,7] = InitialThickness * 1000000 # in um
+ModelArrayUpper95[0,0] = 0 # timepoint
+ModelArrayUpper95[0,1] = -1000 # Voltage
+ModelArrayUpper95[0,2] = 20 # Current
+ModelArrayUpper95[0,3] = 50 # % relative humidity
+ModelArrayUpper95[0,4] = 20 # Temperature, deg C
 
 day = 0
 
@@ -55,7 +81,7 @@ for n in range(1,len(ModelArray)):
     ModelArray[n,1] = -1000 * math.sin(ModelArray[n,0]*math.pi/12) # Voltage
     if ModelArray[n,1] > 0:
         ModelArray[n,1] = 0
-    ModelArray[n,2] = -.000000002* math.sin(ModelArray[n,0]*math.pi/12) # Current - need to change this to A/m^2 eventually
+    ModelArray[n,2] = 20* math.sin(ModelArray[n,0]*math.pi/12) # Current - need to change this to A/m^2 eventually
     if ModelArray[n,2] > 0:
         ModelArray[n,2] = -1e-15
     if ModelArray[n,2] == 0:
@@ -63,14 +89,68 @@ for n in range(1,len(ModelArray)):
 #    if ModelArray[n,2] < -1e-15:
 #        ModelArray[n,2] = -1e-15
     ModelArray[n,3] = 50 # % relative humidity
-    ModelArray[n,4] = 20 + 20 * math.sin(ModelArray[n,0]*math.pi/12) # Temperature, deg C
+    ModelArray[n,4] = AverageTemperature + 20 * math.sin(ModelArray[n,0]*math.pi/12) # Temperature, deg C
     ModelArray[n,5] = -exp((InterceptParam + ModelArray[n,1] * VoltageParam + ModelArray[n,2] * AverageCurrentParam + \
     ModelArray[n,3] * HumidityParam + ModelArray[n,4] * TemperatureParam +\
     InverseTempParam / (ModelArray[n,4]+273.15) + \
     (math.log(-1*ModelArray[n,2])) * lnAbsAParam)) # Al thickness change in m/hr
     ModelArray[n,6] = ModelArray[n,0] * TimeStep / 60 /24/365 # in years
-    ModelArray[n,7] = ModelArray[n-1,7] + ModelArray[n,5] / 60 * TimeStep #final thickness of Al
+    randomnumber = random.randrange(0, 1000, 1)
+    if randomnumber < 50:
+        ModelArray[n,7] = ModelArray[n-1,7] + ModelArray[n,5] / 60 * TimeStep #final thickness of Al
+    else:
+        ModelArray[n,7] = ModelArray[n-1,7]
     
+for n in range(1,len(ModelArrayLower95)):
+    ModelArrayLower95[n,0] = n # timepoint
+    ModelArrayLower95[n,1] = -1000 * math.sin(ModelArrayLower95[n,0]*math.pi/12) # Voltage
+    if ModelArrayLower95[n,1] > 0:
+        ModelArrayLower95[n,1] = 0
+    ModelArrayLower95[n,2] = 20* math.sin(ModelArrayLower95[n,0]*math.pi/12) # Current - need to change this to A/m^2 eventually
+    if ModelArrayLower95[n,2] > 0:
+        ModelArrayLower95[n,2] = -1e-15
+    if ModelArrayLower95[n,2] == 0:
+        ModelArrayLower95[n,2] = -1e-15
+#    if ModelArray[n,2] < -1e-15:
+#        ModelArray[n,2] = -1e-15
+    ModelArrayLower95[n,3] = 50 # % relative humidity
+    ModelArrayLower95[n,4] = AverageTemperature + 20 * math.sin(ModelArrayLower95[n,0]*math.pi/12) # Temperature, deg C
+    ModelArrayLower95[n,5] = -exp((InterceptParamLower95 + ModelArrayLower95[n,1] * VoltageParam + ModelArrayLower95[n,2] * AverageCurrentParam + \
+    ModelArrayLower95[n,3] * HumidityParamLower95 + ModelArrayLower95[n,4] * TemperatureParam +\
+    InverseTempParamLower95 / (ModelArrayLower95[n,4]+273.15) + \
+    (math.log(-1*ModelArrayLower95[n,2])) * lnAbsAParam)) # Al thickness change in m/hr
+    ModelArrayLower95[n,6] = ModelArrayLower95[n,0] * TimeStep / 60 /24/365 # in years
+    randomnumber = random.randrange(0, 1000, 1)
+    if randomnumber < 50:
+        ModelArrayLower95[n,7] = ModelArrayLower95[n-1,7] + ModelArrayLower95[n,5] / 60 * TimeStep #final thickness of Al
+    else:
+        ModelArrayLower95[n,7] = ModelArrayLower95[n-1,7]
+    
+for n in range(1,len(ModelArrayUpper95)):
+    ModelArrayUpper95[n,0] = n # timepoint
+    ModelArrayUpper95[n,1] = -1000 * math.sin(ModelArrayUpper95[n,0]*math.pi/12) # Voltage
+    if ModelArrayUpper95[n,1] > 0:
+        ModelArrayUpper95[n,1] = 0
+    ModelArrayUpper95[n,2] = 20* math.sin(ModelArrayUpper95[n,0]*math.pi/12) # Current - need to change this to A/m^2 eventually
+    if ModelArrayUpper95[n,2] > 0:
+        ModelArrayUpper95[n,2] = -1e-15
+    if ModelArrayUpper95[n,2] == 0:
+        ModelArrayUpper95[n,2] = -1e-15
+#    if ModelArray[n,2] < -1e-15:
+#        ModelArray[n,2] = -1e-15
+    ModelArrayUpper95[n,3] = 50 # % relative humidity
+    ModelArrayUpper95[n,4] = AverageTemperature + 20 * math.sin(ModelArrayUpper95[n,0]*math.pi/12) # Temperature, deg C
+    ModelArrayUpper95[n,5] = -exp((InterceptParamUpper95 + ModelArrayUpper95[n,1] * VoltageParam + ModelArrayUpper95[n,2] * AverageCurrentParam + \
+    ModelArrayUpper95[n,3] * HumidityParamUpper95 + ModelArrayUpper95[n,4] * TemperatureParam +\
+    InverseTempParamUpper95 / (ModelArrayUpper95[n,4]+273.15) + \
+    (math.log(-1*ModelArrayUpper95[n,2])) * lnAbsAParam)) # Al thickness change in m/hr
+    ModelArrayUpper95[n,6] = ModelArrayUpper95[n,0] * TimeStep / 60 /24/365 # in years
+    randomnumber = random.randrange(0, 1000, 1)
+    if randomnumber < 50:
+        ModelArrayUpper95[n,7] = ModelArrayUpper95[n-1,7] + ModelArrayUpper95[n,5] / 60 * TimeStep #final thickness of Al
+    else:
+        ModelArrayUpper95[n,7] = ModelArrayUpper95[n-1,7]
+     
 
 font = {'family' : 'normal',
             'weight' : 'bold',
@@ -81,8 +161,9 @@ matplotlib.rc('font', **font)
     
 figure(num=None, figsize=(12, 8), dpi=480, facecolor='w', edgecolor='k')
 #plt.plot(hvlistcropped[0:-2,33],hvlistcropped[0:-2,32])
-plt.plot(ModelArray[:,6],ModelArray[:,7],'ro')
-
+plt.plot(ModelArray[:,6],ModelArray[:,7],'r')
+plt.plot(ModelArrayLower95[:,6],ModelArrayLower95[:,7],'b')
+plt.plot(ModelArrayUpper95[:,6],ModelArrayUpper95[:,7],'g')
 #plt.plot(lvlist[:,33],lvlist[:,34]*1000,'g')
 ylabel('Al Thickness (um)',**font)
 plt.ylim([0,40])

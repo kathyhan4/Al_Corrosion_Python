@@ -22,7 +22,7 @@ import bisect
 #initiate list for storing total joules in each linear portion for each experiment
 Current_slope_output = numpy.zeros((100,15))
 
-for n in range(26,27):
+for n in range(32,33):
     rootdir= 'C:\\Users\\khan\\Documents\\GitHub\\AlCorrosionDataCSVFiles\\ACLData\\'
     # parameters = [0 port, 1 thermocouple, 2 length corrosion(L1), 3 length not corrosion (L2), 
     #4 width corrosion (d2), 5 width foil (d), 6 portion pitted, 7 pitting aspect ratio, 8 voltage,
@@ -74,7 +74,7 @@ for n in range(26,27):
     elif n==11:    
         # 11 ACL port 1 100V Al coupon from 2-17-15
         filenamelocation = rootdir+'Data_ACL_2_17_15_1000V_121C_100percenthumidityport1_same_sample_12_hr_121_85.csv'
-        parameters = [1, 1, 0.0033, 0.03, 0.0049, 0.005, 0.5, 1, -100, 'ACL', 8, 16, 'Data_ACL_2_17_15_1000V_121C_100percenthumidityport1_same_sample_12_hr_121_85', 121, 2]
+        parameters = [1, 1, 0.0033, 0.03, 0.0049, 0.005, 0.5, 1, -100, 'ACL', 2, 8, 'Data_ACL_2_17_15_1000V_121C_100percenthumidityport1_same_sample_12_hr_121_85', 121, 2]
     elif n==12:    
         # 12 ACL port 1 300V Al coupon from 2-23-15
         filenamelocation = rootdir+'Data_ACL_2_23_15_300V_110C_92percenthumidityport1_combined.csv'
@@ -94,7 +94,7 @@ for n in range(26,27):
     elif n==16:    
         # 16 ACL port 2 1000V Al coupon from 3-10-15 121 C 85% humidity
         filenamelocation = rootdir+'Data_ACL_3_10_15b_Port1_1000V_Port2_100V_121C_85percenthumidity.csv'
-        parameters = [2, 1, 0.0033, 0.003, 0.0049, 0.005, 0.5, 1, -1000, 'ACL -1000V', 3, 65, 'Data_ACL_3_10_15b_Port1_1000V_Port2_100V_121C_85percenthumidity', 121, 2]
+        parameters = [2, 1, 0.0033, 0.003, 0.0049, 0.005, 0.5, 1, -1000, 'ACL -1000V', 3, 23, 'Data_ACL_3_10_15b_Port1_1000V_Port2_100V_121C_85percenthumidity', 121, 2]
     elif n==17:    
         # 17 DH port 1 1000V Al low resistance coupon from 3-16-15 65 C 50% humidity
         filenamelocation = rootdir+'Data_DH_port1_65_65_1000V_port2_85_85_1000V_3_16_15_combined.csv'
@@ -106,7 +106,7 @@ for n in range(26,27):
     elif n==19:    
         # 19 DH port 2 1000V Al coupon from 3-27-15 85 C 50% humidity
         filenamelocation = rootdir+'Data_DH_1000V_port2_85_50_1000V_3-27-15.csv'
-        parameters = [2, 1, 0.00266, 0.00437, 0.00437, 0.005, 0.5, 1, -1000, 'DH 85_50_-1000V', 18, 31, 'Data_DH_1000V_port2_85_50_1000V_3-27-15', 85, 2]
+        parameters = [2, 1, 0.00266, 0.00437, 0.00437, 0.005, 0.5, 1, -1000, 'DH 85_50_-1000V', 5, 31, 'Data_DH_1000V_port2_85_50_1000V_3-27-15', 85, 5]
     elif n==20:    
         # 20 DH port 3 100V Al coupon from 3-27-15 85 C 50% humidity
         filenamelocation = rootdir+'Data_DH_100V_port3_85_50_100V_3-27-15.csv'
@@ -155,6 +155,14 @@ for n in range(26,27):
         # 31 Submerged switching polarities
         filenamelocation = rootdir+'#31_Data_Sub_Port3_SwitchingPolarities_4-7-15.csv'
         parameters = [3, 2, .05, 0.066, .005, 0.005, 0.1, 1, -1000, 'Submerged_Switching_Polarities', 0, 2, '#31_Data_Sub_Port3_SwitchingPolarities_4-7-15', 25, 1]
+    elif n==32:    
+        # 32 DH 85/85 front defect 100V from 5/1/15, leads swapped +V entire experiment in faraday cage defect 4.75 mm x 2.8 mm
+        filenamelocation = rootdir+'DH#32_85_85_100V_Faraday_port1.csv'
+        parameters = [1, 2, .0028, 0.066, .00475, 0.00475, 0.1, 1, -100, '100V 85-85', 5, 35, 'DH#32_85_85_100V_Faraday_port1_5_1_15', 85, 5]
+    elif n==33:    
+        # 14 DH expt from 11-20-14 port 1 temperature 2 1000V
+        filenamelocation = rootdir+'Data_Port1Temp2_DHAl_1000V_Port2Temp1_Cu_Aq_1000V_Port3Temp3Al_100Vimage_from_11_20_14.csv'
+        parameters = [1, 2, 0.0033, 0.003, 0.00475, 0.005, 0.1, 1, -1000, 'DampHeat', 5, 70, '85_85Data_Port1Temp2_DHAl_1000V_Port2Temp1_Cu_Aq_1000V_Port3Temp3Al_100Vimage_from_11_20_14', 85, 5]
 
 
 # parameters = [0 port, 1 thermocouple, 2 length corrosion(L1), 3 length not corrosion (L2), 
@@ -327,7 +335,7 @@ for n in range(26,27):
     counter2 = 0 
     
     for i in range(0,len(AverageResSeed[:,0])-1):
-        if AverageResSeed[i,3] < 1 and AverageResSeed[i,3] > 0:
+        if AverageResSeed[i,3] < 0.02 and AverageResSeed[i,3] > 0:
             AverageRes[counter2,:] = AverageResSeed[i,:]
             counter2 = counter2+1
 
@@ -458,10 +466,10 @@ for n in range(26,27):
     Current_slope_output[n,1] = parameters[11]
 #    totaljoulesall[n,2] = totaljoules/(parameters[11]-parameters[10])
 #    totaljoulesall[n,3] = sum(hvlist[:,34])/(hvlinestop-hvlinestart)
-    Current_slope_output[n,4] = (sum(abs(hvlist[hvlinestart:hvlinestop,currentcolumn])))/(hvlinestop-hvlinestart)
+    Current_slope_output[n,4] = (sum(abs(hvlist[hvlinestart:hvlinestop,currentcolumn])))/(hvlinestop-hvlinestart)*1e9 #average current in nA
     Current_slope_output[n,5] = regression[0]
     Current_slope_output[n,6] = regression2[0]    
-    Current_slope_output[n,7] = sum(AverageRes[parameters[10]:parameters[11],11])/(parameters[11]-parameters[10])
+    Current_slope_output[n,7] = sum(AverageRes[parameters[10]:parameters[11],11])/(parameters[11]-parameters[10])*1e6 #average loss of Al per hr um/hr
     Current_slope_output[n,8] = AverageResLen
     Current_slope_output[n,9] = regression3[0]*1000000
     Current_slope_output[n,10] = regression3[1]*1000000
