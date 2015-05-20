@@ -22,7 +22,7 @@ import bisect
 #initiate list for storing total joules in each linear portion for each experiment
 Current_slope_output = numpy.zeros((100,15))
 
-for n in range(32,41):
+for n in range(44,46):
     rootdir= 'C:\\Users\\khan\\Documents\\GitHub\\AlCorrosionDataCSVFiles\\ACLData\\'
     # parameters = [0 port, 1 thermocouple, 2 length corrosion(L1), 3 length not corrosion (L2), 
     #4 width corrosion (d2), 5 width foil (d), 6 portion pitted, 7 pitting aspect ratio, 8 voltage,
@@ -60,35 +60,35 @@ for n in range(32,41):
         filenamelocation = rootdir+'Data_85_85_port2addr25bottom_currentmeasurement_medcat_smallan_with_defect.csv'
         parameters = [2, 2, .05, 0.066, .005, 0.005, 0.1, 1, 1000, '19 mm cathode 19 mm anode with bubble', 300, 2700, 'Data_85_85_port2addr25bottom_currentmeasurement_medcat_smallan_with_defect', 85, 1]
     elif n==38:    
-        # 38 331 Coupons for testing leakage current 51 mm cathode 151 mm anode no bubble 85/85 5/9/15 *must re-do, had a short!*
+        # 38 331 Coupons for testing leakage current 51 mm cathode 151 mm anode no bubble 85/85  *must re-do*!
         filenamelocation = rootdir+'Data_85_85_port2addr25bottom_currentmeasurement_largecat_largean_no_defect.csv'
-        parameters = [2, 2, .05, 0.066, .005, 0.005, 0.1, 1, 1000, '19 mm cathode 151 mm anode no bubble', 50, 150, 'Data_85_85_port2addr25bottom_currentmeasurement_largecat_largean_no_defect', 85, 1]
+        parameters = [2, 2, .05, 0.066, .005, 0.005, 0.1, 1, 1000, '19 mm cathode 151 mm anode no bubble', 200, 2000, 'Data_85_85_port2addr25bottom_currentmeasurement_largecat_largean_no_defect', 85, 1]
     elif n==39:    
         # 39 122 Coupons for testing leakage current 5 mm cathode 51 mm anode with bubble 85/85 5/11/15
         filenamelocation = rootdir+'Data_85_85_port2addr25bottom_currentmeasurement_smallcat_medan_with_defect.csv'
-        parameters = [2, 2, .05, 0.066, .005, 0.005, 0.1, 1, 1000, '5 mm cathode 51 mm anode with bubble', 10, 15, 'Data_85_85_port2addr25bottom_currentmeasurement_smallcat_medan_with_defect', 85, 1]
+        parameters = [2, 2, .05, 0.066, .005, 0.005, 0.1, 1, 1000, '5 mm cathode 51 mm anode with bubble', 300, 3000, 'Data_85_85_port2addr25bottom_currentmeasurement_smallcat_medan_with_defect', 85, 1]
     elif n==40:    
         # 40 311 Coupons for testing leakage current 51 mm cathode 19 mm anode with bubble 85/85 5/12/15
         filenamelocation = rootdir+'Data_85_85_port2addr25bottom_currentmeasurement_largecat_smallan_no_defect.csv'
-        parameters = [2, 2, .05, 0.066, .005, 0.005, 0.1, 1, 1000, '51 mm cathode 19 mm anode no bubble', 10, 15, 'Data_85_85_port2addr25bottom_currentmeasurement_largecat_smallan_no_defect', 85, 1]
+        parameters = [2, 2, .05, 0.066, .005, 0.005, 0.1, 1, 1000, '51 mm cathode 19 mm anode no bubble', 300, 3000, 'Data_85_85_port2addr25bottom_currentmeasurement_largecat_smallan_no_defect', 85, 1]
     elif n==41:    
-        # 41 312 Coupons for testing leakage current 19 mm cathode 51 mm anode with bubble 85/85 
+        # 41 312 Coupons for testing leakage current 19 mm cathode 51 mm anode with bubble 85/85 5/13/15
         filenamelocation = rootdir+'Data_85_85_port2addr25bottom_currentmeasurement_largecat_smallan_with_defect.csv'
-        parameters = [2, 2, .05, 0.066, .005, 0.005, 0.1, 1, 1000, '51 mm cathode 19 mm anode with bubble', 10, 15, 'Data_85_85_port2addr25bottom_currentmeasurement_largecat_smallan_with_defect', 85, 1]
+        parameters = [2, 2, .05, 0.066, .005, 0.005, 0.1, 1, 1000, '51 mm cathode 19 mm anode with bubble', 300, 3000, 'Data_85_85_port2addr25bottom_currentmeasurement_largecat_smallan_with_defect', 85, 1]
     elif n==42:    
-        # 42 121 Coupons for testing leakage current 5 mm cathode 51 mm anode no bubble 85/85 
+        # 42 121 Coupons for testing leakage current 5 mm cathode 51 mm anode no bubble 85/85 5/14/15
         filenamelocation = rootdir+'Data_85_85_port2addr25bottom_currentmeasurement_smallcat_medan_no_defect.csv'
-        parameters = [2, 2, .05, 0.066, .005, 0.005, 0.1, 1, 1000, '5 mm cathode 51 mm anode no bubble', 10, 15, 'Data_85_85_port2addr25bottom_currentmeasurement_smallcat_medan_no_defect', 85, 1]
+        parameters = [2, 2, .05, 0.066, .005, 0.005, 0.1, 1, 1000, '5 mm cathode 51 mm anode no bubble', 300, 3000, 'Data_85_85_port2addr25bottom_currentmeasurement_smallcat_medan_no_defect', 85, 1]
     elif n==43:    
-        # 43 321 Coupons for testing leakage current 51 mm cathode 51 mm anode no bubble 85/85 
+        # 43 321 Coupons for testing leakage current 51 mm cathode 51 mm anode no bubble 85/85 5/17/15
         filenamelocation = rootdir+'Data_85_85_port2addr25bottom_currentmeasurement_largecat_medan_no_defect.csv'
-        parameters = [2, 2, .05, 0.066, .005, 0.005, 0.1, 1, 1000, '51 mm cathode 51 mm anode no bubble', 10, 15, 'Data_85_85_port2addr25bottom_currentmeasurement_largecat_medan_no_defect', 85, 1]
+        parameters = [2, 2, .05, 0.066, .005, 0.005, 0.1, 1, 1000, '51 mm cathode 51 mm anode no bubble', 300, 3000, 'Data_85_85_port2addr25bottom_currentmeasurement_largecat_medan_no_defect', 85, 1]
     elif n==44:    
-        # 44 232 Coupons for testing leakage current 19 mm cathode 151 mm anode with bubble 85/85 
+        # 44 232 Coupons for testing leakage current 19 mm cathode 151 mm anode with bubble 85/85 5/18/15
         filenamelocation = rootdir+'Data_85_85_port2addr25bottom_currentmeasurement_medcat_largean_with_defect.csv'
-        parameters = [2, 2, .05, 0.066, .005, 0.005, 0.1, 1, 1000, '19 mm cathode 151 mm anode with bubble', 10, 15, 'Data_85_85_port2addr25bottom_currentmeasurement_medcat_largean_with_defect', 85, 1]
+        parameters = [2, 2, .05, 0.066, .005, 0.005, 0.1, 1, 1000, '19 mm cathode 151 mm anode with bubble', 200, 1800, 'Data_85_85_port2addr25bottom_currentmeasurement_medcat_largean_with_defect', 85, 1]
     elif n==45:    
-        # 45 132 Coupons for testing leakage current 5 mm cathode 151 mm anode with bubble 85/85 
+        # 45 132 Coupons for testing leakage current 5 mm cathode 151 mm anode with bubble 85/85  5/19/15
         filenamelocation = rootdir+'Data_85_85_port2addr25bottom_currentmeasurement_smallcat_largean_with_defect.csv'
         parameters = [2, 2, .05, 0.066, .005, 0.005, 0.1, 1, 1000, '5 mm cathode 151 mm anode with bubble', 10, 15, 'Data_85_85_port2addr25bottom_currentmeasurement_smallcat_largean_with_defect', 85, 1]
     elif n==46:    
@@ -107,6 +107,10 @@ for n in range(32,41):
         # 49 131 Coupons for testing leakage current 5 mm cathode 151 mm anode no bubble 85/85 
         filenamelocation = rootdir+'Data_85_85_port2addr25bottom_currentmeasurement_smallcat_largean_no_defect.csv'
         parameters = [2, 2, .05, 0.066, .005, 0.005, 0.1, 1, 1000, '5 mm cathode 151 mm anode no bubble', 10, 15, 'Data_85_85_port2addr25bottom_currentmeasurement_smallcat_largean_no_defect', 85, 1]
+    elif n==50:    
+        # 50 5 mm cathode 19 mm anode with defect also with cosmetic tape 85/85 5/15/15 
+        filenamelocation = rootdir+'Data_85_85_port2addr25bottom_currentmeasurement_smallcat_smallan_with_defect_with_cosmetic_tape.csv'
+        parameters = [2, 2, .05, 0.066, .005, 0.005, 0.1, 1, 1000, '5 mm cathode 151 mm anode no bubble', 400, 4000, 'Data_85_85_port2addr25bottom_currentmeasurement_smallcat_smallan_with_defect_with_cosmetic_tape', 85, 1]
 
 #notice that in this file parameters[10] and parameters[11] are the start and stop line numbers for the current average
 
@@ -495,11 +499,11 @@ for n in range(32,41):
     xlabel('Time (hrs)',**font)
 #    plt.xlim([0,90])
 #    title(r'Change in Calculated Resistance',**font)
-    title(str(n)+'_'+parameters[12]+parameters[9]+'Port_'+str(parameters[0])+'Current', **title_font)
+    title(str(n)+'_'+parameters[12]+parameters[9]+'Port_'+str(parameters[0])+'Leakage Current Expt', **title_font)
     #plt.legend(['Calculated', 'Measured'], loc='upper left')
     titlecurrent = filenamelocation.split
 #    savefig(filenamelocation.split('.csv')[0]+'_#'+str(n)+'_'+parameters[9]+'Port_'+str(parameters[0])+'Current.png')
-    savefig(rootdir+'Current\\'+'#'+str(n)+'_'+str(parameters[8])+'V_'+parameters[9]+'Port_'+str(parameters[0])+str(parameters[12])+'Current.png')
+    savefig(rootdir+'Current\\'+'#'+str(n)+'_'+str(parameters[8])+'V_'+parameters[9]+'Port_'+str(parameters[0])+str(parameters[12])+'LeakageCurrentExpt.png')
 
 #    plt.show()
     
