@@ -20,7 +20,9 @@ import bisect
 #import pandas as pd
 
 #initiate list for storing total joules in each linear portion for each experiment
-Current_slope_output = numpy.zeros((100,15))
+Current_slope_output = numpy.zeros((100,20))
+Save_output_data = 0 # Use a 0 to not save and a 1 to save
+
 
 for n in range(32,33):
     rootdir= 'C:\\Users\\khan\\Documents\\GitHub\\AlCorrosionDataCSVFiles\\ACLData\\'
@@ -98,11 +100,11 @@ for n in range(32,33):
     elif n==17:    
         # 17 DH port 1 1000V Al low resistance coupon from 3-16-15 65 C 50% humidity
         filenamelocation = rootdir+'Data_DH_port1_65_65_1000V_port2_85_85_1000V_3_16_15_combined.csv'
-        parameters = [1, 1, 0.0043, 0.0032, 0.0047, 0.005, 0.5, 1, -1000, 'DH 65_50_-1000V', 3, 290, 'Data_DH_port1_65_65_1000V_port2_85_85_1000V_3_16_15_combined', 65, 2]
+        parameters = [1, 1, 0.0043, 0.0032, 0.0047, 0.005, 0.5, 1, -1000, 'DH 65_50_-1000V', 3, 150, 'Data_DH_port1_65_65_1000V_port2_85_85_1000V_3_16_15_combined', 65, 2]
     elif n==18:    
         # 18 DH port 2 1000V Al coupon from 3-16-15 85 C 50% humidity
         filenamelocation = rootdir+'Data_DH_port1_65_65_1000V_port2_85_85_1000V_3_16_15-85_combined.csv'
-        parameters = [2, 1, 0.00266, 0.00437, 0.00437, 0.005, 0.5, 1, -1000, 'DH 85_50_-1000V', 47, 92, 'Data_DH_port1_65_65_1000V_port2_85_85_1000V_3_16_15-85_combined', 85, 2]
+        parameters = [2, 1, 0.00266, 0.00437, 0.00437, 0.005, 0.5, 1, -1000, 'DH 85_50_-1000V', 47, 89, 'Data_DH_port1_65_65_1000V_port2_85_85_1000V_3_16_15-85_combined', 85, 2]
     elif n==19:    
         # 19 DH port 2 1000V Al coupon from 3-27-15 85 C 50% humidity
         filenamelocation = rootdir+'Data_DH_1000V_port2_85_50_1000V_3-27-15.csv'
@@ -130,7 +132,7 @@ for n in range(32,33):
     elif n==25:    
         # 25 Damp Heat Al low resistance coupon 65/50 from 3/16/15  port 1
         filenamelocation = rootdir+'Data_DH_port1_#25_65_50_1000V_3_16_15_combined.csv'
-        parameters = [1, 2, 0.0043, 0.08, 0.00323, 0.00474, 0.1, 1, -1000, 'DH_65_50', 50, 75, 'Data_DH_port1_#25_65_50_1000V_3_16_15_combined', 65, 10]
+        parameters = [1, 2, 0.0043, 0.08, 0.00323, 0.00474, 0.1, 1, -1000, 'DH_65_50', 10, 175, 'Data_DH_port1_#25_65_50_1000V_3_16_15_combined', 65, 10]
     elif n==26:    
         # 26 Damp Heat Al coupon 85/50 from 3/27/15 -1000V port 2
         filenamelocation = rootdir+'Data_DH_port2_#26_85_50_1000V_port3_#27_85_50_1000V_3_27_15_combined.csv'
@@ -158,7 +160,7 @@ for n in range(32,33):
     elif n==32:    
         # 32 DH 85/85 front defect 100V from 5/1/15, leads swapped +V entire experiment in faraday cage defect 4.75 mm x 2.8 mm
         filenamelocation = rootdir+'DH#32_85_85_100V_Faraday_port1.csv'
-        parameters = [1, 2, .0028, 0.066, .00475, 0.00475, 0.1, 1, -100, '100V 85-85', 5, 35, 'DH#32_85_85_100V_Faraday_port1_5_1_15', 85, 5]
+        parameters = [1, 2, .0028, 0.066, .00475, 0.00475, 0.1, 1, -100, '100V 85-85', 5, 10, 'DH#32_85_85_100V_Faraday_port1_5_1_15', 85, 5]
     elif n==33:    
         # 14 DH expt from 11-20-14 port 1 temperature 2 1000V
         filenamelocation = rootdir+'Data_Port1Temp2_DHAl_1000V_Port2Temp1_Cu_Aq_1000V_Port3Temp3Al_100Vimage_from_11_20_14.csv'
@@ -289,8 +291,8 @@ for n in range(32,33):
 #    timethreshold = 360
     Restime = 0
 #    AverageRes = numpy.zeros((len(lvlist_length),numbercolumns))
-    AverageResSeed = numpy.zeros((40*parameters[11],numbercolumns))
-    AverageRes = numpy.zeros((10*parameters[11],numbercolumns))
+    AverageResSeed = numpy.zeros((len(lvlist_length),numbercolumns))
+    AverageRes = numpy.zeros((len(lvlist_length),numbercolumns))
     counter1 = 0
  
 #   group and average resistance measurements
@@ -473,7 +475,8 @@ for n in range(32,33):
     Current_slope_output[n,8] = AverageResLen
     Current_slope_output[n,9] = regression3[0]*1000000
     Current_slope_output[n,10] = regression3[1]*1000000
-    
+    Current_slope_output[n,11] = AverageRes[parameters[10], 2]
+    Current_slope_output[n,12] = AverageRes[parameters[11], 2]   
     totaljoules = 0
     
     
@@ -491,7 +494,7 @@ for n in range(32,33):
     plt.plot(hvlist[0:-1,33],hvlist[0:-1,34]*(-100), 'g', linewidth=3.0)
     #plt.plot(lvlist[:,33],lvlist[:,34]*1000,'g')
     ylabel('Resistance (m-ohms)',**font)
-    plt.ylim([10,30])
+    plt.ylim([10,50])
     #plt.xlim([0,10])
     xlabel('Time (hrs)',**font)
     title(str(n)+'_'+parameters[12]+parameters[9]+'Port_'+str(parameters[0])+'Resistance', **title_font)
@@ -569,5 +572,8 @@ for n in range(32,33):
     
 DataFile.close()
 timestamp = time.time()
-first_time_seconds = str(math.floor(timestamp))    
-numpy.savetxt('C:\\Users\\khan\\Documents\\GitHub\\AlCorrosionDataCSVFiles\\ACLData\\OutputDataFiles\\'+first_time_seconds+'_'+str(i)+'.txt',Current_slope_output)
+first_time_seconds = str(math.floor(timestamp)) 
+if Save_output_data ==1:
+    numpy.savetxt('C:\\Users\\khan\\Documents\\GitHub\\AlCorrosionDataCSVFiles\\ACLData\\OutputDataFiles\\'+first_time_seconds+'_'+str(i)+'.txt',Current_slope_output)
+else:
+    print 'output not saved'
