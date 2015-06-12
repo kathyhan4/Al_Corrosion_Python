@@ -32,21 +32,26 @@ TimeNow = str(math.floor(time.time()))
 AverageTemperature = 30 #deg C
 
 # Model Information from JMP
-InterceptParam = 10.942797106
-InterceptParamLower95 = -9.884327143
-InterceptParamUpper95 = 31.769921355
+InterceptParam = -4.909
+InterceptParamLower95 = -6.25034
+InterceptParamUpper95 = -3.56916
 VoltageParam = 0
 TemperatureParam = 0#0.0515
-HumidityParam = 0.0185805437
-HumidityParamLower95 = -0.017184639
-HumidityParamUpper95 = 0.0543457264
+HumidityParam = 0
+HumidityParamLower95 = 0
+HumidityParamUpper95 = 0
 AverageCurrentParam = 0
 VoltageTemperratureParam = 0
 TemperatureHumidityParam = 0
-InverseTempParam = -5388.111245
-InverseTempParamLower95 = -12637.1441
-InverseTempParamUpper95 = 1860.9216147
-lnAbsAParam = 0
+# Note that the inverse temperature parameter has a negative result on the rate of reaction compared to current and humidity
+# so make sure to use the absolute lower of the 95% confidence interval numbers as the "upper 95%" and the 
+# higher number (less negative or higher positive) as the lower 95% value
+InverseTempParam = 0
+InverseTempParamLower95 = 0
+InverseTempParamUpper95 = 0
+lnAbsAParam = 0.43965
+lnAbsAParamLower95 = 0.12144
+lnAbsAParamUpper95 = 0.75786
 lnpH2OParam = 0
 
 ModelArray=numpy.zeros((TimePoints,20))
@@ -77,11 +82,11 @@ ModelArrayUpper95[0,4] = 20 # Temperature, deg C
 day = 0
 
 for n in range(1,len(ModelArray)):
-    ModelArray[n,0] = n # timepoint
+    ModelArray[n,0] = n # timepoint in hours
     ModelArray[n,1] = -1000 * math.sin(ModelArray[n,0]*math.pi/12) # Voltage
     if ModelArray[n,1] > 0:
         ModelArray[n,1] = 0
-    ModelArray[n,2] = 20* math.sin(ModelArray[n,0]*math.pi/12) # Current - need to change this to A/m^2 eventually
+    ModelArray[n,2] = 20* math.sin(ModelArray[n,0]*math.pi/12-math.pi) # Current - need to change this to A/m^2 eventually
     if ModelArray[n,2] > 0:
         ModelArray[n,2] = -1e-15
     if ModelArray[n,2] == 0:
@@ -90,10 +95,12 @@ for n in range(1,len(ModelArray)):
 #        ModelArray[n,2] = -1e-15
     ModelArray[n,3] = 50 # % relative humidity
     ModelArray[n,4] = AverageTemperature + 20 * math.sin(ModelArray[n,0]*math.pi/12) # Temperature, deg C
+    
     ModelArray[n,5] = -exp((InterceptParam + ModelArray[n,1] * VoltageParam + ModelArray[n,2] * AverageCurrentParam + \
     ModelArray[n,3] * HumidityParam + ModelArray[n,4] * TemperatureParam +\
     InverseTempParam / (ModelArray[n,4]+273.15) + \
     (math.log(-1*ModelArray[n,2])) * lnAbsAParam)) # Al thickness change in m/hr
+    
     ModelArray[n,6] = ModelArray[n,0] * TimeStep / 60 /24/365 # in years
     randomnumber = random.randrange(0, 1000, 1)
     if randomnumber < 50:
@@ -115,10 +122,12 @@ for n in range(1,len(ModelArrayLower95)):
 #        ModelArray[n,2] = -1e-15
     ModelArrayLower95[n,3] = 50 # % relative humidity
     ModelArrayLower95[n,4] = AverageTemperature + 20 * math.sin(ModelArrayLower95[n,0]*math.pi/12) # Temperature, deg C
+    
     ModelArrayLower95[n,5] = -exp((InterceptParamLower95 + ModelArrayLower95[n,1] * VoltageParam + ModelArrayLower95[n,2] * AverageCurrentParam + \
     ModelArrayLower95[n,3] * HumidityParamLower95 + ModelArrayLower95[n,4] * TemperatureParam +\
     InverseTempParamLower95 / (ModelArrayLower95[n,4]+273.15) + \
-    (math.log(-1*ModelArrayLower95[n,2])) * lnAbsAParam)) # Al thickness change in m/hr
+    (math.log(-1*ModelArrayLower95[n,2])) * lnAbsAParamLower95)) # Al thickness change in m/hr
+    
     ModelArrayLower95[n,6] = ModelArrayLower95[n,0] * TimeStep / 60 /24/365 # in years
     randomnumber = random.randrange(0, 1000, 1)
     if randomnumber < 50:
@@ -140,11 +149,14 @@ for n in range(1,len(ModelArrayUpper95)):
 #        ModelArray[n,2] = -1e-15
     ModelArrayUpper95[n,3] = 50 # % relative humidity
     ModelArrayUpper95[n,4] = AverageTemperature + 20 * math.sin(ModelArrayUpper95[n,0]*math.pi/12) # Temperature, deg C
+    
     ModelArrayUpper95[n,5] = -exp((InterceptParamUpper95 + ModelArrayUpper95[n,1] * VoltageParam + ModelArrayUpper95[n,2] * AverageCurrentParam + \
     ModelArrayUpper95[n,3] * HumidityParamUpper95 + ModelArrayUpper95[n,4] * TemperatureParam +\
     InverseTempParamUpper95 / (ModelArrayUpper95[n,4]+273.15) + \
-    (math.log(-1*ModelArrayUpper95[n,2])) * lnAbsAParam)) # Al thickness change in m/hr
+    (math.log(-1*ModelArrayUpper95[n,2])) * lnAbsAParamUpper95)) # Al thickness change in m/hr
+    
     ModelArrayUpper95[n,6] = ModelArrayUpper95[n,0] * TimeStep / 60 /24/365 # in years
+    # Random number generator determines if it is raining during this time period.  
     randomnumber = random.randrange(0, 1000, 1)
     if randomnumber < 50:
         ModelArrayUpper95[n,7] = ModelArrayUpper95[n-1,7] + ModelArrayUpper95[n,5] / 60 * TimeStep #final thickness of Al

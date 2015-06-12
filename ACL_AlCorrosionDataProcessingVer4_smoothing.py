@@ -24,7 +24,7 @@ Current_slope_output = numpy.zeros((100,20))
 Save_output_data = 1 # Use a 0 to not save and a 1 to save
 
 
-for n in range(32,33):
+for n in range(34,37):
     rootdir= 'C:\\Users\\khan\\Documents\\GitHub\\AlCorrosionDataCSVFiles\\ACLData\\'
     # parameters = [0 port, 1 thermocouple, 2 length corrosion(L1), 3 length not corrosion (L2), 
     #4 width corrosion (d2), 5 width foil (d), 6 portion pitted, 7 pitting aspect ratio, 8 voltage,
@@ -160,12 +160,28 @@ for n in range(32,33):
         parameters = [3, 2, .05, 0.066, .005, 0.005, 0.1, 1, -1000, 'Submerged_Switching_Polarities', 0, 1, '#31_Data_Sub_Port3_SwitchingPolarities_4-7-15', 25, 1, 4e-5]
     elif n==32:    
         # 32 DH 85/85 front defect 100V from 5/1/15, leads swapped +V entire experiment in faraday cage defect 4.75 mm x 2.8 mm
-        filenamelocation = rootdir+'DH#32_85_85_100V_Faraday_port1.csv'
+        filenamelocation = rootdir+'DH#32_85_85_100V_Faraday_port1_DH4_5_1_15.csv'
         parameters = [1, 2, .0028, 0.066, .00475, 0.00475, 0.1, 1, -100, '100V 85-85', 25, 270, 'DH#32_85_85_100V_Faraday_port1_5_1_15', 85, 5, 2e-5]
     elif n==33:    
         # 14 DH expt from 11-20-14 port 1 temperature 2 1000V
         filenamelocation = rootdir+'Data_Port1Temp2_DHAl_1000V_Port2Temp1_Cu_Aq_1000V_Port3Temp3Al_100Vimage_from_11_20_14.csv'
         parameters = [1, 2, 0.0033, 0.003, 0.00475, 0.005, 0.1, 1, -1000, 'DampHeat', 5, 70, '85_85Data_Port1Temp2_DHAl_1000V_Port2Temp1_Cu_Aq_1000V_Port3Temp3Al_100Vimage_from_11_20_14', 85, 5, 2e-5]
+    elif n==34:    
+        # 34 DH expt from 5/15/15 85/85 backside defect 1000V addr 26 port 1 DH7
+        filenamelocation = rootdir+'Data#34_DH7_5_15_15_85_85_backside_defect_1000V_addr26port1.csv'
+        parameters = [1, 2, 0.004, 0.004, 0.005, 0.005, 0.1, 1, -1000, 'DampHeat Backside 1000V', 5, 230, 'Data#34_DH7_5_15_15_85_85_backside_defect_1000V_addr26port1', 85, 5, 2e-5]
+    elif n==35:    
+        # 35 DH expt from 5-27-15 port 3 100V normal coupon 85/85 addr 24
+        filenamelocation = rootdir+'Data#35_DH7_85_85_Port3_100V_5_27_15.csv'
+        parameters = [3, 2, 0.0022, 0.0022, 0.0053, 0.005, 0.1, 1, -100, 'DampHeat 100V', 5, 60, 'Data#35_DH7_85_85_Port3_100V_5_27_15', 85, 5, 2e-5]
+    elif n==36:    
+        # 35 DH expt from 5-27-15 port 3 100V normal coupon 85/85 addr 24
+        filenamelocation = rootdir+'Data#35_DH7_85_85_Port3_100V_5_27_15_2.csv'
+        parameters = [3, 2, 0.0022, 0.0022, 0.0053, 0.005, 0.1, 1, -100, 'DampHeat 100V', 5, 25, 'Data#35_DH7_85_85_Port3_100V_5_27_15_2', 85, 5, 2e-5]
+    elif n==37:    
+        # 37 DH expt from 5-20-15 port 2 1000V Al dogbone painted N no primer coupon 85/85 DH4
+        filenamelocation = rootdir+'Data#37_DH4_85_85_Port2_1000V_5_20_15_AlDogbone_N_no_primer.csv'
+        parameters = [2, 2, 0.002, 0.002, 0.002, 0.005, 0.1, 1, -1000, 'DampHeat 1000V', 5, 52, 'Data#37_DH4_85_85_Port2_1000V_5_20_15_AlDogbone_N_no_primer', 85, 5, 2e-5]
 
 
 # parameters = [0 port, 1 thermocouple, 2 length corrosion(L1), 3 length not corrosion (L2), 
@@ -503,15 +519,15 @@ for n in range(32,33):
     figure(num=None, figsize=(12, 8), dpi=480, facecolor='w', edgecolor='k')
     #plt.plot(hvlistcropped[0:-2,33],hvlistcropped[0:-2,32])
     plt.plot(lvlist[:,33],lvlist[:,MeasResColumn]*1000,'ro')
-    plt.plot(AverageRes[parameters[10]:parameters[11],2],AverageRes[parameters[10]:parameters[11],4], 'b', linewidth=3.0)
-    plt.plot(hvlist[0:-1,33],hvlist[0:-1,34]*(-100), 'g', linewidth=3.0)
+#    plt.plot(AverageRes[parameters[10]:parameters[11],2],AverageRes[parameters[10]:parameters[11],4], 'b', linewidth=3.0)
+#    plt.plot(hvlist[0:-1,33],hvlist[0:-1,34]*(-100), 'g', linewidth=3.0)
     #plt.plot(lvlist[:,33],lvlist[:,34]*1000,'g')
     ylabel('Resistance (m-ohms)',**font)
     plt.ylim([10,60])
     #plt.xlim([0,10])
     xlabel('Time (hrs)',**font)
     title(str(n)+'_'+parameters[12]+parameters[9]+'Port_'+str(parameters[0])+'Resistance', **title_font)
-    plt.legend(['Measured', 'Linear '+'y='+'%.5f' % regression[0]+'x+'+'%.5f' % regression[1]], loc='upper left')
+#    plt.legend(['Measured', 'Linear '+'y='+'%.5f' % regression[0]+'x+'+'%.5f' % regression[1]], loc='upper left')
 #    savefig(filenamelocation.split('.csv')[0]+'_#'+str(n)+'_'+parameters[9]+'Port_'+str(parameters[0])+'.png')
     savefig(rootdir+'Resistance\\'+'#'+str(n)+'_'+str(parameters[8])+'V_'+parameters[9]+'Port_'+str(parameters[0])+str(parameters[12])+'Resistance.png')
 
@@ -528,7 +544,7 @@ for n in range(32,33):
 #    plt.xlim([10,90])
     xlabel('Time (hrs)',**font)
     title(str(n)+'_'+parameters[12]+parameters[9]+'Port_'+str(parameters[0])+'Resistance_Adjusted_temperature', **title_font)
-#    plt.legend(['Measured Resistance','Remaining Thickness Calculated (um)', 'Remaining Thickness Regression (um)'], loc='upper left') ADD ME BACK IN LATER 4-22-15
+    plt.legend(['Measured Resistance','Remaining Thickness Calculated (um)', 'Remaining Thickness Regression (um)'], loc='upper left') #ADD ME BACK IN LATER 4-22-15
 #    savefig(filenamelocation.split('.csv')[0]+'_#'+str(n)+'_'+parameters[9]+'Port_'+str(parameters[0])+'.png')
     savefig(rootdir+'Adjusted Resistance\\'+'#'+str(n)+'_'+str(parameters[8])+'V_'+parameters[9]+'Port_'+str(parameters[0])+str(parameters[12])+'Resistance_adjusted_temp_area.png')
 
