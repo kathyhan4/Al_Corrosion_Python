@@ -21,10 +21,12 @@ import bisect
 
 #initiate list for storing total joules in each linear portion for each experiment
 Current_slope_output = numpy.zeros((100,20))
-Save_output_data = 1 # Use a 0 to not save and a 1 to save
+Al_loss_comparison = numpy.zeros((20000,100))
+Save_output_data = 0 # Use a 0 to not save and a 1 to save
 
 
-for n in range(6,38):
+#for n in range(29,40):
+for n in (29,39):
     rootdir= 'C:\\Users\\khan\\Documents\\GitHub\\AlCorrosionDataCSVFiles\\ACLData\\'
     # parameters = [0 port, 1 thermocouple, 2 length corrosion(L1), 3 length not corrosion (L2), 
     #4 width corrosion (d2), 5 width foil (d), 6 portion pitted, 7 pitting aspect ratio, 8 voltage,
@@ -137,7 +139,7 @@ for n in range(6,38):
     elif n==26:    
         # 26 Damp Heat Al coupon 85/50 from 3/27/15 -1000V port 2
         filenamelocation = rootdir+'Data_DH_port2_#26_85_50_1000V_port3_#27_85_50_1000V_3_27_15_combined.csv'
-        parameters = [2, 2, 0.00205, 0.08, 0.0045, 0.0045, 0.1, 1, -1000, 'DH_85_50', 300, 750, 'Data_DH_port2_#26_85_50_1000V_port3_#27_85_50_1000V_3_27_15_combined', 85, 300, 1e-5]
+        parameters = [2, 2, 0.00205, 0.08, 0.0045, 0.0045, 0.1, 1, -1000, 'DH_85_50', 10, 890, 'Data_DH_port2_#26_85_50_1000V_port3_#27_85_50_1000V_3_27_15_combined', 85, 10, 1e-5]
     elif n==27:    
         # 27 Damp Heat Al coupon 85/50 from 3/27/15 -100V then on 4/1/15 switched to -1000V port 3
         filenamelocation = rootdir+'Data_DH_port2_#26_85_50_1000V_port3_#27_85_50_1000V_3_27_15_combined.csv'
@@ -181,7 +183,16 @@ for n in range(6,38):
     elif n==37:    
         # 37 DH expt from 5-20-15 port 2 1000V Al dogbone painted N no primer coupon 85/85 DH4
         filenamelocation = rootdir+'Data#37_DH4_85_85_Port2_1000V_5_20_15_AlDogbone_N_no_primer.csv'
-        parameters = [2, 2, 0.002, 0.002, 0.002, 0.005, 0.1, 1, -1000, 'DampHeat 1000V', 111, 430, 'Data#37_DH4_85_85_Port2_1000V_5_20_15_AlDogbone_N_no_primer', 85, 5, 10e-5]
+        parameters = [2, 2, 0.002, 0.002, 0.002, 0.005, 0.1, 1, -1000, 'DampHeat 1000V', 200, 430, 'Data#37_DH4_85_85_Port2_1000V_5_20_15_AlDogbone_N_no_primer', 85, 0, 10e-5]
+    elif n==38:    
+        # 38 Furnace, no humnidity expt from 6-19-15 port 3 100V Al foil strip frontside defect was #35 in DH for 500 hrs before furnace 85C always 100V bias
+        filenamelocation = rootdir+'Furnace_port3_couponfromDH7_port3_100V_now1000V_85C_0%RH.csv'
+        parameters = [3, 2, 0.0022, 0.0022, 0.0053, 0.005, 0.1, 1, -100, '0%RH 100V', 5, 117, 'Furnace_port3_couponfromDH7_port3_100V_now1000V_85C_0%RH', 85, 5, 1e-5]
+    elif n==39:    
+        # 37 DH expt from 5-20-15 port 2 1000V Al dogbone painted N no primer coupon 85/85 DH4
+        filenamelocation = rootdir+'Data#37_DH4_85_85_Port2_1000V_5_20_15_AlDogbone_N_no_primer_cropped.csv'
+        parameters = [2, 2, 0.002, 0.002, 0.002, 0.005, 0.1, 1, -1000, 'DampHeat 1000V Al dogbone N no primer', 10, 170, 'Data#37_DH4_85_85_Port2_1000V_5_20_15_AlDogbone_N_no_primer', 85, 5, 0.5e-5]
+
 
 
 # parameters = [0 port, 1 thermocouple, 2 length corrosion(L1), 3 length not corrosion (L2), 
@@ -297,7 +308,7 @@ for n in range(6,38):
     
     for i in range(len(lvlist)-1):
        lvlist[i,21] = lvlist[i,20] - lvlist[i-1,20] # difference in time points
-       lvlist[i,36] = lvlist[i,MeasResColumn]*parameters[4]/((1+alpha*(parameters[13]-20))*parameters[2])
+#       lvlist[i,36] = lvlist[i,MeasResColumn]*parameters[4]/((1+alpha*(parameters[13]-20))*parameters[2]) #outdated, do not use
        
     lvlist[0,21] = 1
        
@@ -315,28 +326,27 @@ for n in range(6,38):
 #   group and average resistance measurements
     for i in range(0,len(lvlist)-1):
         Rsum = Rsum + lvlist[i,MeasResColumn]
-        Rsum2 = Rsum2 + lvlist[i,36] #to average R*w/L/temp adjust
+#        Rsum2 = Rsum2 + lvlist[i,36] #to average R*w/L/temp adjust
         Rsumlength = Rsumlength + 1
         Restime = Restime + lvlist[i,20]
         if lvlist[i,21] > timethreshold: #for large gaps in time, report the average of the last batch of resistances
             AverageResSeed[counter1,1] = Rsum / Rsumlength
             AverageResSeed[counter1,0] = Restime / Rsumlength
-            AverageResSeed[counter1,5] = Rsum2 / Rsumlength
-            AverageResSeed[counter1,8] = parameters[13]
-            AverageResSeed[counter1,9] = AverageResSeed[counter1,1]/(1+alpha*(AverageResSeed[counter1,8]-20))            
+#            AverageResSeed[counter1,5] = Rsum2 / Rsumlength #Average resistance for this hour/timepoint already corrected for temperature and *w/L 
+            AverageResSeed[counter1,8] = parameters[13] #temperature of experiment
+            AverageResSeed[counter1,9] = AverageResSeed[counter1,1]/(1+alpha*(AverageResSeed[counter1,8]-20)) #back calculate resistance to 20C for calculation of thickness remaining           
             Rsum = 0
             Rsum2 = 0
             Rsumlength = 0
             Restime = 0
             counter1 = counter1 + 1
-    AverageRes[parameters[14],10] = 37 #um of initial foil thickness
+    AverageRes[parameters[14],10] = 0.000037 #um of initial foil thickness
             
-    if n == 26:
-        for i in range(220,633):
-            AverageResSeed[i,1]=AverageResSeed[i,1]-0.00474 # to offset some extra resistance in measurement (oxide under alligator clips?) for some of the time
-        AverageRes[parameters[14],10] = 36 #because expt #26 has 150 hrs of bad data at the beginning
+#    if n == 26:
+##        for i in range(220,633):
+##            AverageResSeed[i,1]=AverageResSeed[i,1]-0.00474 # to offset some extra resistance in measurement (oxide under alligator clips?) for some of the time
+#        AverageRes[parameters[14],10] = 36 #because expt #26 has 150 hrs of bad data at the beginning
 
-    
 #    for i in range(len(data)):
 #        date = data[i][0]
 #        time2 = data[i][1]
@@ -347,22 +357,14 @@ for n in range(6,38):
     
     #----------------------This is where we smooth the data-----------------------------
     # Smooth out issues of connectors getting moved or readjusted by deleting step changes in the resistance
-    AverageResSeed[0,13] = AverageResSeed[0,1]   
-    adjustment1 = 0
-    for i in range(1,len(AverageRes[:,0])-1):
-        AverageResSeed[i,12] = AverageResSeed[i,1]-AverageResSeed[i-1,1]
-        if abs(AverageResSeed[i,12]) > parameters[15]:
-            adjustment1 = adjustment1 + AverageResSeed[i,12]
-        else:
-            adjustment1 = adjustment1
-        AverageResSeed[i,13] = AverageResSeed[i,1]-adjustment1
+
 
 
         
     for i in range(1,len(AverageRes[:,0])-1):
         AverageResSeed[i,2] = (AverageResSeed[i,0] - AverageResSeed[0,0])/3600 #time in hours since start
-        AverageResSeed[i,3] = ((AverageResSeed[i,13] - AverageResSeed[i-1,13])/(AverageResSeed[i,2] - AverageResSeed[i-1,2]))*1000 #change in m-ohm per hour
-        AverageResSeed[i,6] = ((AverageResSeed[i,5] - AverageResSeed[i-1,5])/(AverageResSeed[i,2] - AverageResSeed[i-1,2]))*1000 #change adjusted for temp and corrosion area
+        AverageResSeed[i,3] = ((AverageResSeed[i,1] - AverageResSeed[i-1,1])/(AverageResSeed[i,2] - AverageResSeed[i-1,2]))*1000 #change in m-ohm per hour
+        AverageResSeed[i,6] = ((AverageResSeed[i,5] - AverageResSeed[i-1,5])/(AverageResSeed[i,2] - AverageResSeed[i-1,2]))*1000 #change adjusted for temp and corrosion area in m-ohm
 
     vectorx = numpy.zeros(12)  
     counter2 = 0 
@@ -372,33 +374,47 @@ for n in range(6,38):
         if AverageResSeed[i,3] < 1 and AverageResSeed[i,3] > -0.0020:
             AverageRes[counter2,:] = AverageResSeed[i,:]
             counter2 = counter2+1
-
-#    adjustment2 = 0
-#    if n == 5:
-#        for i in range(1,len(AverageRes[:,0])-1):
-#            AverageRes[i,15] = AverageRes[i,1]-AverageRes[i-1,1]
-#            if abs(AverageResSeed[i,15]) > parameters[15]:
-#                adjustment2 = adjustment2 + AverageResSeed[i,15]
-#            else:
-#                adjustment2 = adjustment2
-#            AverageResSeed[i,13] = AverageResSeed[i,1]-adjustment2
-
+            
+    AverageRes[0,13] = AverageRes[0,1]   
+    
+    adjustment1 = 0
+    for i in range(1,len(AverageRes[:,0])-1):
+        AverageRes[i,12] = AverageRes[i,1]-AverageRes[i-1,1]
+        if abs(AverageRes[i,12]) > parameters[15]:
+            adjustment1 = adjustment1 + AverageRes[i,12]
+        else:
+            adjustment1 = adjustment1
+        AverageRes[i,13] = AverageRes[i,1]-adjustment1
+        
+        
     if n == 15:
         for i in range(44,90):
             AverageRes[i,2]=AverageRes[i,2]-35.4 # to fix for time when voltage not on
-            
-            
-    AverageRes[parameters[14],10] = 0.000037 #um of initial foil thickness
+                        
+    AverageRes[parameters[14],10] = 1e6 * 0.000037 #um of initial foil thickness
+    if n == 37:
+        AverageRes[parameters[14],10] = 1e6 * 0.000127 #because it starts out at dogbone thickness
+    if n == 39:
+        AverageRes[parameters[14],10] = 1e6 * 0.000127 #because it starts out at dogbone thickness
+    if n == 37:
+        h0 = 0.000127 #because it starts out at dogbone thickness
+    if n == 39:
+        h0 = 0.000127 #because it starts out at dogbone thickness  
             
     if n == 26:
-        AverageRes[parameters[14],10] = 0.000032 #because expt #26 has 150 hrs of bad data at the beginning
+        AverageRes[parameters[14],10] = 1e6 * 0.000032 #because expt #26 has 150 hrs of bad data at the beginning
     if n == 20:
-        AverageRes[parameters[14],10] = 0.000030 #because expt #26 has 150 hrs of bad data at the beginning            
-
+        AverageRes[parameters[14],10] = 1e6 * 0.000030 #because expt #26 has 150 hrs of bad data at the beginning            
+    
+    Current_slope_output[n,14] = h0*(AverageRes[parameters[14]-1,13]*\
+    parameters[4]/rhoAl/(1+alphaAl*(float(parameters[13])-float(20))-parameters[2]/AverageRes[parameters[14],10]/1e6))
+    #Saves the length of non-corroded Al for calculation later
     
     for i in range(parameters[14]+1,len(AverageRes[:,0])-1):
-        AverageRes[i,10] = 1/(((AverageRes[i,13]-AverageRes[i-1,13])*parameters[4]/rhoAl/parameters[2])+1/AverageRes[i-1,10]) #remaining thickness
-        AverageRes[i,11] = (AverageRes[i,10]-AverageRes[i-1,10])/(AverageRes[i,2]-AverageRes[i-1,2]) #change in thickness over time
+#        AverageRes[i,10] = 1/(((AverageRes[i,13]-AverageRes[i-1,13])*parameters[4]/rhoAl/parameters[2])+1/AverageRes[i-1,10]) #remaining thickness
+        AverageRes[i,10] = float(1000000) * parameters[2]/((AverageRes[i,13]*parameters[4]/rhoAl)*\
+        (1/(1+alphaAl*(float(parameters[13])-float(20)))-Current_slope_output[n,14]/h0)) #remaining thickness  in um
+        AverageRes[i,11] = (AverageRes[i,10]-AverageRes[i-1,10])/(AverageRes[i,2]-AverageRes[i-1,2]) #change in thickness over time in um/hr
         
     AverageResLen = 0
     
@@ -431,32 +447,32 @@ for n in range(6,38):
     #print numpy.shape(numarray)
     
     for i in range(0,1):
-       hvlist[i,21] = abs(hvlist[i,4]) # absolute value of current
+       hvlist[i,21] = abs(hvlist[i,MeasCurColumn]) # absolute value of current
        hvlist[i,22] = hvlist[i,21] * secondsperpoint # coulombs that have been transferred over the timepoint
-       hvlist[i,23] = hvlist[i,22] #this will give an error so make it not do the first row somehow
+       hvlist[i,23] = hvlist[i,22] #this will give an error so make it not do the first row 
        hvlist[i,24] = hvlist[i,23] * ElecCoulomb # number of electrons transferred total, cummulative over time
        hvlist[i,25] = hvlist[i,24] / OxidationState # number of aluminum atoms removed from cathode
        hvlist[i,26] = hvlist[i,25] / NA # moles of aluminum atoms removed
        hvlist[i,27] = hvlist[i,26] * MWAl # mass of aluminum removed
        hvlist[i,28] = hvlist[i,27] / densityAl #volume of aluminum removed in cc
-       hvlist[i,29] = hvlist[i,27]/(parameters[2]*100*parameters[4]*100) # Thickness lost in defect area if every electron contributed 1:1 to corrosion cm
-       hvlist[i,30] = h0 *1e6 - hvlist[i,29]*1e4
+       hvlist[i,29] = hvlist[i,27]/1e6/(parameters[2]*parameters[4]) # Thickness lost in defect area if every electron contributed 1:1 to corrosion in um
+       hvlist[i,30] = h0 *1e6 - hvlist[i,29] #remaining thicknes in um if every electron contributed to corrosion 3 electrons for one aluminum ion
        #h0 - 0.01*(hvlist[i,28]*Portion1/(d*100*L1*100*Area1)) # remaining thickness in m in area1 corrosion area is Parameters[2]*Parameters[4]
 #       hvlist[i,30] = h0 - 0.01*(hvlist[i,28]*Portion2/(d*100*L1*100*Area2)) # remaining thickness in m in area2
 #       hvlist[i,31] = h0 - 0.01*(hvlist[i,28]*Portion3/(d*100*L1*100*Area3)) # remaining thickness in m in area3
 #       hvlist[i,32] = (rhoAl * (L1*Area1/hvlist[i,29]/d+L1*Area2/hvlist[i,30]/d+L1*Area3/hvlist[i,31]/d+L2/h0/d) *(1+alphaAl*(parameters[13]-20)))*1000 #calculated resistance in m-ohms 
        
     for i in range(1,len(hvlist)-1):
-       hvlist[i,21] = abs(hvlist[i,4]) # absolute value of current
-       hvlist[i,22] = hvlist[i,21] * (hvlist[i,20]-hvlist[i-1,20]) # coulombs that have been transferred over the timepoint
+       hvlist[i,21] = abs(hvlist[i,MeasCurColumn]) # absolute value of current in Amps
+       hvlist[i,22] = hvlist[i,21] * (hvlist[i,20]-hvlist[i-1,20]) # coulombs that have been transferred over the timepoint A-sec or Coulombs over the time point
        hvlist[i,23] = hvlist[i-1,23] + hvlist[i,22] # cumulative transfer of coulombs
-       hvlist[i,24] = hvlist[i,23] * ElecCoulomb # number of electrons transferred total, cummulative over time
-       hvlist[i,25] = hvlist[i,24] / OxidationState # number of aluminum atoms removed from cathode
-       hvlist[i,26] = hvlist[i,25] / NA # moles of aluminum atoms removed
-       hvlist[i,27] = hvlist[i,26] * MWAl # mass of aluminum removed
-       hvlist[i,28] = hvlist[i,27] / densityAl #volume of aluminum removed cc
-       hvlist[i,29] = hvlist[i,27]/(parameters[2]*100*parameters[4]*100) # Cumulative thickness lost in cm in defect area if every electron contributed 1:1 to corrosion
-       hvlist[i,30] = h0 *1e6 - hvlist[i,29]*1e4
+       hvlist[i,24] = hvlist[i,23] * ElecCoulomb # number of electrons transferred total, cummulative cumulative
+       hvlist[i,25] = hvlist[i,24] / OxidationState # number of aluminum atoms removed from cathode cumulative
+       hvlist[i,26] = hvlist[i,25] / NA # moles of aluminum atoms removed cumulative
+       hvlist[i,27] = hvlist[i,26] * MWAl # mass of aluminum removed cumulative
+       hvlist[i,28] = hvlist[i,27] / densityAl #volume of aluminum removed cc cumulative
+       hvlist[i,29] = hvlist[i,27]/1e6/(parameters[2]*parameters[4])*1e6 # Thickness lost in defect area if every electron contributed 1:1 to corrosion in um
+       hvlist[i,30] = h0 *1e6 - hvlist[i,29] #remaining thicknes in um if every electron contributed to corrosion 3 electrons for one aluminum ion
        #       hvlist[i,29] = h0 - 0.01*(hvlist[i,28]*Portion1/(d*100*L1*100*Area1)) # remaining thickness in m in area1
 #       hvlist[i,30] = h0 - 0.01*(hvlist[i,28]*Portion2/(d*100*L1*100*Area2)) # remaining thickness in m in area2
 #       hvlist[i,31] = h0 - 0.01*(hvlist[i,28]*Portion3/(d*100*L1*100*Area3)) # remaining thickness in m in area3
@@ -512,7 +528,9 @@ for n in range(6,38):
         AverageRes[i,7] = AverageRes[i,2]*regression2[0]+regression2[1]
         AverageRes[i,12] = AverageRes[i,2]*regression3[0]+regression3[1]
         AverageRes[i,14] = AverageRes[i,2]*regression4[0]+regression4[1]
-
+        
+    for i in range(parameters[14],AverageResLen):
+        AverageRes[i,15] = (AverageRes[parameters[14],10]-AverageRes[i,10])*1000000 #cumulative Al loss in um
 
         
 #    Add up current over time to get total joules per time point
@@ -537,13 +555,17 @@ for n in range(6,38):
     Current_slope_output[n,6] = regression2[0]    
     Current_slope_output[n,7] = sum(AverageRes[parameters[10]:parameters[11],11])/(parameters[11]-parameters[10])*1e6 #average loss of Al per hr um/hr
     Current_slope_output[n,8] = AverageResLen
-    Current_slope_output[n,9] = regression3[0]*1000000
+    Current_slope_output[n,9] = regression3[0]*1000000 #slope of regression line for average rate of Al loss in um/hr USE THIS IN MODEL
     Current_slope_output[n,10] = regression3[1]*1000000
     Current_slope_output[n,11] = AverageRes[parameters[10], 2]
     Current_slope_output[n,12] = AverageRes[parameters[11], 2]   
-    Current_slope_output[n,13] = Current_slope_output[n,4] / (parameters[2]*parameters[4]/100)*1e-6#current density in nA/cm^2
+    Current_slope_output[n,13] = Current_slope_output[n,4] / (parameters[2]*parameters[4]/100)*1e-6#current density in nA/cm^2 USE THIS IN MODEL
     totaljoules = 0
+
     
+    for i in range(parameters[14],AverageResLen):
+        Al_loss_comparison[i,n] = AverageRes[i,2]
+        Al_loss_comparison[i,n+50] = AverageRes[i,15]
     
     font = {'family' : 'normal',
             'weight' : 'bold',
@@ -552,92 +574,116 @@ for n in range(6,38):
               'verticalalignment':'bottom'} # Bottom vertical alignment for more space
     matplotlib.rc('font', **font)
     
-#    figure(num=None, figsize=(12, 8), dpi=480, facecolor='w', edgecolor='k')
-#    #plt.plot(hvlistcropped[0:-2,33],hvlistcropped[0:-2,32])
-#    plt.plot(lvlist[:,33],lvlist[:,MeasResColumn]*1000,'ro')
-##    plt.plot(AverageRes[parameters[10]:parameters[11],2],AverageRes[parameters[10]:parameters[11],4], 'b', linewidth=3.0)
-##    plt.plot(hvlist[0:-1,33],hvlist[0:-1,34]*(-100), 'g', linewidth=3.0)
-#    #plt.plot(lvlist[:,33],lvlist[:,34]*1000,'g')
-#    ylabel('Resistance (m-ohms)',**font)
-#    plt.ylim([0,600])
-#    #plt.xlim([0,10])
-#    xlabel('Time (hrs)',**font)
-#    title(str(n)+'_'+parameters[12]+parameters[9]+'Port_'+str(parameters[0])+'Resistance', **title_font)
-##    plt.legend(['Measured', 'Linear '+'y='+'%.5f' % regression[0]+'x+'+'%.5f' % regression[1]], loc='upper left')
-##    savefig(filenamelocation.split('.csv')[0]+'_#'+str(n)+'_'+parameters[9]+'Port_'+str(parameters[0])+'.png')
-#    savefig(rootdir+'Resistance\\'+'#'+str(n)+'_'+str(parameters[8])+'V_'+parameters[9]+'Port_'+str(parameters[0])+str(parameters[12])+'Resistance.png')
-#
-#    figure(num=None, figsize=(12, 8), dpi=480, facecolor='w', edgecolor='k')
-#    #plt.plot(hvlistcropped[0:-2,33],hvlistcropped[0:-2,32])
-#    plt.plot(AverageRes[parameters[14]:AverageResLen-1,2],AverageRes[parameters[14]:AverageResLen-1,13]*1000,'ro') #ADD ME BACK IN LATER 4-22-15
-##    plt.plot(AverageRes[parameters[14]:AverageResLen-1,2],AverageRes[parameters[14]:AverageResLen-1,9]*1000, 'g', linewidth=3.0)
-#    plt.plot(AverageRes[parameters[14]:AverageResLen-1,2],AverageRes[parameters[14]:AverageResLen-1,10]*1000000, 'ko', linewidth=3.0)
-#    plt.plot(AverageRes[parameters[10]:parameters[11],2],AverageRes[parameters[10]:parameters[11],12]*1000000, 'k', linewidth=3.0)
-##    plt.plot(AverageRes[1:parameters[11],2],AverageRes[1:parameters[11],14], 'g', linewidth=3.0)#    plt.plot(hvlist[0:-1,33],hvlist[0:-1,34]*(-20), 'g', linewidth=3.0)
-#    #plt.plot(lvlist[:,33],lvlist[:,34]*1000,'g')
-#    ylabel('Adjusted (temp) Resistance (m-ohms) and Remaining Al Thickness (um)',**font)
-#    plt.ylim([0,60])
-##    plt.xlim([0,500])
-#    xlabel('Time (hrs)',**font)
-#    title(str(n)+'_'+parameters[12]+parameters[9]+'Port_'+str(parameters[0])+'Resistance_Adjusted_temperature', **title_font)
-#    plt.legend(['Measured Resistance','Remaining Thickness Calculated (um)', 'Remaining Thickness Regression (um)'], loc='upper left') #ADD ME BACK IN LATER 4-22-15
-##    savefig(filenamelocation.split('.csv')[0]+'_#'+str(n)+'_'+parameters[9]+'Port_'+str(parameters[0])+'.png')
-#    savefig(rootdir+'Adjusted Resistance\\'+'#'+str(n)+'_'+str(parameters[8])+'V_'+parameters[9]+'Port_'+str(parameters[0])+str(parameters[12])+'Resistance_adjusted_temp_area.png')
-#
-#
-##    plt.show()
-#    
-#    
-##    figure(num=None, figsize=(12, 8), dpi=480, facecolor='w', edgecolor='k')   
-##    plt.plot(hvlist[0:-1,33],hvlist[0:-1,Temperaturecolumn],'b')
-###    plt.plot(hvlist[0:-1,33],abs(hvlist[0:-1,MeasCurColumn]),'k')
-##    ylabel('Temperature (C))',**font)
-###    plt.yscale('log')
-##    #plt.ylim([0,5])
-###    plt.xlim([0,5])
-##    xlabel('Time (hrs)',**font)
-###    title(r'Change in Calculated Resistance',**font)
-##    title(str(n)+'_'+parameters[12]+parameters[9]+'Port_'+str(parameters[0])+'Temperature', **title_font)
-##    #plt.legend(['Calculated', 'Measured'], loc='upper left')
-##    titlecurrent = filenamelocation.split
-##    savefig(filenamelocation.split('.csv')[0]+'_#'+str(n)+'_'+parameters[9]+'Port_'+str(parameters[0])+'Temperature.png')
-##    plt.show()
-#    
-#    
-#    figure(num=None, figsize=(12, 8), dpi=480, facecolor='w', edgecolor='k')
-#    plt.plot(AverageRes[0:AverageResLen,2],AverageRes[0:AverageResLen,3],'g')
-#    ylabel('Resistance Change (m-ohms/hr)',**font)
-#    #plt.ylim([0,5])
-#    #plt.xlim([0,10])
-#    xlabel('Time (hrs)',**font)
-#    title(str(n)+'_'+parameters[12]+parameters[9]+'Port_'+str(parameters[0])+'Change in Resistance', **title_font)
-#    #plt.legend(['Calculated', 'Measured'], loc='upper left')
-##    savefig(filenamelocation.split('.csv')[0]+'_#'+str(n)+'_'+parameters[9]+'Port_'+str(parameters[0])+'ResistanceChange.png')
-#    savefig(rootdir+'Resistance Change\\'+'#'+str(n)+'_'+str(parameters[8])+'V_'+parameters[9]+'Port_'+str(parameters[0])+str(parameters[12])+'Resistance_Change.png')
-#
-##    plt.show()
-#    
-#    figure(num=None, figsize=(12, 8), dpi=480, facecolor='w', edgecolor='k')   
-#    plt.plot(hvlist[0:-1,33],abs(hvlist[0:-1,MeasCurColumn])*1e9,'k')
-##    plt.plot(hvlist[0:-1,33],abs(hvlist[0:-1,MeasCurColumn]),'k')
-#    ylabel('Current (nA))',**font)
-##    plt.yscale('log')
-##    plt.ylim([-0.5e3,0])
-##    plt.xlim([0,0.3])
-#    xlabel('Time (hrs)',**font)
-##    plt.xlim([0,90])
-##    title(r'Change in Calculated Resistance',**font)
-#    title(str(n)+'_'+parameters[12]+parameters[9]+'Port_'+str(parameters[0])+'Current', **title_font)
-#    #plt.legend(['Calculated', 'Measured'], loc='upper left')
-#    titlecurrent = filenamelocation.split
-##    savefig(filenamelocation.split('.csv')[0]+'_#'+str(n)+'_'+parameters[9]+'Port_'+str(parameters[0])+'Current.png')
-#    savefig(rootdir+'Current\\'+'#'+str(n)+'_'+str(parameters[8])+'V_'+parameters[9]+'Port_'+str(parameters[0])+str(parameters[12])+'Current.png')
+    figure(num=None, figsize=(12, 8), dpi=480, facecolor='w', edgecolor='k')
+    #plt.plot(hvlistcropped[0:-2,33],hvlistcropped[0:-2,32])
+    plt.plot(lvlist[:,33],lvlist[:,MeasResColumn]*1000,'ro')
+#    plt.plot(AverageRes[parameters[10]:parameters[11],2],AverageRes[parameters[10]:parameters[11],4], 'b', linewidth=3.0)
+#    plt.plot(hvlist[0:-1,33],hvlist[0:-1,34]*(-100), 'g', linewidth=3.0)
+    #plt.plot(lvlist[:,33],lvlist[:,34]*1000,'g')
+    ylabel('Resistance (m-ohms)',**font)
+    plt.ylim([0,150])
+    #plt.xlim([0,10])
+    xlabel('Time (hrs)',**font)
+    title(str(n)+'_'+parameters[12]+parameters[9]+'Port_'+str(parameters[0])+'Resistance', **title_font)
+#    plt.legend(['Measured', 'Linear '+'y='+'%.5f' % regression[0]+'x+'+'%.5f' % regression[1]], loc='upper left')
+#    savefig(filenamelocation.split('.csv')[0]+'_#'+str(n)+'_'+parameters[9]+'Port_'+str(parameters[0])+'.png')
+    savefig(rootdir+'Resistance\\'+'#'+str(n)+'_'+str(parameters[8])+'V_'+parameters[9]+'Port_'+str(parameters[0])+str(parameters[12])+'Resistance.png')
+
+    figure(num=None, figsize=(12, 8), dpi=480, facecolor='w', edgecolor='k')
+    #plt.plot(hvlistcropped[0:-2,33],hvlistcropped[0:-2,32])
+    plt.plot(AverageRes[parameters[14]:AverageResLen-1,2],AverageRes[parameters[14]:AverageResLen-1,13]*1000,'ro') #ADD ME BACK IN LATER 4-22-15
+#    plt.plot(AverageRes[parameters[14]:AverageResLen-1,2],AverageRes[parameters[14]:AverageResLen-1,9]*1000, 'g', linewidth=3.0)
+    plt.plot(AverageRes[parameters[14]:AverageResLen-1,2],AverageRes[parameters[14]:AverageResLen-1,10]*1000000, 'ko', linewidth=3.0)
+    plt.plot(AverageRes[parameters[10]:parameters[11],2],AverageRes[parameters[10]:parameters[11],12]*1000000, 'k', linewidth=3.0)
+#    plt.plot(AverageRes[1:parameters[11],2],AverageRes[1:parameters[11],14], 'g', linewidth=3.0)#    plt.plot(hvlist[0:-1,33],hvlist[0:-1,34]*(-20), 'g', linewidth=3.0)
+    #plt.plot(lvlist[:,33],lvlist[:,34]*1000,'g')
+    ylabel('Adjusted (temp) Resistance (m-ohms) and Remaining Al Thickness (um)',**font)
+    plt.ylim([0,160])
+#    plt.xlim([0,500])
+    xlabel('Time (hrs)',**font)
+    title(str(n)+'_'+parameters[12]+parameters[9]+'Port_'+str(parameters[0])+'Resistance_Adjusted_temperature', **title_font)
+    plt.legend(['Measured Resistance','Remaining Thickness Calculated (um)', 'Remaining Thickness Regression (um)'], loc='upper left') #ADD ME BACK IN LATER 4-22-15
+#    savefig(filenamelocation.split('.csv')[0]+'_#'+str(n)+'_'+parameters[9]+'Port_'+str(parameters[0])+'.png')
+    savefig(rootdir+'Adjusted Resistance\\'+'#'+str(n)+'_'+str(parameters[8])+'V_'+parameters[9]+'Port_'+str(parameters[0])+str(parameters[12])+'Resistance_adjusted_temp_area.png')
+
 
 #    plt.show()
     
+    
+#    figure(num=None, figsize=(12, 8), dpi=480, facecolor='w', edgecolor='k')   
+#    plt.plot(hvlist[0:-1,33],hvlist[0:-1,Temperaturecolumn],'b')
+##    plt.plot(hvlist[0:-1,33],abs(hvlist[0:-1,MeasCurColumn]),'k')
+#    ylabel('Temperature (C))',**font)
+##    plt.yscale('log')
+#    #plt.ylim([0,5])
+##    plt.xlim([0,5])
+#    xlabel('Time (hrs)',**font)
+##    title(r'Change in Calculated Resistance',**font)
+#    title(str(n)+'_'+parameters[12]+parameters[9]+'Port_'+str(parameters[0])+'Temperature', **title_font)
+#    #plt.legend(['Calculated', 'Measured'], loc='upper left')
+#    titlecurrent = filenamelocation.split
+#    savefig(filenamelocation.split('.csv')[0]+'_#'+str(n)+'_'+parameters[9]+'Port_'+str(parameters[0])+'Temperature.png')
+#    plt.show()
+    
+    
+    figure(num=None, figsize=(12, 8), dpi=480, facecolor='w', edgecolor='k')
+    plt.plot(AverageRes[0:AverageResLen,2],AverageRes[0:AverageResLen,3],'g')
+    ylabel('Resistance Change (m-ohms/hr)',**font)
+    #plt.ylim([0,5])
+    #plt.xlim([0,10])
+    xlabel('Time (hrs)',**font)
+    title(str(n)+'_'+parameters[12]+parameters[9]+'Port_'+str(parameters[0])+'Change in Resistance', **title_font)
+    #plt.legend(['Calculated', 'Measured'], loc='upper left')
+#    savefig(filenamelocation.split('.csv')[0]+'_#'+str(n)+'_'+parameters[9]+'Port_'+str(parameters[0])+'ResistanceChange.png')
+    savefig(rootdir+'Resistance Change\\'+'#'+str(n)+'_'+str(parameters[8])+'V_'+parameters[9]+'Port_'+str(parameters[0])+str(parameters[12])+'Resistance_Change.png')
+
+#    plt.show()
+    
+    figure(num=None, figsize=(12, 8), dpi=480, facecolor='w', edgecolor='k')   
+    plt.plot(hvlist[0:-1,33],abs(hvlist[0:-1,MeasCurColumn])*1e9,'k')
+#    plt.plot(hvlist[0:-1,33],abs(hvlist[0:-1,MeasCurColumn]),'k')
+    ylabel('Current (nA))',**font)
+#    plt.yscale('log')
+#    plt.ylim([-0.5e3,0])
+#    plt.xlim([0,0.3])
+    xlabel('Time (hrs)',**font)
+#    plt.xlim([0,90])
+#    title(r'Change in Calculated Resistance',**font)
+    title(str(n)+'_'+parameters[12]+parameters[9]+'Port_'+str(parameters[0])+'Current', **title_font)
+    #plt.legend(['Calculated', 'Measured'], loc='upper left')
+    titlecurrent = filenamelocation.split
+#    savefig(filenamelocation.split('.csv')[0]+'_#'+str(n)+'_'+parameters[9]+'Port_'+str(parameters[0])+'Current.png')
+    savefig(rootdir+'Current\\'+'#'+str(n)+'_'+str(parameters[8])+'V_'+parameters[9]+'Port_'+str(parameters[0])+str(parameters[12])+'Current.png')
+
+    plt.show()
+
 DataFile.close()
 timestamp = time.time()
 first_time_seconds = str(math.floor(timestamp)) 
+
+font = {'family' : 'normal',
+        'weight' : 'bold',
+        'size'   : 22}
+title_font = {'fontname':'Arial', 'size':'12', 'color':'black', 'weight':'normal',
+          'verticalalignment':'bottom'} # Bottom vertical alignment for more space
+matplotlib.rc('font', **font)
+
+figure(num=None, figsize=(12, 8), dpi=480, facecolor='w', edgecolor='k') 
+plt.plot(Al_loss_comparison[parameters[14]+2:Current_slope_output[30,8],30],Al_loss_comparison[parameters[14]+2:Current_slope_output[30,8],80],'k')  
+plt.plot(Al_loss_comparison[parameters[14]+2:Current_slope_output[29,8],29],Al_loss_comparison[parameters[14]+2:Current_slope_output[29,8],79],'b')
+plt.plot(Al_loss_comparison[parameters[14]+2:Current_slope_output[39,8],39],Al_loss_comparison[parameters[14]+2:Current_slope_output[39,8],89],'r')
+ylabel('Loss of Al Thickness (um)',**font)
+plt.ylim([-2,12])
+xlabel('Time (hrs)',**font)
+#    plt.xlim([0,90])
+title(str(n)+'_'+parameters[12]+parameters[9]+'Port_'+str(parameters[0])+'Al_loss', **title_font)
+plt.legend(['Encapsulated', 'With Void','N no primer Al Dogbone'], loc='upper left')
+titlecurrent = filenamelocation.split
+savefig(rootdir+first_time_seconds+'AlLoss.png')
+
+plt.show()
+    
+
 
 if Save_output_data ==1:
     numpy.savetxt('C:\\Users\\khan\\Documents\\GitHub\\AlCorrosionDataCSVFiles\\ACLData\\OutputDataFiles\\'+first_time_seconds+'_'+str(i)+'.txt',Current_slope_output)
