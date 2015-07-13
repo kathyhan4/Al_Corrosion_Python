@@ -21,12 +21,12 @@ import bisect
 
 #initiate list for storing total joules in each linear portion for each experiment
 Current_slope_output = numpy.zeros((100,20))
-Al_loss_comparison = numpy.zeros((20000,100))
-Save_output_data = 0 # Use a 0 to not save and a 1 to save
+Al_loss_comparison = numpy.zeros((20000,200))
+Save_output_data = 1 # Use a 0 to not save and a 1 to save
 
 
-#for n in range(29,40):
-for n in (29,39):
+for n in range(26,27):
+#for n in (29,30,39):
     rootdir= 'C:\\Users\\khan\\Documents\\GitHub\\AlCorrosionDataCSVFiles\\ACLData\\'
     # parameters = [0 port, 1 thermocouple, 2 length corrosion(L1), 3 length not corrosion (L2), 
     #4 width corrosion (d2), 5 width foil (d), 6 portion pitted, 7 pitting aspect ratio, 8 voltage,
@@ -40,54 +40,54 @@ for n in (29,39):
         # 1 ACL port 1 1000V Al coupon from 1-15-15
         filenamelocation = rootdir+'Data_1_15_15_ACL_coupon_Al_1000V_port1.csv'
         parameters = [1, 1, 0.05, 0.06, 0.005, 0.005, 0.5, 1, -1000, 'ACL', 0, 1, 'Data_1_15_15_ACL_coupon_Al_1000V_port1', 121, 0, 2e-5]
-    elif n==2:    
-        # 2 ACL port 1 1000V Al coupon from 1-20-15
-        filenamelocation = rootdir+'Data_ACL_1_20_15_1000V_12hrs_110C_85percenthumidity_combined.csv'
-        parameters = [1, 1, 0.05, 0.06, 0.005, 0.005, 0.5, 1, -1000, 'ACL', 0, 3, 'Data_ACL_1_20_15_1000V_12hrs_110C_85percenthumidity', 110, 0, 2e-3]
-    elif n==3:    
-        # 3 ACL port 1 1000V Al coupon from 1-22-15
-        filenamelocation = rootdir+'Data_ACL_1_22_15_1000V_8and4hrs_110C_85percenthumidity.csv'
-        parameters = [1, 1, 0.05, 0.06, 0.005, 0.005, 0.5, 1, -1000, 'ACL', 0, 1, 'Data_ACL_1_22_15_1000V_8and4hrs_110C_85percenthumidity', 110, 0, 2e-5]
-    elif n==4:    
-        # 4 ACL port 1 1000V Al coupon from 1-23-15
-        filenamelocation = rootdir+'Data_ACL_1_23_15_1000V_60hrs_110C_85percenthumidity.csv'
-        parameters = [1, 1, 0.05, 0.06, 0.005, 0.005, 0.5, 1, -1000, 'ACL', 0, 1, 'Data_ACL_1_23_15_1000V_60hrs_110C_85percenthumidity', 110, 0, 2e-5]
-    elif n==5:    
-        # 5 ACL port 1 100V Al coupon from 1-27-15
-        filenamelocation = rootdir+'Data_ACL_1_27_15_100V_60hrs_110C_85percenthumidity.csv'
-        parameters = [1, 1, 0.0033, 0.03, 0.005, 0.005, 0.5, 1, -100, 'ACL', 1, 11, 'Data_ACL_1_27_15_100V_60hrs_110C_85percenthumidity', 110, 0, 2e-3]
+#    elif n==2:    
+#        # 2 ACL port 1 1000V Al coupon from 1-20-15
+#        filenamelocation = rootdir+'Data_ACL_1_20_15_1000V_12hrs_110C_85percenthumidity_combined.csv'
+#        parameters = [1, 1, 0.05, 0.06, 0.005, 0.005, 0.5, 1, -1000, 'ACL', 0, 3, 'Data_ACL_1_20_15_1000V_12hrs_110C_85percenthumidity', 110, 0, 2e-3]
+#    elif n==3:    
+#        # 3 ACL port 1 1000V Al coupon from 1-22-15
+#        filenamelocation = rootdir+'Data_ACL_1_22_15_1000V_8and4hrs_110C_85percenthumidity.csv'
+#        parameters = [1, 1, 0.05, 0.06, 0.005, 0.005, 0.5, 1, -1000, 'ACL', 0, 1, 'Data_ACL_1_22_15_1000V_8and4hrs_110C_85percenthumidity', 110, 0, 2e-5]
+#    elif n==4:    
+#        # 4 ACL port 1 1000V Al coupon from 1-23-15
+#        filenamelocation = rootdir+'Data_ACL_1_23_15_1000V_60hrs_110C_85percenthumidity.csv'
+#        parameters = [1, 1, 0.05, 0.06, 0.005, 0.005, 0.5, 1, -1000, 'ACL', 0, 1, 'Data_ACL_1_23_15_1000V_60hrs_110C_85percenthumidity', 110, 0, 2e-5]
+#    elif n==5:    
+#        # 5 ACL port 1 100V Al coupon from 1-27-15
+#        filenamelocation = rootdir+'Data_ACL_1_27_15_100V_60hrs_110C_85percenthumidity.csv'
+#        parameters = [1, 1, 0.0033, 0.03, 0.005, 0.005, 0.5, 1, -100, 'ACL', 1, 11, 'Data_ACL_1_27_15_100V_60hrs_110C_85percenthumidity', 110, 0, 2e-3]
     elif n==6:    
         # 6 ACL port 1 100V Al coupon from 1-27-15
         filenamelocation = rootdir+'Data_ACL_1_27_15_100V_60hrs_110C_85percenthumidity_cropped.csv'
-        parameters = [1, 1, 0.0033, 0.03, 0.005, 0.005, 0.5, 1, -100, 'ACL', 1, 9, 'Data_ACL_1_27_15_100V_60hrs_110C_85percenthumidity_cropped', 110, 1, 8e-5]
+        parameters = [1, 1, 0.0033, 0.03, 0.005, 0.005, 0.5, 1, -100, 'ACL', 1, 12, 'Data_ACL_1_27_15_100V_60hrs_110C_85percenthumidity_cropped', 110, 1, 8e-5]
     elif n==7:    
         # 7 ACL port 1 100V Al coupon from 2-2-15
         filenamelocation = rootdir+'Data_ACL_2_2_15_100V_96hrs_121C_100percenthumidity.csv'
-        parameters = [1, 1, 0.0027, 0.03, 0.0051, 0.005, 0.5, 1, -100, 'ACL', 20, 40, 'Data_ACL_2_2_15_100V_96hrs_121C_100percenthumidity', 121, 2, 2e-5]
+        parameters = [1, 1, 0.0027, 0.03, 0.0051, 0.005, 0.5, 1, -100, 'ACL', 20, 40, 'Data_ACL_2_2_15_100V_96hrs_121C_100percenthumidity', 121, 2, 4e-5]
     elif n==8:    
         # 8 ACL port 1 1000V Al coupon from 2-11-15
         filenamelocation = rootdir+'Data_ACL_2_11_15_1000V_96hrs_121C_100percenthumidityport1.csv'
-        parameters = [1, 1, 0.0034, 0.03, 0.0049, 0.005, 0.5, 1, -1000, 'ACL', 2, 105, 'Data_ACL_2_11_15_1000V_96hrs_121C_100percenthumidityport1', 121, 2, 2e-5]
+        parameters = [1, 1, 0.0034, 0.03, 0.0049, 0.005, 0.5, 1, -1000, 'ACL', 2, 65, 'Data_ACL_2_11_15_1000V_96hrs_121C_100percenthumidityport1', 121, 2, 2e-5]
     elif n==9:    
         # 9 ACL port 1 200V Al coupon from 2-9-15
         filenamelocation = rootdir+'Data_ACL_2_9_15_200V_44hrs_121C_100percenthumidityport1.csv'
-        parameters = [1, 1, 0.0037, 0.03, 0.0044, 0.005, 0.5, 1, -200, 'ACL', 2, 35, 'Data_ACL_2_9_15_200V_44hrs_121C_100percenthumidityport1', 121, 2, 2e-5]
+        parameters = [1, 1, 0.0037, 0.03, 0.0044, 0.005, 0.5, 1, -200, 'ACL', 2, 34, 'Data_ACL_2_9_15_200V_44hrs_121C_100percenthumidityport1', 121, 2, 2e-5]
     elif n==10:    
         # 10 ACL port 1 100V Al coupon from 2-6-15
         filenamelocation = rootdir+'Data_ACL_2_6_15_100V_60hrs_121C_100percenthumidityport1_port2BareAl_0V.csv'
-        parameters = [1, 1, 0.0024, 0.03, 0.0049, 0.005, 0.5, 1, -100, 'ACL', 5, 30, 'Data_ACL_2_6_15_100V_60hrs_121C_100percenthumidityport1_port2BareAl_0V', 121, 5, 0.5e-5]
+        parameters = [1, 1, 0.0024, 0.03, 0.0049, 0.005, 0.5, 1, -100, 'ACL', 5, 50, 'Data_ACL_2_6_15_100V_60hrs_121C_100percenthumidityport1_port2BareAl_0V', 121, 5, 0.5e-5]
     elif n==11:    
         # 11 ACL port 1 100V Al coupon from 2-17-15
         filenamelocation = rootdir+'Data_ACL_2_17_15_1000V_121C_100percenthumidityport1_same_sample_12_hr_121_85.csv'
         parameters = [1, 1, 0.0033, 0.03, 0.0049, 0.005, 0.5, 1, -100, 'ACL', 5, 20, 'Data_ACL_2_17_15_1000V_121C_100percenthumidityport1_same_sample_12_hr_121_85', 121, 5, 5e-5]
-    elif n==12:    
-        # 12 ACL port 1 300V Al coupon from 2-23-15
-        filenamelocation = rootdir+'Data_ACL_2_23_15_300V_110C_92percenthumidityport1_combined.csv'
-        parameters = [1, 1, 0.004, 0.03, 0.005, 0.005, 0.5, 1, -300, 'ACL', 0, 1, 'Data_ACL_2_23_15_300V_110C_92percenthumidityport1_combined', 110, 0, 5e-5]
+#    elif n==12:    
+#        # 12 ACL port 1 300V Al coupon from 2-23-15
+#        filenamelocation = rootdir+'Data_ACL_2_23_15_300V_110C_92percenthumidityport1_combined.csv'
+#        parameters = [1, 1, 0.004, 0.03, 0.005, 0.005, 0.5, 1, -300, 'ACL', 0, 1, 'Data_ACL_2_23_15_300V_110C_92percenthumidityport1_combined', 110, 0, 5e-5]
     elif n==13:    
         # 13 ACL port 1 1000V Al coupon from 2-27-15 121 C 60% humidity
         filenamelocation = rootdir+'Data_ACL_2_27_15_1000V_121C_60percenthumidityport1.csv'
-        parameters = [1, 1, 0.0033, 0.03, 0.0049, 0.005, 0.5, 1, -1000, 'ACL', 20, 34, 'Data_ACL_2_27_15_1000V_121C_60percenthumidityport1', 121,20, 5e-5]
+        parameters = [1, 1, 0.0033, 0.03, 0.0049, 0.005, 0.5, 1, -1000, 'ACL', 20, 50, 'Data_ACL_2_27_15_1000V_121C_60percenthumidityport1', 121,20, 5e-5]
     elif n==14:    
         # 14 ACL port 1 100V Al coupon from 3-3-15 121 C 85% humidity
         filenamelocation = rootdir+'Data_ACL_3_3_15_Port1_100V_Port2_1000V_121C_85percenthumidity.csv'
@@ -95,27 +95,27 @@ for n in (29,39):
     elif n==15:    
         # 15 ACL port 2 1000V Al coupon from 3-3-15 121 C 85% humidity
         filenamelocation = rootdir+'Data_ACL_3_3_15_Port1_100V_Port2_1000V_121C_85percenthumidity.csv'
-        parameters = [2, 1, 0.0033, 0.03, 0.0049, 0.005, 0.5, 1, -1000, 'ACL', 5, 80, 'Data_ACL_3_3_15_Port1_100V_Port2_1000V_121C_85percenthumidity', 121, 2, 5e-5]
+        parameters = [2, 1, 0.0033, 0.03, 0.0049, 0.005, 0.5, 1, -1000, 'ACL', 5, 100, 'Data_ACL_3_3_15_Port1_100V_Port2_1000V_121C_85percenthumidity', 121, 2, 5e-5]
     elif n==16:    
         # 16 ACL port 2 1000V Al coupon from 3-10-15 121 C 85% humidity
         filenamelocation = rootdir+'Data_ACL_3_10_15b_Port1_1000V_Port2_100V_121C_85percenthumidity.csv'
-        parameters = [2, 1, 0.0033, 0.003, 0.0049, 0.005, 0.5, 1, -1000, 'ACL -1000V', 3, 55, 'Data_ACL_3_10_15b_Port1_1000V_Port2_100V_121C_85percenthumidity', 121, 2, 5e-2]
+        parameters = [2, 1, 0.0033, 0.003, 0.0049, 0.005, 0.5, 1, -1000, 'ACL -1000V', 3, 50, 'Data_ACL_3_10_15b_Port1_1000V_Port2_100V_121C_85percenthumidity', 121, 2, 5e-2]
     elif n==17:    
         # 17 DH port 1 1000V Al low resistance coupon from 3-16-15 65 C 50% humidity
         filenamelocation = rootdir+'Data_DH_port1_65_65_1000V_port2_85_85_1000V_3_16_15_combined.csv'
-        parameters = [1, 1, 0.0043, 0.0032, 0.0047, 0.005, 0.5, 1, -1000, 'DH 65_50_-1000V', 3, 150, 'Data_DH_port1_65_65_1000V_port2_85_85_1000V_3_16_15_combined', 65, 2, 2e-5]
+        parameters = [1, 1, 0.0043, 0.0032, 0.0047, 0.005, 0.5, 1, -1000, 'DH 65_50_-1000V', 3, 280, 'Data_DH_port1_65_65_1000V_port2_85_85_1000V_3_16_15_combined', 65, 2, 2e-5]
     elif n==18:    
         # 18 DH port 2 1000V Al coupon from 3-16-15 85 C 50% humidity
         filenamelocation = rootdir+'Data_DH_port1_65_65_1000V_port2_85_85_1000V_3_16_15-85_combined.csv'
-        parameters = [2, 1, 0.00266, 0.00437, 0.00437, 0.005, 0.5, 1, -1000, 'DH 85_50_-1000V', 90, 144, 'Data_DH_port1_65_65_1000V_port2_85_85_1000V_3_16_15-85_combined', 85, 2, 1e-5]
+        parameters = [2, 1, 0.00266, 0.00437, 0.00437, 0.005, 0.5, 1, -1000, 'DH 85_50_-1000V', 90, 155, 'Data_DH_port1_65_65_1000V_port2_85_85_1000V_3_16_15-85_combined', 85, 2, 1e-5]
     elif n==19:    
         # 19 DH port 2 1000V Al coupon from 3-27-15 85 C 50% humidity
         filenamelocation = rootdir+'Data_DH_1000V_port2_85_50_1000V_3-27-15.csv'
-        parameters = [2, 1, 0.00266, 0.00437, 0.00437, 0.005, 0.5, 1, -1000, 'DH 85_50_-1000V', 5, 31, 'Data_DH_1000V_port2_85_50_1000V_3-27-15', 85, 5, 2e-5]
+        parameters = [2, 1, 0.00266, 0.00437, 0.00437, 0.005, 0.5, 1, -1000, 'DH 85_50_-1000V', 5, 60, 'Data_DH_1000V_port2_85_50_1000V_3-27-15', 85, 5, 2e-5]
     elif n==20:    
         # 20 DH port 3 100V Al coupon from 3-27-15 85 C 50% humidity
         filenamelocation = rootdir+'Data_DH_100V_port3_85_50_100V_3-27-15b.csv'
-        parameters = [3, 1, 0.00266, 0.00437, 0.00437, 0.005, 0.5, 1, -100, 'DH 85_50_-1000V', 2, 13, 'Data_DH_1000V_port2_85_85_1000V_3-25-15', 85, 2, 2e-5]
+        parameters = [3, 1, 0.00266, 0.00437, 0.00437, 0.005, 0.5, 1, -100, 'DH 85_50_-1000V', 3, 13, 'Data_DH_1000V_port2_85_85_1000V_3-25-15', 85, 2, 2e-5]
 #    elif n==21:    
 #        # DH port 1 65/50 -1000V
 #        filenamelocation = rootdir+'March31Testing3.csv'
@@ -131,7 +131,7 @@ for n in (29,39):
     elif n==24:    
         # 24 Damp Heat Al coupon 60/85 from 2/2/15 edited to exclude bad readings
         filenamelocation = rootdir+'Data_port1temp2_DH_60C_85%_Al_w_defect_port2temp1_submerged_Al_mitsui_2_2_15_combined_edited.csv'
-        parameters = [2, 2, 0.0033, 0.003, 0.0049, 0.005, 0.1, 1, -1000, 'DH_60_85', 10, 520, 'Data_port1temp2_DH_60C_85%_Al_w_defect_port2temp1_submerged_Al_mitsui_2_2_15_combined_edited', 60, 5, 2e-5]
+        parameters = [2, 2, 0.0033, 0.003, 0.0049, 0.005, 0.1, 1, -1000, 'DH_60_85', 10, 960, 'Data_port1temp2_DH_60C_85%_Al_w_defect_port2temp1_submerged_Al_mitsui_2_2_15_combined_edited', 60, 5, 2e-5]
     elif n==25:    
         # 25 Damp Heat Al low resistance coupon 65/50 from 3/16/15  port 1
         filenamelocation = rootdir+'Data_DH_port1_#25_65_50_1000V_3_16_15_combined.csv'
@@ -139,59 +139,71 @@ for n in (29,39):
     elif n==26:    
         # 26 Damp Heat Al coupon 85/50 from 3/27/15 -1000V port 2
         filenamelocation = rootdir+'Data_DH_port2_#26_85_50_1000V_port3_#27_85_50_1000V_3_27_15_combined.csv'
-        parameters = [2, 2, 0.00205, 0.08, 0.0045, 0.0045, 0.1, 1, -1000, 'DH_85_50', 10, 890, 'Data_DH_port2_#26_85_50_1000V_port3_#27_85_50_1000V_3_27_15_combined', 85, 10, 1e-5]
+        parameters = [2, 2, 0.00205, 0.08, 0.0045, 0.0045, 0.1, 1, -1000, 'DH_85_50', 10, 840, 'Data_DH_port2_#26_85_50_1000V_port3_#27_85_50_1000V_3_27_15_combined', 85, 10, 1e-5]
     elif n==27:    
         # 27 Damp Heat Al coupon 85/50 from 3/27/15 -100V then on 4/1/15 switched to -1000V port 3
         filenamelocation = rootdir+'Data_DH_port2_#26_85_50_1000V_port3_#27_85_50_1000V_3_27_15_combined.csv'
-        parameters = [3, 2, 0.0025, 0.08, 0.00475, 0.00475, 0.1, 1, -100, 'DH_85_50', 170, 250, 'Data_DH_port2_#26_85_50_1000V_port3_#27_85_50_1000V_3_27_15_combined', 85, 170, 1e-5]
+        parameters = [3, 2, 0.0025, 0.08, 0.00475, 0.00475, 0.1, 1, -100, 'DH_85_50', 170, 205, 'Data_DH_port2_#26_85_50_1000V_port3_#27_85_50_1000V_3_27_15_combined', 85, 170, 1e-5]
     elif n==28:    
         # 28 Damp Heat Al bubble on back coupon 85/85 from 4/1/15 port 1
         filenamelocation = rootdir+'Data_85_85_port1_backsidebubble_port2_normalfrontside_4_1_15.csv'
-        parameters = [1, 2, 0.0154, 0.08, 0.00465, 0.00465, 0.1, 1, -1000, 'DH_85_85_backsidebubble', 11, 50, 'Data_85_85_port1_backsidebubble_port2_normalfrontside_4_1_15', 85, 11, 5e-5]
+        parameters = [1, 2, 0.0154, 0.08, 0.00465, 0.00465, 0.1, 1, -1000, 'DH_85_85_backsidebubble', 11, 100, 'Data_85_85_port1_backsidebubble_port2_normalfrontside_4_1_15', 85, 11, 5e-5]
     elif n==29:    
         # 29 Damp Heat Al coupon 85/85 from 4/1/15 port 2
         filenamelocation = rootdir+'Data_85_85_port1_backsidebubble_port2_normalfrontside_4_1_15.csv'
-        parameters = [2, 2, 0.003, 0.08, 0.0048, 0.0048, 0.1, 1, -1000, 'DH_85_85', 11, 140, 'Data_85_85_port1_backsidebubble_port2_normalfrontside_4_1_15', 85, 11, 5e-5]
+        parameters = [2, 2, 0.003, 0.08, 0.0048, 0.0048, 0.1, 1, -1000, 'DH_85_85', 11, 150, 'Data_85_85_port1_backsidebubble_port2_normalfrontside_4_1_15', 85, 11, 5e-5]
     elif n==30:    
         # 18 DH expt from 12-18-14 port 1 temperature 2 1000V Al no bubble
         filenamelocation = rootdir+'DH_12_18_14_to_1_23_15_1AlNoBubble_2AlPrimered_3tinnedCu_nobubble.csv'
-        parameters = [1, 2, .05, 0.066, .005, 0.005, 0.1, 1, -1000, 'DampHeatNoBubble', 4, 630, 'DH_12_18_14_to_1_23_15_1AlNoBubble_2AlPrimered_3tinnedCu', 85, 3, 2e-5]
-    elif n==31:    
-        # 31 Submerged switching polarities
-        filenamelocation = rootdir+'#31_Data_Sub_Port3_SwitchingPolarities_4-7-15.csv'
-        parameters = [3, 2, .05, 0.066, .005, 0.005, 0.1, 1, -1000, 'Submerged_Switching_Polarities', 0, 1, '#31_Data_Sub_Port3_SwitchingPolarities_4-7-15', 25, 1, 8e-5]
+        parameters = [1, 2, .05, 0.066, .005, 0.005, 0.1, 1, -1000, 'DampHeatNoBubble', 4, 530, 'DH_12_18_14_to_1_23_15_1AlNoBubble_2AlPrimered_3tinnedCu', 85, 3, 2e-5]
+#    elif n==31:    
+#        # 31 Submerged switching polarities
+#        filenamelocation = rootdir+'#31_Data_Sub_Port3_SwitchingPolarities_4-7-15.csv'
+#        parameters = [3, 2, .05, 0.066, .005, 0.005, 0.1, 1, -1000, 'Submerged_Switching_Polarities', 0, 1, '#31_Data_Sub_Port3_SwitchingPolarities_4-7-15', 25, 1, 8e-5]
     elif n==32:    
         # 32 DH 85/85 front defect 100V from 5/1/15, leads swapped +V entire experiment in faraday cage defect 4.75 mm x 2.8 mm
         filenamelocation = rootdir+'DH#32_85_85_100V_Faraday_port1_DH4_5_1_15.csv'
-        parameters = [1, 2, .0028, 0.066, .00475, 0.00475, 0.1, 1, -100, '100V 85-85', 25, 619, 'DH#32_85_85_100V_Faraday_port1_5_1_15', 85, 5, 2e-5]
+        parameters = [1, 2, .0028, 0.066, .00475, 0.00475, 0.1, 1, -100, '100V 85-85', 25, 655, 'DH#32_85_85_100V_Faraday_port1_5_1_15', 85, 5, 2e-5]
     elif n==33:    
         # 14 DH expt from 11-20-14 port 1 temperature 2 1000V
         filenamelocation = rootdir+'Data_Port1Temp2_DHAl_1000V_Port2Temp1_Cu_Aq_1000V_Port3Temp3Al_100Vimage_from_11_20_14.csv'
-        parameters = [1, 2, 0.0033, 0.003, 0.00475, 0.005, 0.1, 1, -1000, 'DampHeat', 5, 98, '85_85Data_Port1Temp2_DHAl_1000V_Port2Temp1_Cu_Aq_1000V_Port3Temp3Al_100Vimage_from_11_20_14', 85, 5, 2e-5]
+        parameters = [1, 2, 0.0033, 0.003, 0.00475, 0.005, 0.1, 1, -1000, 'DampHeat', 5, 120, '85_85Data_Port1Temp2_DHAl_1000V_Port2Temp1_Cu_Aq_1000V_Port3Temp3Al_100Vimage_from_11_20_14', 85, 5, 2e-5]
     elif n==34:    
         # 34 DH expt from 5/15/15 85/85 backside defect 1000V addr 26 port 1 DH7
         filenamelocation = rootdir+'Data#34_DH7_5_15_15_85_85_backside_defect_1000V_addr26port1.csv'
-        parameters = [1, 2, 0.004, 0.004, 0.005, 0.005, 0.1, 1, -1000, 'DampHeat Backside 1000V', 1, 570, 'Data#34_DH7_5_15_15_85_85_backside_defect_1000V_addr26port1', 85, 5, 2e-5]
+        parameters = [1, 2, 0.004, 0.004, 0.005, 0.005, 0.1, 1, -1000, 'DampHeat Backside 1000V', 1, 610, 'Data#34_DH7_5_15_15_85_85_backside_defect_1000V_addr26port1', 85, 5, 2e-5]
     elif n==35:    
         # 35 DH expt from 5-27-15 port 3 100V normal coupon 85/85 addr 24
         filenamelocation = rootdir+'Data#35_DH7_85_85_Port3_100V_5_27_15.csv'
-        parameters = [3, 2, 0.0022, 0.0022, 0.0053, 0.005, 0.1, 1, -100, 'DampHeat 100V', 108, 280, 'Data#35_DH7_85_85_Port3_100V_5_27_15', 85, 5, 2e-5]
+        parameters = [3, 2, 0.0022, 0.0022, 0.0053, 0.005, 0.1, 1, -100, 'DampHeat 100V', 108, 350, 'Data#35_DH7_85_85_Port3_100V_5_27_15', 85, 5, 2e-5]
     elif n==36:    
         # 35 DH expt from 5-27-15 port 3 100V normal coupon 85/85 addr 24
         filenamelocation = rootdir+'Data#35_DH7_85_85_Port3_100V_5_27_15_2.csv'
-        parameters = [3, 2, 0.0022, 0.0022, 0.0053, 0.005, 0.1, 1, -100, 'DampHeat 100V', 40, 95, 'Data#35_DH7_85_85_Port3_100V_5_27_15_2', 85, 5, 2e-5]
+        parameters = [3, 2, 0.0022, 0.0022, 0.0053, 0.005, 0.1, 1, -100, 'DampHeat 100V', 40, 315, 'Data#35_DH7_85_85_Port3_100V_5_27_15_2', 85, 5, 2e-5]
     elif n==37:    
         # 37 DH expt from 5-20-15 port 2 1000V Al dogbone painted N no primer coupon 85/85 DH4
         filenamelocation = rootdir+'Data#37_DH4_85_85_Port2_1000V_5_20_15_AlDogbone_N_no_primer.csv'
-        parameters = [2, 2, 0.002, 0.002, 0.002, 0.005, 0.1, 1, -1000, 'DampHeat 1000V', 200, 430, 'Data#37_DH4_85_85_Port2_1000V_5_20_15_AlDogbone_N_no_primer', 85, 0, 10e-5]
+        parameters = [2, 2, 0.002, 0.002, 0.002, 0.005, 0.1, 1, -1000, 'DampHeat 1000V', 200, 315, 'Data#37_DH4_85_85_Port2_1000V_5_20_15_AlDogbone_N_no_primer', 85, 0, 10e-5]
     elif n==38:    
         # 38 Furnace, no humnidity expt from 6-19-15 port 3 100V Al foil strip frontside defect was #35 in DH for 500 hrs before furnace 85C always 100V bias
         filenamelocation = rootdir+'Furnace_port3_couponfromDH7_port3_100V_now1000V_85C_0%RH.csv'
-        parameters = [3, 2, 0.0022, 0.0022, 0.0053, 0.005, 0.1, 1, -100, '0%RH 100V', 5, 117, 'Furnace_port3_couponfromDH7_port3_100V_now1000V_85C_0%RH', 85, 5, 1e-5]
+        parameters = [3, 2, 0.0022, 0.0022, 0.0053, 0.005, 0.1, 1, -100, '0%RH 100V', 5, 135, 'Furnace_port3_couponfromDH7_port3_100V_now1000V_85C_0%RH', 85, 5, 1e-5]
     elif n==39:    
         # 37 DH expt from 5-20-15 port 2 1000V Al dogbone painted N no primer coupon 85/85 DH4
         filenamelocation = rootdir+'Data#37_DH4_85_85_Port2_1000V_5_20_15_AlDogbone_N_no_primer_cropped.csv'
-        parameters = [2, 2, 0.002, 0.002, 0.002, 0.005, 0.1, 1, -1000, 'DampHeat 1000V Al dogbone N no primer', 10, 170, 'Data#37_DH4_85_85_Port2_1000V_5_20_15_AlDogbone_N_no_primer', 85, 5, 0.5e-5]
+        parameters = [2, 2, 0.003, 0.002, 0.002, 0.005, 0.1, 1, -1000, 'DampHeat 1000V Al dogbone N no primer', 13, 200, 'Data#37_DH4_85_85_Port2_1000V_5_20_15_AlDogbone_N_no_primer', 85, 13, 0.8e-5]
+    elif n==40:    
+        # 37 DH expt from 7-1-15 port 1 1000V green mask front defect 85/85 DH7
+        filenamelocation = rootdir+'DH7_7_1_15_pt1_greenepoxy1000V_pt2_bubblyAl1000V_pt3_AlDogboneNPrimer1000V_85_85.csv'
+        parameters = [1, 2, 0.0045, 0.002, 0.0045, 0.005, 0.1, 1, -1000, '85-85 1000V green epoxy', 30, 105, 'DH7_7_1_15_pt1_greenepoxy1000V_pt2_bubblyAl1000V_pt3_AlDogboneNPrimer1000V_85_85', 85, 4, 2e-5]
+    elif n==41:    
+        # 37 DH expt from 7-1-15 port 2 1000V bubbly both sides but no full void  85/85 DH7
+        filenamelocation = rootdir+'DH7_7_1_15_pt1_greenepoxy1000V_pt2_bubblyAl1000V_pt3_AlDogboneNPrimer1000V_85_85.csv'
+        parameters = [2, 2, 0.05, 0.002, 0.0045, 0.005, 0.1, 1, -1000, '85-85 1000V bubbly encap', 30, 100, 'DH7_7_1_15_pt1_greenepoxy1000V_pt2_bubblyAl1000V_pt3_AlDogboneNPrimer1000V_85_85', 85, 4, 2e-5]
+    elif n==42:    
+        # 37 DH expt from 7-1-15 port 2 1000V Al dogbone painted N with primer coupon 85/85 DH7
+        filenamelocation = rootdir+'DH7_7_1_15_pt1_greenepoxy1000V_pt2_bubblyAl1000V_pt3_AlDogboneNPrimer1000V_85_85.csv'
+        parameters = [3, 2, 0.0019, 0.002, 0.002, 0.005, 0.1, 1, -1000, '85-85 1000V Al dogbone N with primer', 30, 100, 'DH7_7_1_15_pt1_greenepoxy1000V_pt2_bubblyAl1000V_pt3_AlDogboneNPrimer1000V_85_85', 85, 4, 2e-5]
 
 
 
@@ -301,7 +313,7 @@ for n in (29,39):
            for j in range(0,numbercolumns):
               hvlist[k,j] =numarray[i,j]
            k=k+1
-       elif numarray[i,MeasCurColumn] > Current4Wire/2:
+       elif numarray[i,MeasCurColumn] > Current4Wire/2 and numarray[i,MeasVoltColumn]<1 and numarray[i,MeasResColumn]<1:
            for m in range(0,numbercolumns):
               lvlist[l,m] = numarray[i,m]
            l=l+1
@@ -371,17 +383,18 @@ for n in (29,39):
     counter3 = 0
     
     for i in range(0,len(AverageResSeed[:,0])-1):
-        if AverageResSeed[i,3] < 1 and AverageResSeed[i,3] > -0.0020:
+        if AverageResSeed[i,3] < 1 and AverageResSeed[i,3] > -0.0050:
             AverageRes[counter2,:] = AverageResSeed[i,:]
             counter2 = counter2+1
             
     AverageRes[0,13] = AverageRes[0,1]   
-    
+    counter4 = 0
     adjustment1 = 0
     for i in range(1,len(AverageRes[:,0])-1):
         AverageRes[i,12] = AverageRes[i,1]-AverageRes[i-1,1]
         if abs(AverageRes[i,12]) > parameters[15]:
             adjustment1 = adjustment1 + AverageRes[i,12]
+            counter4 = counter4 + 1
         else:
             adjustment1 = adjustment1
         AverageRes[i,13] = AverageRes[i,1]-adjustment1
@@ -400,27 +413,40 @@ for n in (29,39):
         h0 = 0.000127 #because it starts out at dogbone thickness
     if n == 39:
         h0 = 0.000127 #because it starts out at dogbone thickness  
+    if n == 42:
+        AverageRes[parameters[14],10] = 1e6 * 0.000127 #because it starts out at dogbone thickness
+    if n == 42:
+        h0 = 0.000127 #because it starts out at dogbone thickness
+
             
     if n == 26:
         AverageRes[parameters[14],10] = 1e6 * 0.000032 #because expt #26 has 150 hrs of bad data at the beginning
     if n == 20:
         AverageRes[parameters[14],10] = 1e6 * 0.000030 #because expt #26 has 150 hrs of bad data at the beginning            
     
-    Current_slope_output[n,14] = h0*(AverageRes[parameters[14]-1,13]*\
-    parameters[4]/rhoAl/(1+alphaAl*(float(parameters[13])-float(20))-parameters[2]/AverageRes[parameters[14],10]/1e6))
+    AverageResLen = 0
+    for i in range(1,len(AverageRes[:,0])-1):
+        if AverageRes[i,2] > 0:
+            AverageResLen = AverageResLen + 1
+
+    minres = min(AverageRes[parameters[14]:AverageResLen,13])
+
+#    Current_slope_output[n,14] = h0*(minres*parameters[4]/rhoAl/(1+alphaAl*(float(parameters[13])-float(20))-parameters[2]/AverageRes[parameters[14],10]/1e6))
+    Current_slope_output[n,14] = minres*parameters[4]*h0/rhoAl/(1+alphaAl*(parameters[13]-20.))-parameters[2]
+
     #Saves the length of non-corroded Al for calculation later
     
     for i in range(parameters[14]+1,len(AverageRes[:,0])-1):
 #        AverageRes[i,10] = 1/(((AverageRes[i,13]-AverageRes[i-1,13])*parameters[4]/rhoAl/parameters[2])+1/AverageRes[i-1,10]) #remaining thickness
-        AverageRes[i,10] = float(1000000) * parameters[2]/((AverageRes[i,13]*parameters[4]/rhoAl)*\
-        (1/(1+alphaAl*(float(parameters[13])-float(20)))-Current_slope_output[n,14]/h0)) #remaining thickness  in um
+#        AverageRes[i,10] = 1000000. * parameters[2]/((AverageRes[i,13]*parameters[4]/rhoAl)*\
+#        (1/(1+alphaAl*(float(parameters[13])-float(20)))-(Current_slope_output[n,14]-0.001)/h0)) #remaining thickness  in um
+        AverageRes[i,10] = 1000000/(AverageRes[i,13]*parameters[4]/(rhoAl*parameters[2]*(1+alphaAl*(float(parameters[13])-20.)))-Current_slope_output[n,14]/parameters[2]/h0)
+        
+         #remaining thickness  in um
+        
         AverageRes[i,11] = (AverageRes[i,10]-AverageRes[i-1,10])/(AverageRes[i,2]-AverageRes[i-1,2]) #change in thickness over time in um/hr
         
-    AverageResLen = 0
-    
-    for i in range(1,len(AverageRes[:,0])-1):
-        if AverageRes[i,2] > 0:
-            AverageResLen = AverageResLen + 1
+
        
              
     shapehvlist = hvlist.shape
@@ -478,22 +504,7 @@ for n in (29,39):
 #       hvlist[i,31] = h0 - 0.01*(hvlist[i,28]*Portion3/(d*100*L1*100*Area3)) # remaining thickness in m in area3
 #       hvlist[i,32] = (rhoAl * (L1*Area1/hvlist[i,29]/d+L1*Area2/hvlist[i,30]/d+L1*Area3/hvlist[i,31]/d+L2/h0/d) *(1+alphaAl*(parameters[13]-20)))*1000 #calculated resistance in m-ohms 
 #     
-    #print hvlist[0,:]
-    #print hvlist[1,:]
-     
-    #N = 15
-    #def runningMean(x, N):
-    #    y = numpy.zeros((len(x),))
-    #    for ctr in range(len(x)):
-    #         y[ctr] = numpy.sum(x[ctr-N/2:(ctr+N/2)])
-    #    return y/N 
-        
-#    lvlist[:,34] = runningMean(lvlist[:,MeasResColumn],N)
-    
-#    for index in range(len(lvlist[1:,34])):
-#        lvlist[index,35] = ((lvlist[index,MeasResColumn]-lvlist[index-1,MeasResColumn])/(lvlist[index,20]-lvlist[index-1,20]))*1000
 
-    
              
     x=numpy.zeros(AverageResLen) #initiate vector to store times for regression
     y=numpy.zeros(AverageResLen) # initiate vector to store average resistances for regression
@@ -526,11 +537,11 @@ for n in (29,39):
     for i in range(AverageResLen):
         AverageRes[i,4] = AverageRes[i,2]*regression[0]+regression[1]
         AverageRes[i,7] = AverageRes[i,2]*regression2[0]+regression2[1]
-        AverageRes[i,12] = AverageRes[i,2]*regression3[0]+regression3[1]
+        AverageRes[i,16] = AverageRes[i,2]*regression3[0]+regression3[1]
         AverageRes[i,14] = AverageRes[i,2]*regression4[0]+regression4[1]
         
     for i in range(parameters[14],AverageResLen):
-        AverageRes[i,15] = (AverageRes[parameters[14],10]-AverageRes[i,10])*1000000 #cumulative Al loss in um
+        AverageRes[i,15] = (AverageRes[parameters[14],10]-AverageRes[i,10]) #cumulative Al loss in um
 
         
 #    Add up current over time to get total joules per time point
@@ -555,17 +566,18 @@ for n in (29,39):
     Current_slope_output[n,6] = regression2[0]    
     Current_slope_output[n,7] = sum(AverageRes[parameters[10]:parameters[11],11])/(parameters[11]-parameters[10])*1e6 #average loss of Al per hr um/hr
     Current_slope_output[n,8] = AverageResLen
-    Current_slope_output[n,9] = regression3[0]*1000000 #slope of regression line for average rate of Al loss in um/hr USE THIS IN MODEL
-    Current_slope_output[n,10] = regression3[1]*1000000
+    Current_slope_output[n,9] = regression3[0] #slope of regression line for average rate of Al loss in um/hr USE THIS IN MODEL
+    Current_slope_output[n,10] = regression3[1]
     Current_slope_output[n,11] = AverageRes[parameters[10], 2]
     Current_slope_output[n,12] = AverageRes[parameters[11], 2]   
     Current_slope_output[n,13] = Current_slope_output[n,4] / (parameters[2]*parameters[4]/100)*1e-6#current density in nA/cm^2 USE THIS IN MODEL
+    Current_slope_output[n,15] = counter4 #how many points in AverageRes were adjusted for step changes
     totaljoules = 0
 
     
     for i in range(parameters[14],AverageResLen):
         Al_loss_comparison[i,n] = AverageRes[i,2]
-        Al_loss_comparison[i,n+50] = AverageRes[i,15]
+        Al_loss_comparison[i,n+100] = AverageRes[i,15]
     
     font = {'family' : 'normal',
             'weight' : 'bold',
@@ -581,7 +593,7 @@ for n in (29,39):
 #    plt.plot(hvlist[0:-1,33],hvlist[0:-1,34]*(-100), 'g', linewidth=3.0)
     #plt.plot(lvlist[:,33],lvlist[:,34]*1000,'g')
     ylabel('Resistance (m-ohms)',**font)
-    plt.ylim([0,150])
+    plt.ylim([0,60])
     #plt.xlim([0,10])
     xlabel('Time (hrs)',**font)
     title(str(n)+'_'+parameters[12]+parameters[9]+'Port_'+str(parameters[0])+'Resistance', **title_font)
@@ -593,12 +605,12 @@ for n in (29,39):
     #plt.plot(hvlistcropped[0:-2,33],hvlistcropped[0:-2,32])
     plt.plot(AverageRes[parameters[14]:AverageResLen-1,2],AverageRes[parameters[14]:AverageResLen-1,13]*1000,'ro') #ADD ME BACK IN LATER 4-22-15
 #    plt.plot(AverageRes[parameters[14]:AverageResLen-1,2],AverageRes[parameters[14]:AverageResLen-1,9]*1000, 'g', linewidth=3.0)
-    plt.plot(AverageRes[parameters[14]:AverageResLen-1,2],AverageRes[parameters[14]:AverageResLen-1,10]*1000000, 'ko', linewidth=3.0)
-    plt.plot(AverageRes[parameters[10]:parameters[11],2],AverageRes[parameters[10]:parameters[11],12]*1000000, 'k', linewidth=3.0)
+    plt.plot(AverageRes[parameters[14]:AverageResLen-1,2],AverageRes[parameters[14]:AverageResLen-1,10], 'ko', linewidth=3.0)
+    plt.plot(AverageRes[parameters[10]:parameters[11],2],AverageRes[parameters[10]:parameters[11],16], 'k', linewidth=3.0)
 #    plt.plot(AverageRes[1:parameters[11],2],AverageRes[1:parameters[11],14], 'g', linewidth=3.0)#    plt.plot(hvlist[0:-1,33],hvlist[0:-1,34]*(-20), 'g', linewidth=3.0)
     #plt.plot(lvlist[:,33],lvlist[:,34]*1000,'g')
     ylabel('Adjusted (temp) Resistance (m-ohms) and Remaining Al Thickness (um)',**font)
-    plt.ylim([0,160])
+    plt.ylim([0,60])
 #    plt.xlim([0,500])
     xlabel('Time (hrs)',**font)
     title(str(n)+'_'+parameters[12]+parameters[9]+'Port_'+str(parameters[0])+'Resistance_Adjusted_temperature', **title_font)
@@ -655,7 +667,7 @@ for n in (29,39):
 #    savefig(filenamelocation.split('.csv')[0]+'_#'+str(n)+'_'+parameters[9]+'Port_'+str(parameters[0])+'Current.png')
     savefig(rootdir+'Current\\'+'#'+str(n)+'_'+str(parameters[8])+'V_'+parameters[9]+'Port_'+str(parameters[0])+str(parameters[12])+'Current.png')
 
-    plt.show()
+#    plt.show()
 
 DataFile.close()
 timestamp = time.time()
@@ -669,11 +681,11 @@ title_font = {'fontname':'Arial', 'size':'12', 'color':'black', 'weight':'normal
 matplotlib.rc('font', **font)
 
 figure(num=None, figsize=(12, 8), dpi=480, facecolor='w', edgecolor='k') 
-plt.plot(Al_loss_comparison[parameters[14]+2:Current_slope_output[30,8],30],Al_loss_comparison[parameters[14]+2:Current_slope_output[30,8],80],'k')  
-plt.plot(Al_loss_comparison[parameters[14]+2:Current_slope_output[29,8],29],Al_loss_comparison[parameters[14]+2:Current_slope_output[29,8],79],'b')
-plt.plot(Al_loss_comparison[parameters[14]+2:Current_slope_output[39,8],39],Al_loss_comparison[parameters[14]+2:Current_slope_output[39,8],89],'r')
+plt.plot(Al_loss_comparison[parameters[14]+2:Current_slope_output[30,8],30],Al_loss_comparison[parameters[14]+2:Current_slope_output[30,8],130],'k')  
+plt.plot(Al_loss_comparison[parameters[14]+2:Current_slope_output[29,8],29],Al_loss_comparison[parameters[14]+2:Current_slope_output[29,8],129],'b')
+plt.plot(Al_loss_comparison[parameters[14]+2:Current_slope_output[39,8],39],Al_loss_comparison[parameters[14]+2:Current_slope_output[39,8],139],'r')
 ylabel('Loss of Al Thickness (um)',**font)
-plt.ylim([-2,12])
+#plt.ylim([-2,12])
 xlabel('Time (hrs)',**font)
 #    plt.xlim([0,90])
 title(str(n)+'_'+parameters[12]+parameters[9]+'Port_'+str(parameters[0])+'Al_loss', **title_font)
@@ -681,7 +693,7 @@ plt.legend(['Encapsulated', 'With Void','N no primer Al Dogbone'], loc='upper le
 titlecurrent = filenamelocation.split
 savefig(rootdir+first_time_seconds+'AlLoss.png')
 
-plt.show()
+#plt.show()
     
 
 
