@@ -22,7 +22,7 @@ import bisect
 #initiate list for storing total joules in each linear portion for each experiment
 Current_slope_output = numpy.zeros((100,15))
 
-for n in range(47,50):
+for n in range(51,52):
     rootdir= 'C:\\Users\\khan\\Documents\\GitHub\\AlCorrosionDataCSVFiles\\ACLData\\'
     # parameters = [0 port, 1 thermocouple, 2 length corrosion(L1), 3 length not corrosion (L2), 
     #4 width corrosion (d2), 5 width foil (d), 6 portion pitted, 7 pitting aspect ratio, 8 voltage,
@@ -111,6 +111,10 @@ for n in range(47,50):
         # 50 5 mm cathode 19 mm anode with defect also with cosmetic tape 85/85 5/15/15 
         filenamelocation = rootdir+'Data_85_85_port2addr25bottom_currentmeasurement_smallcat_smallan_with_defect_with_cosmetic_tape.csv'
         parameters = [2, 2, .05, 0.066, .005, 0.005, 0.1, 1, 1000, '5 mm cathode 151 mm anode no bubble', 400, 4000, 'Data_85_85_port2addr25bottom_currentmeasurement_smallcat_smallan_with_defect_with_cosmetic_tape', 85, 1]
+    elif n==51:    
+        # 51 gen E Cu cell coupon, shorted as cathode 19 mm anode square in center of cell (Si side, glass) without defect 85/85 7/13/15  port 1 DH7
+        filenamelocation = rootdir+'DH7_port1_leakagecurrent_7-13-15.csv'
+        parameters = [1, 2, .05, 0.066, .005, 0.005, 0.1, 1, 1000, 'Cu cell coupon leakage center 19x19mm', 400, 1000, 'DH7_port1_leakagecurrent_7-13-15', 85, 1]
 
 #notice that in this file parameters[10] and parameters[11] are the start and stop line numbers for the current average
 

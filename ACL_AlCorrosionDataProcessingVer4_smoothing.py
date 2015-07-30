@@ -25,8 +25,8 @@ Al_loss_comparison = numpy.zeros((20000,200))
 Save_output_data = 1 # Use a 0 to not save and a 1 to save
 
 
-for n in range(26,27):
-#for n in (29,30,39):
+#for n in range(28,30):
+for n in (8,43):
     rootdir= 'C:\\Users\\khan\\Documents\\GitHub\\AlCorrosionDataCSVFiles\\ACLData\\'
     # parameters = [0 port, 1 thermocouple, 2 length corrosion(L1), 3 length not corrosion (L2), 
     #4 width corrosion (d2), 5 width foil (d), 6 portion pitted, 7 pitting aspect ratio, 8 voltage,
@@ -67,11 +67,12 @@ for n in range(26,27):
     elif n==8:    
         # 8 ACL port 1 1000V Al coupon from 2-11-15
         filenamelocation = rootdir+'Data_ACL_2_11_15_1000V_96hrs_121C_100percenthumidityport1.csv'
-        parameters = [1, 1, 0.0034, 0.03, 0.0049, 0.005, 0.5, 1, -1000, 'ACL', 2, 65, 'Data_ACL_2_11_15_1000V_96hrs_121C_100percenthumidityport1', 121, 2, 2e-5]
+        parameters = [1, 1, 0.0034, 0.03, 0.0049, 0.005, 0.5, 1, -1000, 'ACL', 2, 65, 'Data_ACL_2_11_15_1000V_96hrs_121C_100percenthumidityport1', 121, 2, 30e-5]
     elif n==9:    
         # 9 ACL port 1 200V Al coupon from 2-9-15
         filenamelocation = rootdir+'Data_ACL_2_9_15_200V_44hrs_121C_100percenthumidityport1.csv'
-        parameters = [1, 1, 0.0037, 0.03, 0.0044, 0.005, 0.5, 1, -200, 'ACL', 2, 34, 'Data_ACL_2_9_15_200V_44hrs_121C_100percenthumidityport1', 121, 2, 2e-5]
+        parameters = [1, 1, 0.0037, 0.03, 0.0044, 0.005, 0.5, 1, -200, 'ACL', 26, 34, 'Data_ACL_2_9_15_200V_44hrs_121C_100percenthumidityport1', 121, 2, 30e-5]
+        # for #9 just average the slope of timepoints 2 through 15 and those from 26 to 34 to get a slope of about -0.1685
     elif n==10:    
         # 10 ACL port 1 100V Al coupon from 2-6-15
         filenamelocation = rootdir+'Data_ACL_2_6_15_100V_60hrs_121C_100percenthumidityport1_port2BareAl_0V.csv'
@@ -195,15 +196,27 @@ for n in range(26,27):
     elif n==40:    
         # 37 DH expt from 7-1-15 port 1 1000V green mask front defect 85/85 DH7
         filenamelocation = rootdir+'DH7_7_1_15_pt1_greenepoxy1000V_pt2_bubblyAl1000V_pt3_AlDogboneNPrimer1000V_85_85.csv'
-        parameters = [1, 2, 0.0045, 0.002, 0.0045, 0.005, 0.1, 1, -1000, '85-85 1000V green epoxy', 30, 105, 'DH7_7_1_15_pt1_greenepoxy1000V_pt2_bubblyAl1000V_pt3_AlDogboneNPrimer1000V_85_85', 85, 4, 2e-5]
+        parameters = [1, 2, 0.0045, 0.002, 0.0045, 0.005, 0.1, 1, -1000, '85-85 1000V green epoxy', 30, 270, 'DH7_7_1_15_pt1_greenepoxy1000V_pt2_bubblyAl1000V_pt3_AlDogboneNPrimer1000V_85_85', 85, 4, 20e-5]
     elif n==41:    
         # 37 DH expt from 7-1-15 port 2 1000V bubbly both sides but no full void  85/85 DH7
         filenamelocation = rootdir+'DH7_7_1_15_pt1_greenepoxy1000V_pt2_bubblyAl1000V_pt3_AlDogboneNPrimer1000V_85_85.csv'
-        parameters = [2, 2, 0.05, 0.002, 0.0045, 0.005, 0.1, 1, -1000, '85-85 1000V bubbly encap', 30, 100, 'DH7_7_1_15_pt1_greenepoxy1000V_pt2_bubblyAl1000V_pt3_AlDogboneNPrimer1000V_85_85', 85, 4, 2e-5]
+        parameters = [2, 2, 0.05, 0.002, 0.0045, 0.005, 0.1, 1, -1000, '85-85 1000V bubbly encap', 30, 240, '85-85 1000V bubbly encap 7-1-15 DH7 #41', 85, 4, 2e-5]
     elif n==42:    
-        # 37 DH expt from 7-1-15 port 2 1000V Al dogbone painted N with primer coupon 85/85 DH7
+        # 42 DH expt from 7-1-15 port 3 1000V Al dogbone painted N with primer coupon 85/85 DH7
         filenamelocation = rootdir+'DH7_7_1_15_pt1_greenepoxy1000V_pt2_bubblyAl1000V_pt3_AlDogboneNPrimer1000V_85_85.csv'
-        parameters = [3, 2, 0.0019, 0.002, 0.002, 0.005, 0.1, 1, -1000, '85-85 1000V Al dogbone N with primer', 30, 100, 'DH7_7_1_15_pt1_greenepoxy1000V_pt2_bubblyAl1000V_pt3_AlDogboneNPrimer1000V_85_85', 85, 4, 2e-5]
+        parameters = [3, 2, 0.0019, 0.002, 0.002, 0.005, 0.1, 1, -1000, '85-85 1000V Al dogbone N with primer', 30, 240, '85-85 1000V Al dogbone N with primer 7-1-15 DH7 #42', 85, 4, 2e-5]
+    elif n==43:    
+        # 43 ACL expt from 7-22-15 port 1 10uA Al coupon 121/100 hours 10-40 use for slope of 1uA constant current, hrs 45-60 use for 10uA current!!!  :)
+        filenamelocation = rootdir+'ACL_121_100_1000nA_7_22_15.csv'
+        parameters = [1, 2, 0.003, 0.002, 0.005, 0.005, 0.1, 1, 5.0, 'ACL_121_100_10uA_7_22_15', 10, 40, 'ACL_121_100_10uA_7_22_15', 121, 4, 2e-5]
+    elif n==44:    
+        # 44 DH expt from 7-22-15 port 1 100V Al coupon 60/85 DH1 switched to DH6 on 7/28/15 
+        filenamelocation = rootdir+'DH1_60_85_100V_DH2_45_85_1000V_7_23_15.csv'
+        parameters = [1, 2, 0.0019, 0.002, 0.002, 0.005, 0.1, 1, -1000, '85-85 1000V Al dogbone N with primer', 10, 20, 'DH1_60_85_100V_DH2_45_85_1000V_7_23_15_DH6_7_28', 60, 4, 2e-5]
+    elif n==45:    
+        # 45 DH expt from 7-22-15 port 2 Al 85/85 DH7 started as 100 nA (which hasn't worked as of 7-30-15) then switched to 1000V
+        filenamelocation = rootdir+'DH7_7_1_15_pt1_greenepoxy1000V_pt2_bubblyAl1000V_pt3_AlDogboneNPrimer1000V_85_85.csv'
+        parameters = [3, 2, 0.0019, 0.002, 0.002, 0.005, 0.1, 1, -1000, '85-85 1000V Al dogbone N with primer', 30, 240, '85-85 1000V Al dogbone N with primer 7-1-15 DH7 #42', 85, 4, 2e-5]
 
 
 
@@ -417,7 +430,11 @@ for n in range(26,27):
         AverageRes[parameters[14],10] = 1e6 * 0.000127 #because it starts out at dogbone thickness
     if n == 42:
         h0 = 0.000127 #because it starts out at dogbone thickness
-
+# set max y axis on graph to a higher value for the dogbone experiments
+    if n == 37 or n == 39 or n == 42:
+        ymax = 200
+    else:
+        ymax = 60
             
     if n == 26:
         AverageRes[parameters[14],10] = 1e6 * 0.000032 #because expt #26 has 150 hrs of bad data at the beginning
@@ -483,6 +500,7 @@ for n in range(26,27):
        hvlist[i,28] = hvlist[i,27] / densityAl #volume of aluminum removed in cc
        hvlist[i,29] = hvlist[i,27]/1e6/(parameters[2]*parameters[4]) # Thickness lost in defect area if every electron contributed 1:1 to corrosion in um
        hvlist[i,30] = h0 *1e6 - hvlist[i,29] #remaining thicknes in um if every electron contributed to corrosion 3 electrons for one aluminum ion
+       hvlist[i,31] = 0 #first timepoint in hrs
        #h0 - 0.01*(hvlist[i,28]*Portion1/(d*100*L1*100*Area1)) # remaining thickness in m in area1 corrosion area is Parameters[2]*Parameters[4]
 #       hvlist[i,30] = h0 - 0.01*(hvlist[i,28]*Portion2/(d*100*L1*100*Area2)) # remaining thickness in m in area2
 #       hvlist[i,31] = h0 - 0.01*(hvlist[i,28]*Portion3/(d*100*L1*100*Area3)) # remaining thickness in m in area3
@@ -499,6 +517,7 @@ for n in range(26,27):
        hvlist[i,28] = hvlist[i,27] / densityAl #volume of aluminum removed cc cumulative
        hvlist[i,29] = hvlist[i,27]/1e6/(parameters[2]*parameters[4])*1e6 # Thickness lost in defect area if every electron contributed 1:1 to corrosion in um
        hvlist[i,30] = h0 *1e6 - hvlist[i,29] #remaining thicknes in um if every electron contributed to corrosion 3 electrons for one aluminum ion
+       hvlist[i,31] = (hvlist[i,20]-hvlist[0,20])/3600 # timepoint in hrs
        #       hvlist[i,29] = h0 - 0.01*(hvlist[i,28]*Portion1/(d*100*L1*100*Area1)) # remaining thickness in m in area1
 #       hvlist[i,30] = h0 - 0.01*(hvlist[i,28]*Portion2/(d*100*L1*100*Area2)) # remaining thickness in m in area2
 #       hvlist[i,31] = h0 - 0.01*(hvlist[i,28]*Portion3/(d*100*L1*100*Area3)) # remaining thickness in m in area3
@@ -609,14 +628,26 @@ for n in range(26,27):
     plt.plot(AverageRes[parameters[10]:parameters[11],2],AverageRes[parameters[10]:parameters[11],16], 'k', linewidth=3.0)
 #    plt.plot(AverageRes[1:parameters[11],2],AverageRes[1:parameters[11],14], 'g', linewidth=3.0)#    plt.plot(hvlist[0:-1,33],hvlist[0:-1,34]*(-20), 'g', linewidth=3.0)
     #plt.plot(lvlist[:,33],lvlist[:,34]*1000,'g')
-    ylabel('Adjusted (temp) Resistance (m-ohms) and Remaining Al Thickness (um)',**font)
-    plt.ylim([0,60])
+    ylabel('Resistance (m-ohms) and Remaining Al Thickness (um)',**font)
+    plt.ylim([0,ymax])
 #    plt.xlim([0,500])
     xlabel('Time (hrs)',**font)
     title(str(n)+'_'+parameters[12]+parameters[9]+'Port_'+str(parameters[0])+'Resistance_Adjusted_temperature', **title_font)
     plt.legend(['Measured Resistance','Remaining Thickness Calculated (um)', 'Remaining Thickness Regression (um)'], loc='upper left') #ADD ME BACK IN LATER 4-22-15
 #    savefig(filenamelocation.split('.csv')[0]+'_#'+str(n)+'_'+parameters[9]+'Port_'+str(parameters[0])+'.png')
     savefig(rootdir+'Adjusted Resistance\\'+'#'+str(n)+'_'+str(parameters[8])+'V_'+parameters[9]+'Port_'+str(parameters[0])+str(parameters[12])+'Resistance_adjusted_temp_area.png')
+
+    figure(num=None, figsize=(12, 8), dpi=480, facecolor='w', edgecolor='k')
+    #plt.plot(hvlistcropped[0:-2,33],hvlistcropped[0:-2,32])
+    plt.plot(hvlist[1:-2,31],hvlist[1:-2,30],'b') 
+    plt.plot(AverageRes[parameters[14]:AverageResLen-1,2],AverageRes[parameters[14]:AverageResLen-1,10], 'ko', linewidth=3.0)
+    plt.plot(AverageRes[parameters[10]:parameters[11],2],AverageRes[parameters[10]:parameters[11],16], 'k', linewidth=3.0)
+    ylabel('Remaining Al Thickness (um)',**font)
+    plt.ylim([0,ymax])
+    xlabel('Time (hrs)',**font)
+    title(str(n)+'_'+parameters[12]+parameters[9]+'Port_'+str(parameters[0])+'Resistance_Adjusted_temperature', **title_font)
+    plt.legend(['Al thickness predicted from current','Remaining Thickness Calculated (um)', 'Remaining Thickness Regression (um)'], loc='upper left') 
+    savefig(rootdir+'PredictedLossFromCurrent\\'+'#'+str(n)+'_'+str(parameters[8])+'V_'+parameters[9]+'Port_'+str(parameters[0])+str(parameters[12])+'PredictedLossFromCurrent.png')
 
 
 #    plt.show()
@@ -666,6 +697,22 @@ for n in range(26,27):
     titlecurrent = filenamelocation.split
 #    savefig(filenamelocation.split('.csv')[0]+'_#'+str(n)+'_'+parameters[9]+'Port_'+str(parameters[0])+'Current.png')
     savefig(rootdir+'Current\\'+'#'+str(n)+'_'+str(parameters[8])+'V_'+parameters[9]+'Port_'+str(parameters[0])+str(parameters[12])+'Current.png')
+    
+    figure(num=None, figsize=(12, 8), dpi=480, facecolor='w', edgecolor='k')   
+    plt.plot(hvlist[0:-1,33],hvlist[0:-1,MeasCurColumn]*1e9,'ko')
+#    plt.plot(hvlist[0:-1,33],abs(hvlist[0:-1,MeasCurColumn]),'k')
+    ylabel('Current (nA))',**font)
+#    plt.yscale('log')
+#    plt.ylim([-0.5e3,0])
+#    plt.xlim([0,0.3])
+    xlabel('Time (hrs)',**font)
+#    plt.xlim([0,90])
+#    title(r'Change in Calculated Resistance',**font)
+    title(str(n)+'_'+parameters[12]+parameters[9]+'Port_'+str(parameters[0])+'Current', **title_font)
+    #plt.legend(['Calculated', 'Measured'], loc='upper left')
+    titlecurrent = filenamelocation.split
+#    savefig(filenamelocation.split('.csv')[0]+'_#'+str(n)+'_'+parameters[9]+'Port_'+str(parameters[0])+'Current.png')
+    savefig(rootdir+'CurrentRaw\\'+'#'+str(n)+'_'+str(parameters[8])+'V_'+parameters[9]+'Port_'+str(parameters[0])+str(parameters[12])+'CurrentRaw.png')
 
 #    plt.show()
 
@@ -680,22 +727,36 @@ title_font = {'fontname':'Arial', 'size':'12', 'color':'black', 'weight':'normal
           'verticalalignment':'bottom'} # Bottom vertical alignment for more space
 matplotlib.rc('font', **font)
 
-figure(num=None, figsize=(12, 8), dpi=480, facecolor='w', edgecolor='k') 
-plt.plot(Al_loss_comparison[parameters[14]+2:Current_slope_output[30,8],30],Al_loss_comparison[parameters[14]+2:Current_slope_output[30,8],130],'k')  
-plt.plot(Al_loss_comparison[parameters[14]+2:Current_slope_output[29,8],29],Al_loss_comparison[parameters[14]+2:Current_slope_output[29,8],129],'b')
-plt.plot(Al_loss_comparison[parameters[14]+2:Current_slope_output[39,8],39],Al_loss_comparison[parameters[14]+2:Current_slope_output[39,8],139],'r')
-ylabel('Loss of Al Thickness (um)',**font)
-#plt.ylim([-2,12])
-xlabel('Time (hrs)',**font)
-#    plt.xlim([0,90])
-title(str(n)+'_'+parameters[12]+parameters[9]+'Port_'+str(parameters[0])+'Al_loss', **title_font)
-plt.legend(['Encapsulated', 'With Void','N no primer Al Dogbone'], loc='upper left')
-titlecurrent = filenamelocation.split
-savefig(rootdir+first_time_seconds+'AlLoss.png')
+#figure(num=None, figsize=(12, 8), dpi=480, facecolor='w', edgecolor='k') 
+#plt.plot(Al_loss_comparison[parameters[14]+2:Current_slope_output[30,8],30],Al_loss_comparison[parameters[14]+2:Current_slope_output[30,8],130],'k')  
+#plt.plot(Al_loss_comparison[parameters[14]+2:Current_slope_output[29,8],29],Al_loss_comparison[parameters[14]+2:Current_slope_output[29,8],129],'b')
+#plt.plot(Al_loss_comparison[parameters[14]+2:Current_slope_output[39,8],39],Al_loss_comparison[parameters[14]+2:Current_slope_output[39,8],139],'r')
+#ylabel('Loss of Al Thickness (um)',**font)
+##plt.ylim([-2,12])
+#xlabel('Time (hrs)',**font)
+##    plt.xlim([0,90])
+#title(str(n)+'_'+parameters[12]+parameters[9]+'Port_'+str(parameters[0])+'Al_loss', **title_font)
+#plt.legend(['Encapsulated', 'With Void','N no primer Al Dogbone'], loc='upper left')
+#titlecurrent = filenamelocation.split
+#savefig(rootdir+first_time_seconds+'AlLoss.png')
 
 #plt.show()
     
-
+#figure(num=None, figsize=(12, 8), dpi=480, facecolor='w', edgecolor='k') 
+##plt.plot(Al_loss_comparison[parameters[14]+2:Current_slope_output[34,8],34],Al_loss_comparison[parameters[14]+2:Current_slope_output[34,8],134],'k')  
+#plt.plot(Al_loss_comparison[parameters[14]+2:Current_slope_output[29,8],29],Al_loss_comparison[parameters[14]+2:Current_slope_output[29,8],129],'b')
+#plt.plot(Al_loss_comparison[parameters[14]+2:Current_slope_output[40,8],40],Al_loss_comparison[parameters[14]+2:Current_slope_output[40,8],140],'r')
+#ylabel('Loss of Al Thickness (um)',**font)
+##plt.ylim([-2,12])
+#xlabel('Time (hrs)',**font)
+##plt.xlim([0,250])
+#title(str(n)+'_'+parameters[12]+parameters[9]+'Port_'+str(parameters[0])+'Al_loss', **title_font)
+##plt.legend(['Backside Defect', 'Frontside Defect','Green  Mask  Frontside Defect'], loc='upper left')
+#plt.legend(['Frontside Defect','Green  Mask  Frontside Defect'], loc='upper left')
+#titlecurrent = filenamelocation.split
+#savefig(rootdir+first_time_seconds+'AlLoss.png')
+#
+#plt.show()
 
 if Save_output_data ==1:
     numpy.savetxt('C:\\Users\\khan\\Documents\\GitHub\\AlCorrosionDataCSVFiles\\ACLData\\OutputDataFiles\\'+first_time_seconds+'_'+str(i)+'.txt',Current_slope_output)
