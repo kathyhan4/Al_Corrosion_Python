@@ -32,9 +32,9 @@ TimeNow = str(math.floor(time.time()))
 AverageTemperature = 30 #deg C
 
 # Model Information from JMP
-InterceptParam = -4.909
-InterceptParamLower95 = -6.25034
-InterceptParamUpper95 = -3.56916
+InterceptParam = -6.8674
+InterceptParamLower95 = -7.8357
+InterceptParamUpper95 = -5.8991
 VoltageParam = 0
 TemperatureParam = 0#0.0515
 HumidityParam = 0
@@ -49,9 +49,9 @@ TemperatureHumidityParam = 0
 InverseTempParam = 0
 InverseTempParamLower95 = 0
 InverseTempParamUpper95 = 0
-lnAbsAParam = 0.43965
-lnAbsAParamLower95 = 0.12144
-lnAbsAParamUpper95 = 0.75786
+lnAbsAParam = 0.4143
+lnAbsAParamLower95 = 0.3073
+lnAbsAParamUpper95 = 0.5214
 lnpH2OParam = 0
 
 ModelArray=numpy.zeros((TimePoints,20))

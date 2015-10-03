@@ -24,9 +24,22 @@ Current_slope_output = numpy.zeros((100,20))
 Al_loss_comparison = numpy.zeros((20000,200))
 Save_output_data = 1 # Use a 0 to not save and a 1 to save
 
+sample_set = 11
 
-#for n in range(28,30):
-for n in (8,43):
+if sample_set == 1:
+    samples_to_analyze = [29,30,33,40,45,50,52] # 85/85 with defect, no defect, green epoxy, black epoxy
+elif sample_set == 2:
+    samples_to_analyze = [32,35,36,29,33,46,45,47] # 85/85 1000V, 100V 3M, Mitsui
+elif sample_set == 3:
+    samples_to_analyze = [28,30,34]
+elif sample_set == 4:
+    samples_to_analyze = [29,33]
+else:
+    samples_to_analyze = [48]
+#    samples_to_analyze = range(40,54)
+
+#for n in range(48,54):
+for n in samples_to_analyze:
     rootdir= 'C:\\Users\\khan\\Documents\\GitHub\\AlCorrosionDataCSVFiles\\ACLData\\'
     # parameters = [0 port, 1 thermocouple, 2 length corrosion(L1), 3 length not corrosion (L2), 
     #4 width corrosion (d2), 5 width foil (d), 6 portion pitted, 7 pitting aspect ratio, 8 voltage,
@@ -150,7 +163,7 @@ for n in (8,43):
         filenamelocation = rootdir+'Data_85_85_port1_backsidebubble_port2_normalfrontside_4_1_15.csv'
         parameters = [1, 2, 0.0154, 0.08, 0.00465, 0.00465, 0.1, 1, -1000, 'DH_85_85_backsidebubble', 11, 100, 'Data_85_85_port1_backsidebubble_port2_normalfrontside_4_1_15', 85, 11, 5e-5]
     elif n==29:    
-        # 29 Damp Heat Al coupon 85/85 from 4/1/15 port 2
+        # 29 Damp Heat Al coupon 85/85 from\port 2
         filenamelocation = rootdir+'Data_85_85_port1_backsidebubble_port2_normalfrontside_4_1_15.csv'
         parameters = [2, 2, 0.003, 0.08, 0.0048, 0.0048, 0.1, 1, -1000, 'DH_85_85', 11, 150, 'Data_85_85_port1_backsidebubble_port2_normalfrontside_4_1_15', 85, 11, 5e-5]
     elif n==30:    
@@ -162,7 +175,7 @@ for n in (8,43):
 #        filenamelocation = rootdir+'#31_Data_Sub_Port3_SwitchingPolarities_4-7-15.csv'
 #        parameters = [3, 2, .05, 0.066, .005, 0.005, 0.1, 1, -1000, 'Submerged_Switching_Polarities', 0, 1, '#31_Data_Sub_Port3_SwitchingPolarities_4-7-15', 25, 1, 8e-5]
     elif n==32:    
-        # 32 DH 85/85 front defect 100V from 5/1/15, leads swapped +V entire experiment in faraday cage defect 4.75 mm x 2.8 mm
+        # 32 DH 85/85 front defect 100V from 5/1/15, leads swapped +V entire experiment in faraday cage defect 4.75 mm x 2.8 mm VERY MESSY
         filenamelocation = rootdir+'DH#32_85_85_100V_Faraday_port1_DH4_5_1_15.csv'
         parameters = [1, 2, .0028, 0.066, .00475, 0.00475, 0.1, 1, -100, '100V 85-85', 25, 655, 'DH#32_85_85_100V_Faraday_port1_5_1_15', 85, 5, 2e-5]
     elif n==33:    
@@ -172,7 +185,7 @@ for n in (8,43):
     elif n==34:    
         # 34 DH expt from 5/15/15 85/85 backside defect 1000V addr 26 port 1 DH7
         filenamelocation = rootdir+'Data#34_DH7_5_15_15_85_85_backside_defect_1000V_addr26port1.csv'
-        parameters = [1, 2, 0.004, 0.004, 0.005, 0.005, 0.1, 1, -1000, 'DampHeat Backside 1000V', 1, 610, 'Data#34_DH7_5_15_15_85_85_backside_defect_1000V_addr26port1', 85, 5, 2e-5]
+        parameters = [1, 2, 0.004, 0.004, 0.005, 0.005, 0.1, 1, -1000, 'DampHeat Backside 1000V', 1, 610, 'Data#34_DH7_5_15_15_85_85_backside_defect_1000V_addr26port1', 85, 5, 4e-5]
     elif n==35:    
         # 35 DH expt from 5-27-15 port 3 100V normal coupon 85/85 addr 24
         filenamelocation = rootdir+'Data#35_DH7_85_85_Port3_100V_5_27_15.csv'
@@ -195,7 +208,7 @@ for n in (8,43):
         parameters = [2, 2, 0.003, 0.002, 0.002, 0.005, 0.1, 1, -1000, 'DampHeat 1000V Al dogbone N no primer', 13, 200, 'Data#37_DH4_85_85_Port2_1000V_5_20_15_AlDogbone_N_no_primer', 85, 13, 0.8e-5]
     elif n==40:    
         # 37 DH expt from 7-1-15 port 1 1000V green mask front defect 85/85 DH7
-        filenamelocation = rootdir+'DH7_7_1_15_pt1_greenepoxy1000V_pt2_bubblyAl1000V_pt3_AlDogboneNPrimer1000V_85_85.csv'
+        filenamelocation = rootdir+'DH7_7_1_15_pt1_greenepoxy1000V_pt2_bubblyAl1000V_pt3_AlDogboneNPrimer1000V_85_85withoutfirstthreedays.csv'
         parameters = [1, 2, 0.0045, 0.002, 0.0045, 0.005, 0.1, 1, -1000, '85-85 1000V green epoxy', 30, 270, 'DH7_7_1_15_pt1_greenepoxy1000V_pt2_bubblyAl1000V_pt3_AlDogboneNPrimer1000V_85_85', 85, 4, 20e-5]
     elif n==41:    
         # 37 DH expt from 7-1-15 port 2 1000V bubbly both sides but no full void  85/85 DH7
@@ -208,15 +221,53 @@ for n in (8,43):
     elif n==43:    
         # 43 ACL expt from 7-22-15 port 1 10uA Al coupon 121/100 hours 10-40 use for slope of 1uA constant current, hrs 45-60 use for 10uA current!!!  :)
         filenamelocation = rootdir+'ACL_121_100_1000nA_7_22_15.csv'
-        parameters = [1, 2, 0.003, 0.002, 0.005, 0.005, 0.1, 1, 5.0, 'ACL_121_100_10uA_7_22_15', 10, 40, 'ACL_121_100_10uA_7_22_15', 121, 4, 2e-5]
-    elif n==44:    
-        # 44 DH expt from 7-22-15 port 1 100V Al coupon 60/85 DH1 switched to DH6 on 7/28/15 
-        filenamelocation = rootdir+'DH1_60_85_100V_DH2_45_85_1000V_7_23_15.csv'
-        parameters = [1, 2, 0.0019, 0.002, 0.002, 0.005, 0.1, 1, -1000, '85-85 1000V Al dogbone N with primer', 10, 20, 'DH1_60_85_100V_DH2_45_85_1000V_7_23_15_DH6_7_28', 60, 4, 2e-5]
+        parameters = [1, 2, 0.003, 0.002, 0.005, 0.005, 0.1, 1, 5.0, 'ACL_121_100_10uA_7_22_15', 40, 57, 'ACL_121_100_10uA_7_22_15', 121, 4, 2e-5]
+    elif n==44:   
+        # because it was torn when I moved it
+        # 44 DH expt from 7-22-15 port 1 100V Al coupon 60/85 DH1 switched to DH6 on 7/28/15 BROKEN DON'T USE
+        filenamelocation = rootdir+'DH1_60_85_100V_DH2_45_85_1000V_7_23_15_60_85_100y.csv'
+        parameters = [1, 2, 0.0026, 0.002, 0.0046, 0.005, 0.1, 1, -100, 'DH1_DH6 60C 85% 100V 7-23-15', 10, 170, 'DH1_60_85_100V_DH2_45_85_1000V_7_23_15_DH6_7_28', 60, 4, 4e-5]
     elif n==45:    
-        # 45 DH expt from 7-22-15 port 2 Al 85/85 DH7 started as 100 nA (which hasn't worked as of 7-30-15) then switched to 1000V
-        filenamelocation = rootdir+'DH7_7_1_15_pt1_greenepoxy1000V_pt2_bubblyAl1000V_pt3_AlDogboneNPrimer1000V_85_85.csv'
-        parameters = [3, 2, 0.0019, 0.002, 0.002, 0.005, 0.1, 1, -1000, '85-85 1000V Al dogbone N with primer', 30, 240, '85-85 1000V Al dogbone N with primer 7-1-15 DH7 #42', 85, 4, 2e-5]
+        # 45 DH expt from 7-23-15 port 2 Al 85/85 DH7 1000V started as 100 nA (which hasn't worked as of 7-30-15) then switched to 1000V 
+        filenamelocation = rootdir+'DH7_port1_85_85_1000V_port2_1000nA_port3_10nA_7-23-15_currentmeasPort4_7_30_15_port2.csv'
+        parameters = [2, 2, 0.0027, 0.0049, 0.0049, 0.005, 0.1, 1, -1000, 'DH7 85-85 started 100nA switched 1000V 7-23-15', 100, 370, '85-85 started 100nA switched 1000V 7-23-15 #45', 85, 4, 100e-5]
+    elif n==46:    
+        # 46 DH expt from 7-22-15 port 3 Al 85/85 DH7 100V started as 10 nA (which hasn't worked as of 7-30-15) then switched to 100V
+        filenamelocation = rootdir+'DH7_port1_85_85_1000V_port2_1000nA_port3_10nA_7-23-15_currentmeasPort4_7_30_15port3only.csv'
+        parameters = [3, 2, 0.003, 0.0051, 0.005, 0.005, 0.1, 1, -100, 'DH7 85-85 started 10nA switched 100V 7-23-15', 100, 495, '85-85 started 10nA switched 100V 7-23-15 DH7 #46', 85, 6, 2e-5]
+    elif n==47:    
+        # 47 DH expt from 7-22-15 port 1 Al 85/85 DH7 1000V (final repeat of 85/85 1000V)
+        filenamelocation = rootdir+'DH7_port1_85_85_1000V_port2_1000nA_port3_10nA_7-23-15_currentmeasPort4_7_30_15_port1_2.csv'
+        parameters = [1, 2, 0.0036, 0.005, 0.005, 0.005, 0.1, 1, -1000, 'DH7 85-85 1000V 7-23-15 final repeat', 100, 375, '85-85 1000V 7-23-15 #47', 85, 4, 2e-5]
+    elif n==48:    
+        # 48 DH expt from 7-23-15 port 2 Al 45/85 DH2 
+        filenamelocation = rootdir+'DH1_60_85_100V_DH2_45_85_1000V_7_23_15DH2only.csv'
+        parameters = [2, 2, 0.0039, 0.002, 0.0047, 0.005, 0.1, 1, -1000, '1000V 45-85 DH2 7-23-15', 10, 1100, '45-85 1000V Al coupon with defect 7-23-15 DH2 #48', 45, 4, 2e-5]
+    elif n==49:   
+        #starting at 8/14/15 from DH6 computer 60/85/100
+        # DH6 on 8/14/15 STILL RUNNING 
+        filenamelocation = rootdir+'DataDH6_port1_DH7_85_85_-1000V_port2_60_85_100V_8_20_15port1.csv'
+        parameters = [2, 2, 0.0028, 0.002, 0.0049, 0.005, 0.1, 1, -100, 'DH6 60C 85% 100V 8-14-15', 100, 640, 'DH6_60_85_100V_8_14_15', 60, 4, 4e-5]
+    elif n==50:   
+        #starting at 8/20/15 from DH7 computer
+        # 85/85 1000V black epoxy DH7
+        filenamelocation = rootdir+'DH7_port1_85_85_1000Vblackepoxy_port2_1000VnoVoid_port3_1000Valt0V_8-20-15.csv'
+        parameters = [1, 2, 0.0025, 0.002, 0.0049, 0.005, 0.1, 1, -1000, 'DH7_85_85_1000V_black_epoxy_8_20-15', 40, 310, 'DH7_85_85_1000V_black_epoxy_8_20_15', 85, 4, 4e-5]
+    elif n==51:   
+        #starting at 8/20/15 from DH6 computer in DH7 -1000V 85/85
+        # DH6 computer on 8/20/15 stopped 9/21/15
+        filenamelocation = rootdir+'DataDH6_port1_DH7_85_85_-1000V_port2_60_85_100V_8_20_15port1.csv'
+        parameters = [1, 2, 0.0027, 0.002, 0.0045, 0.005, 0.1, 1, 1000, 'DH7 85C 85% -1000V 8-20-15', 10, 430, 'DH7_85_85_-1000V_8_20_15', 85, 4, 4e-5]
+    elif n==52:   
+        #starting at 8/13/15 from DH7 computer in DH7 1000V no void 85/85
+        # DH7 computer on 8/13/15 stopped 9/11/15
+        filenamelocation = rootdir+'DH7_port_2_no_void8_13_15_port2.csv'
+        parameters = [2, 2, 0.05, 0.002, 0.0048, 0.005, 0.1, 1, 1000, 'DH7 85C 85% 1000V 8-13-15 no void', 75, 350, 'DH7_85_85_-1000V_8_13_15novoid', 85, 4, 4e-5]
+    elif n==53:   
+        #starting at 8/20/15 from DH7 computer in DH7 1000V for one hour, 0V for one hour alternating
+        # DH7 computer on 8/20/15 85/85 (skip first 100 hrs because was not alternating every hour until 100 hrs due to improper recipe)
+        filenamelocation = rootdir+'DH7_port1_85_85_1000Vblackepoxy_port2_1000VnoVoid_port3_1000Valt0V_8-20-15.csv'
+        parameters = [3, 2, 0.0028, 0.002, 0.00495, 0.005, 0.1, 1, 1000, 'DH7 85C 85% 1000V, 0V alternating 8-20-15', 90, 230, 'DH7_85_85_1000V_8_20_15_alternating', 85, 4, 4e-5]
 
 
 
@@ -326,7 +377,7 @@ for n in (8,43):
            for j in range(0,numbercolumns):
               hvlist[k,j] =numarray[i,j]
            k=k+1
-       elif numarray[i,MeasCurColumn] > Current4Wire/2 and numarray[i,MeasVoltColumn]<1 and numarray[i,MeasResColumn]<1:
+       elif numarray[i,MeasCurColumn] > Current4Wire/2 and abs(numarray[i,MeasVoltColumn])<1 and abs(numarray[i,MeasResColumn])<1:
            for m in range(0,numbercolumns):
               lvlist[l,m] = numarray[i,m]
            l=l+1
@@ -446,25 +497,18 @@ for n in (8,43):
         if AverageRes[i,2] > 0:
             AverageResLen = AverageResLen + 1
 
-    minres = min(AverageRes[parameters[14]:AverageResLen,13])
+    minres = min(AverageRes[parameters[14]:AverageResLen,13])  # minimum resistance is found after adjusting for step changes
 
 #    Current_slope_output[n,14] = h0*(minres*parameters[4]/rhoAl/(1+alphaAl*(float(parameters[13])-float(20))-parameters[2]/AverageRes[parameters[14],10]/1e6))
     Current_slope_output[n,14] = minres*parameters[4]*h0/rhoAl/(1+alphaAl*(parameters[13]-20.))-parameters[2]
-
     #Saves the length of non-corroded Al for calculation later
     
     for i in range(parameters[14]+1,len(AverageRes[:,0])-1):
-#        AverageRes[i,10] = 1/(((AverageRes[i,13]-AverageRes[i-1,13])*parameters[4]/rhoAl/parameters[2])+1/AverageRes[i-1,10]) #remaining thickness
-#        AverageRes[i,10] = 1000000. * parameters[2]/((AverageRes[i,13]*parameters[4]/rhoAl)*\
-#        (1/(1+alphaAl*(float(parameters[13])-float(20)))-(Current_slope_output[n,14]-0.001)/h0)) #remaining thickness  in um
-        AverageRes[i,10] = 1000000/(AverageRes[i,13]*parameters[4]/(rhoAl*parameters[2]*(1+alphaAl*(float(parameters[13])-20.)))-Current_slope_output[n,14]/parameters[2]/h0)
-        
-         #remaining thickness  in um
-        
-        AverageRes[i,11] = (AverageRes[i,10]-AverageRes[i-1,10])/(AverageRes[i,2]-AverageRes[i-1,2]) #change in thickness over time in um/hr
-        
-
-       
+        AverageRes[i,10] = 1000000/(AverageRes[i,13]*parameters[4]/(rhoAl*parameters[2]*(1+alphaAl*\
+        (float(parameters[13])-20.)))-Current_slope_output[n,14]/parameters[2]/h0)      
+         #remaining thickness  in um   
+        AverageRes[i,11] = (AverageRes[i,10]-AverageRes[i-1,10])/(AverageRes[i,2]-AverageRes[i-1,2]) 
+        #change in thickness over time in um/hr
              
     shapehvlist = hvlist.shape
     shapelvlist = lvlist.shape
@@ -472,20 +516,19 @@ for n in (8,43):
     hvlistcropped_length = []
     for i in range(0,len(hvlist_length)):
         x = hvlist[i,32]
-        if hvlist[i,32] < 75.0:
+        if hvlist[i,32] < 1.0:
             hvlistcropped_length.append(hvlist[i,32])
                 
     hvlistcropped = numpy.zeros((len(hvlistcropped_length),numbercolumns)) 
     for i in range(0,len(hvlistcropped_length)):
         for j in range(0,numbercolumns):
-            if hvlist[i,32] < 75.0:
+            if hvlist[i,32] < 1.0:
                 hvlistcropped [i,j] = hvlist[i,j]
                 
     hvlinestart = 0
     hvlinestop = 0
     hvlinestart = [s for s, i in enumerate(hvlistcropped[:,33]) if i>AverageRes[parameters[10],2]][0]
     hvlinestop  = [s for s, i in enumerate(hvlistcropped[:,33]) if i>AverageRes[parameters[11]-1,2]][0]
-    
     
     #print numpy.shape(numarray)
     
@@ -501,10 +544,6 @@ for n in (8,43):
        hvlist[i,29] = hvlist[i,27]/1e6/(parameters[2]*parameters[4]) # Thickness lost in defect area if every electron contributed 1:1 to corrosion in um
        hvlist[i,30] = h0 *1e6 - hvlist[i,29] #remaining thicknes in um if every electron contributed to corrosion 3 electrons for one aluminum ion
        hvlist[i,31] = 0 #first timepoint in hrs
-       #h0 - 0.01*(hvlist[i,28]*Portion1/(d*100*L1*100*Area1)) # remaining thickness in m in area1 corrosion area is Parameters[2]*Parameters[4]
-#       hvlist[i,30] = h0 - 0.01*(hvlist[i,28]*Portion2/(d*100*L1*100*Area2)) # remaining thickness in m in area2
-#       hvlist[i,31] = h0 - 0.01*(hvlist[i,28]*Portion3/(d*100*L1*100*Area3)) # remaining thickness in m in area3
-#       hvlist[i,32] = (rhoAl * (L1*Area1/hvlist[i,29]/d+L1*Area2/hvlist[i,30]/d+L1*Area3/hvlist[i,31]/d+L2/h0/d) *(1+alphaAl*(parameters[13]-20)))*1000 #calculated resistance in m-ohms 
        
     for i in range(1,len(hvlist)-1):
        hvlist[i,21] = abs(hvlist[i,MeasCurColumn]) # absolute value of current in Amps
@@ -518,12 +557,6 @@ for n in (8,43):
        hvlist[i,29] = hvlist[i,27]/1e6/(parameters[2]*parameters[4])*1e6 # Thickness lost in defect area if every electron contributed 1:1 to corrosion in um
        hvlist[i,30] = h0 *1e6 - hvlist[i,29] #remaining thicknes in um if every electron contributed to corrosion 3 electrons for one aluminum ion
        hvlist[i,31] = (hvlist[i,20]-hvlist[0,20])/3600 # timepoint in hrs
-       #       hvlist[i,29] = h0 - 0.01*(hvlist[i,28]*Portion1/(d*100*L1*100*Area1)) # remaining thickness in m in area1
-#       hvlist[i,30] = h0 - 0.01*(hvlist[i,28]*Portion2/(d*100*L1*100*Area2)) # remaining thickness in m in area2
-#       hvlist[i,31] = h0 - 0.01*(hvlist[i,28]*Portion3/(d*100*L1*100*Area3)) # remaining thickness in m in area3
-#       hvlist[i,32] = (rhoAl * (L1*Area1/hvlist[i,29]/d+L1*Area2/hvlist[i,30]/d+L1*Area3/hvlist[i,31]/d+L2/h0/d) *(1+alphaAl*(parameters[13]-20)))*1000 #calculated resistance in m-ohms 
-#     
-
              
     x=numpy.zeros(AverageResLen) #initiate vector to store times for regression
     y=numpy.zeros(AverageResLen) # initiate vector to store average resistances for regression
@@ -598,7 +631,7 @@ for n in (8,43):
         Al_loss_comparison[i,n] = AverageRes[i,2]
         Al_loss_comparison[i,n+100] = AverageRes[i,15]
     
-    font = {'family' : 'normal',
+    font = {'family' : 'sans-serif',
             'weight' : 'bold',
             'size'   : 22}
     title_font = {'fontname':'Arial', 'size':'12', 'color':'black', 'weight':'normal',
@@ -651,24 +684,7 @@ for n in (8,43):
 
 
 #    plt.show()
-    
-    
-#    figure(num=None, figsize=(12, 8), dpi=480, facecolor='w', edgecolor='k')   
-#    plt.plot(hvlist[0:-1,33],hvlist[0:-1,Temperaturecolumn],'b')
-##    plt.plot(hvlist[0:-1,33],abs(hvlist[0:-1,MeasCurColumn]),'k')
-#    ylabel('Temperature (C))',**font)
-##    plt.yscale('log')
-#    #plt.ylim([0,5])
-##    plt.xlim([0,5])
-#    xlabel('Time (hrs)',**font)
-##    title(r'Change in Calculated Resistance',**font)
-#    title(str(n)+'_'+parameters[12]+parameters[9]+'Port_'+str(parameters[0])+'Temperature', **title_font)
-#    #plt.legend(['Calculated', 'Measured'], loc='upper left')
-#    titlecurrent = filenamelocation.split
-#    savefig(filenamelocation.split('.csv')[0]+'_#'+str(n)+'_'+parameters[9]+'Port_'+str(parameters[0])+'Temperature.png')
-#    plt.show()
-    
-    
+   
     figure(num=None, figsize=(12, 8), dpi=480, facecolor='w', edgecolor='k')
     plt.plot(AverageRes[0:AverageResLen,2],AverageRes[0:AverageResLen,3],'g')
     ylabel('Resistance Change (m-ohms/hr)',**font)
@@ -687,7 +703,7 @@ for n in (8,43):
 #    plt.plot(hvlist[0:-1,33],abs(hvlist[0:-1,MeasCurColumn]),'k')
     ylabel('Current (nA))',**font)
 #    plt.yscale('log')
-#    plt.ylim([-0.5e3,0])
+#    plt.ylim([0,60])
 #    plt.xlim([0,0.3])
     xlabel('Time (hrs)',**font)
 #    plt.xlim([0,90])
@@ -703,7 +719,7 @@ for n in (8,43):
 #    plt.plot(hvlist[0:-1,33],abs(hvlist[0:-1,MeasCurColumn]),'k')
     ylabel('Current (nA))',**font)
 #    plt.yscale('log')
-#    plt.ylim([-0.5e3,0])
+#    plt.ylim([0,60])
 #    plt.xlim([0,0.3])
     xlabel('Time (hrs)',**font)
 #    plt.xlim([0,90])
@@ -713,17 +729,20 @@ for n in (8,43):
     titlecurrent = filenamelocation.split
 #    savefig(filenamelocation.split('.csv')[0]+'_#'+str(n)+'_'+parameters[9]+'Port_'+str(parameters[0])+'Current.png')
     savefig(rootdir+'CurrentRaw\\'+'#'+str(n)+'_'+str(parameters[8])+'V_'+parameters[9]+'Port_'+str(parameters[0])+str(parameters[12])+'CurrentRaw.png')
-
+    
+#    plt.close('all')
 #    plt.show()
 
 DataFile.close()
 timestamp = time.time()
 first_time_seconds = str(math.floor(timestamp)) 
 
-font = {'family' : 'normal',
+font = {'family' : 'sans-serif',
         'weight' : 'bold',
         'size'   : 22}
 title_font = {'fontname':'Arial', 'size':'12', 'color':'black', 'weight':'normal',
+          'verticalalignment':'bottom'} # Bottom vertical alignment for more space
+legend_font = {'fontname':'Arial', 'size':'18', 'color':'black', 'weight':'normal',
           'verticalalignment':'bottom'} # Bottom vertical alignment for more space
 matplotlib.rc('font', **font)
 
@@ -739,25 +758,61 @@ matplotlib.rc('font', **font)
 #plt.legend(['Encapsulated', 'With Void','N no primer Al Dogbone'], loc='upper left')
 #titlecurrent = filenamelocation.split
 #savefig(rootdir+first_time_seconds+'AlLoss.png')
-
-#plt.show()
-    
-#figure(num=None, figsize=(12, 8), dpi=480, facecolor='w', edgecolor='k') 
-##plt.plot(Al_loss_comparison[parameters[14]+2:Current_slope_output[34,8],34],Al_loss_comparison[parameters[14]+2:Current_slope_output[34,8],134],'k')  
-#plt.plot(Al_loss_comparison[parameters[14]+2:Current_slope_output[29,8],29],Al_loss_comparison[parameters[14]+2:Current_slope_output[29,8],129],'b')
-#plt.plot(Al_loss_comparison[parameters[14]+2:Current_slope_output[40,8],40],Al_loss_comparison[parameters[14]+2:Current_slope_output[40,8],140],'r')
-#ylabel('Loss of Al Thickness (um)',**font)
-##plt.ylim([-2,12])
-#xlabel('Time (hrs)',**font)
-##plt.xlim([0,250])
-#title(str(n)+'_'+parameters[12]+parameters[9]+'Port_'+str(parameters[0])+'Al_loss', **title_font)
-##plt.legend(['Backside Defect', 'Frontside Defect','Green  Mask  Frontside Defect'], loc='upper left')
-#plt.legend(['Frontside Defect','Green  Mask  Frontside Defect'], loc='upper left')
-#titlecurrent = filenamelocation.split
-#savefig(rootdir+first_time_seconds+'AlLoss.png')
 #
 #plt.show()
 
+
+
+
+#############----------------Sample Set 1: Frontside defect, no defect, green mask, black mask--------------------#########################
+if sample_set ==1:
+    figure(num=None, figsize=(12, 8), dpi=480, facecolor='w', edgecolor='k') 
+    plot1 = plt.plot(Al_loss_comparison[parameters[14]+2:Current_slope_output[33,8],34],Al_loss_comparison[parameters[14]+2:Current_slope_output[33,8],133],'b')  
+    
+    plot4 = plt.plot(Al_loss_comparison[parameters[14]+2:Current_slope_output[40,8],40],Al_loss_comparison[parameters[14]+2:Current_slope_output[40,8],140],'g')  
+    plot5 = plt.plot(Al_loss_comparison[parameters[14]+2:Current_slope_output[50,8],50],Al_loss_comparison[parameters[14]+2:Current_slope_output[50,8],150],'k:')
+    plot6 = plt.plot(Al_loss_comparison[parameters[14]+2:Current_slope_output[30,8],30],Al_loss_comparison[parameters[14]+2:Current_slope_output[30,8],130],'r')
+    
+    ylabel('Loss of Al Thickness (um)',**font)
+    #plt.ylim([-2,12])
+    xlabel('Time (hrs)',**font)
+    plt.ylim([0,70])
+    plt.xlim([0,500])
+    title('85/85 Solid 3M Dashed Mitsui_'+'Al_loss', **title_font)
+    #plt.legend(['Backside Defect', 'Frontside Defect','Green  Mask  Frontside Defect'], loc='upper left')
+    plt.legend(['Frontside Defect','Green  Mask  Frontside Defect','Black  Mask  Frontside Defect','No Defect'], loc='upper left',prop={'size':18})
+    plot2 = plt.plot(Al_loss_comparison[parameters[14]+2:Current_slope_output[29,8],29],Al_loss_comparison[parameters[14]+2:Current_slope_output[29,8],129],'b')
+    plot3 = plt.plot(Al_loss_comparison[parameters[14]+2:Current_slope_output[45,8],45],Al_loss_comparison[parameters[14]+2:Current_slope_output[45,8],145],'b:')
+    plot7 = plt.plot(Al_loss_comparison[parameters[14]+2:Current_slope_output[52,8],52],Al_loss_comparison[parameters[14]+2:Current_slope_output[52,8],152],'r:')
+    titlecurrent = filenamelocation.split
+    savefig(rootdir+first_time_seconds+'AlLoss.png')
+    plt.show()
+  
+#############----------------Sample Set 1: 85/85 Frontside defect 100V, 1000V, 3M, Mitsui--------------------#########################
+elif sample_set ==2:
+    figure(num=None, figsize=(12, 8), dpi=480, facecolor='w', edgecolor='k') 
+    plot1 = plt.plot(Al_loss_comparison[parameters[14]+2:Current_slope_output[35,8],35],Al_loss_comparison[parameters[14]+2:Current_slope_output[35,8],135],'b')  
+    plot5 = plt.plot(Al_loss_comparison[parameters[14]+2:Current_slope_output[46,8],46],Al_loss_comparison[parameters[14]+2:Current_slope_output[46,8],146],'b:')    
+    plot4 = plt.plot(Al_loss_comparison[parameters[14]+2:Current_slope_output[29,8],29],Al_loss_comparison[parameters[14]+2:Current_slope_output[29,8],129],'r')  
+    plot6 = plt.plot(Al_loss_comparison[parameters[14]+2:Current_slope_output[45,8],45],Al_loss_comparison[parameters[14]+2:Current_slope_output[45,8],145],'r:')
+    
+    ylabel('Loss of Al Thickness (um)',**font)
+    #plt.ylim([-2,12])
+    xlabel('Time (hrs)',**font)
+    plt.ylim([0,40])
+    plt.xlim([0,500])
+    title('85/85 Solid 3M Dashed Mitsui_'+'Al_loss', **title_font)
+    #plt.legend(['Backside Defect', 'Frontside Defect','Green  Mask  Frontside Defect'], loc='upper left')
+    plt.legend(['100V 3M','100V Mitsui','1000V 3M','1000V Mitsui'], loc='upper left',prop={'size':18})
+    plot3 = plt.plot(Al_loss_comparison[parameters[14]+2:Current_slope_output[36,8],36],Al_loss_comparison[parameters[14]+2:Current_slope_output[36,8],136],'b')
+    plot7 = plt.plot(Al_loss_comparison[parameters[14]+2:Current_slope_output[33,8],33],Al_loss_comparison[parameters[14]+2:Current_slope_output[33,8],133],'r')
+    plot7 = plt.plot(Al_loss_comparison[parameters[14]+2:Current_slope_output[47,8],47],Al_loss_comparison[parameters[14]+2:Current_slope_output[47,8],147],'r:')
+    titlecurrent = filenamelocation.split
+    savefig(rootdir+first_time_seconds+'AlLoss.png')
+    plt.show()
+else:
+    print 'no compilation graph'
+    
 if Save_output_data ==1:
     numpy.savetxt('C:\\Users\\khan\\Documents\\GitHub\\AlCorrosionDataCSVFiles\\ACLData\\OutputDataFiles\\'+first_time_seconds+'_'+str(i)+'.txt',Current_slope_output)
 else:
